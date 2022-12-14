@@ -6,10 +6,9 @@ to text for input and text to speech for the output from OpenAI.
 ## Setup
 
 ```bash
-# create a new env
-python -m venv env
-
 pip install SpeechRecognition
+
+# Mac OSX
 brew install portaudio
 brew link portaudio
 
@@ -22,7 +21,7 @@ Run
 sudo vi $HOME/.pydistutils.cfg
 ```
 
-and enter the following replacing values with the output saved above:
+and paste the following text replacing the values with the output saved from above:
 
 ```text
 [build_ext]
@@ -30,13 +29,13 @@ include_dirs=<PATH FROM STEP 3>/include/
 library_dirs=<PATH FROM STEP 3>/lib/
 ```
 
-Finally:
+Finally run:
 ```bash
 pip install pyaudio
 pip install gtts
 ```
 
-## Running
+## Running the Script
 
 ```
 OPENAI_API_KEY=<OPEN API SECRET KEY HERE> python main.py
