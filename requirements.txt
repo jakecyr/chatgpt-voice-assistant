@@ -1,8 +1,8 @@
 openai
-dotenv
+
+# libraries for speech to text
 SpeechRecognition
 pyaudio
 
 # text to speech
-
 gtts

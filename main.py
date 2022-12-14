@@ -22,8 +22,10 @@ def start_conversation():
 
     response = get_response(text)
     previous_responses.append({"input": text, "response": response})
-    print(response)
+    print(f"Open AI Response: {response}")
     speak_response(response)
+
+    print("Starting to listen again.")
     start_conversation()
 
 
@@ -66,10 +68,7 @@ def speak_response(response):
     tts = gtts.gTTS(response)
     tts.save(temp_mp3_filename)
     full_mp3_path = os.path.join(os.getcwd(), temp_mp3_filename)
-
-    print(f"Full path: {full_mp3_path}")
-    return_code = subprocess.call(["afplay", full_mp3_path])
-    print(return_code)
+    subprocess.call(["afplay", full_mp3_path])
     os.remove(temp_mp3_filename)
 
 
@@ -78,8 +77,9 @@ def listen_for_audio():
     r = sr.Recognizer()
 
     with sr.Microphone() as source:
-        print("Say something!")
+        print("Listening for input...")
         audio = r.listen(source)
+        print("Received input.")
 
     return audio
 
@@ -87,11 +87,7 @@ def listen_for_audio():
 def recognize_text_in_audio(audio):
     r = sr.Recognizer()
 
-    # recognize speech using Google Speech Recognition
     try:
-        # for testing purposes, we're just using the default API key
-        # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-        # instead of `r.recognize_google(audio)`
         return r.recognize_google(audio, show_all=False, with_confidence=False)
     except sr.UnknownValueError:
         print("Google Speech Recognition could not understand audio")
