@@ -5,6 +5,7 @@ import openai
 import signal
 import gtts
 import subprocess
+import pyaudio
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 previous_responses = []
@@ -21,9 +22,15 @@ def start_conversation():
         start_conversation()
 
     response = get_response(text)
-    previous_responses.append({"input": text, "response": response})
-    print(f"Open AI Response: {response}")
-    speak_response(response)
+    response_text = response['response']
+    previous_responses.append({"input": text, "response": response_text})
+
+    print(f"Open AI Response: {response_text}")
+
+    speak_response(response_text)
+
+    if response['was_cut_short']:
+        speak_response("I apologize, but I ran out of tokens to finish my response.")
 
     print("Starting to listen again.")
     start_conversation()
@@ -58,9 +65,23 @@ def get_response(prompt):
         temperature=0.7
     )
 
-    first_choice = completion["choices"][0]["text"]
-    first_choice = first_choice.replace("\n", " ")
-    return first_choice.strip()
+    choices = completion["choices"]
+    tokens_used = completion['usage']['total_tokens']
+    was_cut_short = False
+
+    if len(choices) == 0:
+        raise Exception(f"No choices returned from Open AI for prompt: {prompt}")
+
+    first_choice = completion["choices"][0]
+
+    if first_choice['finish_reason'] == 'length':
+        print("OpenAI stopped producing output due to a limit on the max tokens")
+        print(f"Max tokens is set to: {max_tokens}. Total tokens consumed with prompt were: {tokens_used}")
+        was_cut_short = True
+
+    first_choice_text = first_choice["text"].replace("\n", " ").strip()
+
+    return {"response": first_choice_text, 'was_cut_short': was_cut_short}
 
 
 def speak_response(response):
@@ -76,8 +97,12 @@ def listen_for_audio():
     # obtain audio from the microphone
     r = sr.Recognizer()
 
-    with sr.Microphone() as source:
-        print("Listening for input...")
+    py_audio = pyaudio.PyAudio()
+    default_input_name = py_audio.get_default_input_device_info()['name']
+
+    # can change device_index to something other than 0 to change the input mic
+    with sr.Microphone(device_index=0) as source:
+        print(f"Listening for input with default mic '{default_input_name}'...")
         audio = r.listen(source)
         print("Received input.")
 

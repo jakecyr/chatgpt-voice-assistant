@@ -46,3 +46,7 @@ Start speaking and turn up your volume to hear the AI
 assistant respond.
 
 Say the word "exit" to stop the application.
+
+## References
+
+[SpeechRecognition library docs](https://pypi.org/project/SpeechRecognition/1.2.3/)
