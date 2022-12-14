@@ -1,0 +1,8 @@
+openai
+dotenv
+SpeechRecognition
+pyaudio
+
+# text to speech
+
+gtts
