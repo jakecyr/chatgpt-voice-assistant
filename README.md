@@ -5,9 +5,16 @@ to text for input and text to speech for the output from OpenAI.
 
 ## Setup
 
-```bash
-pip install SpeechRecognition
+Optionally create a new Python environment and active it:
 
+```bash
+python3 -m venv env
+source env/bin/activate
+```
+
+Install dependencies:
+
+```bash
 # Mac OSX
 brew install portaudio
 brew link portaudio
@@ -31,14 +38,13 @@ library_dirs=<PATH FROM STEP 3>/lib/
 
 Finally run:
 ```bash
-pip install pyaudio
-pip install gtts
+pip install -r requirements.txt
 ```
 
 ## Running the Script
 
-```
-OPENAI_API_KEY=<OPEN API SECRET KEY HERE> python main.py
+```bash
+OPENAI_API_KEY=<OPEN API SECRET KEY HERE> python gpt3_assistant/main.py
 ```
 
 Start speaking and turn up your volume to hear the AI 

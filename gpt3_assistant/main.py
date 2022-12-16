@@ -12,6 +12,7 @@ previous_responses = []
 def start_conversation():
     open_ai_client = OpenAIClient(openai_api_key)
     speech_listener = SpeechListener()
+    computer_voice = ComputerVoice("temp.mp3")
 
     text = speech_listener.listen_for_speech()
 
@@ -28,16 +29,21 @@ def start_conversation():
 
     print(f"Open AI Response: {response_text}")
 
-    ComputerVoice.speak(response_text)
+    with ComputerVoice() as computer_voice:
+        computer_voice.speak(response_text)
 
-    if response.was_cut_short():
-        ComputerVoice.speak("I apologize, but I ran out of tokens to finish my response.")
+    if not response.was_cut_short():
+        print("Starting to listen again...")
+        start_conversation()
 
-    print("Starting to listen again...")
-    start_conversation()
+    # If the response was cut short, let the user know they hit the max token limit
+    with ComputerVoice() as computer_voice:
+        computer_voice.speak("I apologize, but I ran out of tokens to finish my response.")
 
 
 def signal_handler(sig, frame):
+    print("Making sure temp files are cleaned up...")
+    ComputerVoice.cleanup_temp_files()
     print('Closing conversation...')
     sys.exit(0)
 

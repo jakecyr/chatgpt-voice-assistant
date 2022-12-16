@@ -4,3 +4,4 @@ env
 .DS_Store
 gpt3_assistant.egg-info
 .pytest_cache
+**/*/__pycache__/**/*
