@@ -1,4 +1,4 @@
-# OpenAI Vocal Chatbot
+# OpenAI GPT-3 Chatbot Assistant
 
 A simple interface to the OpenAI GPT-3 models with speech
 to text for input and text to speech for the output from OpenAI.
