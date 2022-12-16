@@ -2,3 +2,5 @@ env
 .env
 .idea
 .DS_Store
+gpt3_assistant.egg-info
+.pytest_cache

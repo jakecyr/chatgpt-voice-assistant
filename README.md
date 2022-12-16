@@ -49,3 +49,14 @@ Say the word "exit" to stop the application.
 ## References
 
 [SpeechRecognition library docs](https://pypi.org/project/SpeechRecognition/1.2.3/)
+
+
+## Testing
+
+The project has to be installed as a module first with:
+
+```commandline
+ pip install -e .
+```
+
+Then you can run `python -m pytest` to run all unit tests.

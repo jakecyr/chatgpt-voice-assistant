@@ -1,0 +1,24 @@
+[project]
+name = "gpt3_assistant"
+version = "0.0.1"
+authors = [
+  { name="Jake Cyr", email="cyrjake@gmail.com" },
+]
+dependencies = [
+  "openai",
+  "SpeechRecognition",
+  "pyaudio",
+  "gtts",
+  "pytest",
+]
+description = "Package to speak with OpenAI's GPT-3 model"
+readme = "README.md"
+requires-python = ">=3.8"
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+]
+pythonpath = [
+  "."
+]
