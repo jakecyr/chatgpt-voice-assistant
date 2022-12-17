@@ -8,7 +8,10 @@ to text for input and text to speech for the output from OpenAI.
 Optionally create a new Python environment and active it:
 
 ```bash
+# create a new environment in the current directory called env
 python3 -m venv env
+
+# activate the environment
 source env/bin/activate
 ```
 
@@ -75,7 +78,7 @@ See Localized 'accents' section on gTTS docs for more information
 
 ## References
 
-[SpeechRecognition library docs](https://pypi.org/project/SpeechRecognition/1.2.3/)
+[SpeechRecognition library docs](https://pypi.org/project/SpeechRecognition/1.2.3)
 
 [Google Translate's Text-to-Speech API (gTTS)](https://gtts.readthedocs.io/en/latest/module.html#)
 
