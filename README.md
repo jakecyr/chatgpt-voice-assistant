@@ -55,9 +55,32 @@ assistant respond.
 
 Say the word "exit" to stop the application.
 
+### Optional: Specifying an Output Language Accent
+
+Specify both the `LANGUAGE` and `TOP_LEVEL_DOMAIN` vars to override the default English (United States)
+
+```bash
+OPENAI_API_KEY=<OPEN API SECRET KEY HERE> LANGUAGE=<Language code> TOP_LEVEL_DOMAIN=<Top-level domain> python gpt3_assistant/main.py
+```
+
+#### Language Examples
+
+* English (United States) *DEFAULT*
+  * `LANGUAGE=en TOP_LEVEL_DOMAIN=com`
+* English (Australia)
+  * `LANGUAGE=en TOP_LEVEL_DOMAIN=com.au`
+* English (India)
+  * `LANGUAGE=en TOP_LEVEL_DOMAIN=co.in`
+* French (France)
+  * `LANGUAGE=fr TOP_LEVEL_DOMAIN=fr`
+
+See Localized 'accents' section on gTTS docs for more information
+
 ## References
 
 [SpeechRecognition library docs](https://pypi.org/project/SpeechRecognition/1.2.3)
+
+[Google Translate's Text-to-Speech API (gTTS)](https://gtts.readthedocs.io/en/latest/module.html#)
 
 
 ## Testing
