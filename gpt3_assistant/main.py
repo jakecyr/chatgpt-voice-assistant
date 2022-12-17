@@ -6,13 +6,15 @@ from open_ai_client import OpenAIClient
 from speech_listener import SpeechListener
 
 openai_api_key = os.getenv("OPENAI_API_KEY")
+lang = os.getenv("LANGUAGE")
+tld = os.getenv("TOP_LEVEL_DOMAIN")
 previous_responses = []
 
 
 def start_conversation():
     open_ai_client = OpenAIClient(openai_api_key)
     speech_listener = SpeechListener()
-    computer_voice = ComputerVoice("temp.mp3")
+    computer_voice = ComputerVoice("temp.mp3", lang, tld)
 
     text = speech_listener.listen_for_speech()
 
@@ -29,7 +31,7 @@ def start_conversation():
 
     print(f"Open AI Response: {response_text}")
 
-    with ComputerVoice() as computer_voice:
+    with ComputerVoice("temp.mp3", lang, tld) as computer_voice:
         computer_voice.speak(response_text)
 
     if not response.was_cut_short():
@@ -37,7 +39,7 @@ def start_conversation():
         start_conversation()
 
     # If the response was cut short, let the user know they hit the max token limit
-    with ComputerVoice() as computer_voice:
+    with ComputerVoice("temp.mp3", lang, tld) as computer_voice:
         computer_voice.speak("I apologize, but I ran out of tokens to finish my response.")
 
 
