@@ -1,6 +1,5 @@
 import openai
 from exchange import Exchange
-import logging
 
 
 # Client to interact with the Open AI API
@@ -50,9 +49,8 @@ class OpenAIClient:
         first_choice = completion["choices"][0]
 
         if first_choice['finish_reason'] == 'length':
-            logging.warning("OpenAI stopped producing output due to a limit on the max tokens")
-            logging.warning(
-                f"Max tokens is set to: {max_tokens}. Total tokens consumed with prompt were: {tokens_used}")
+            print("OpenAI stopped producing output due to a limit on the max tokens")
+            print(f"Max tokens is set to: {max_tokens}. Total tokens consumed with prompt were: {tokens_used}")
             was_cut_short = True
 
         first_choice_text = first_choice["text"].replace("\n", " ").strip()
