@@ -26,7 +26,8 @@ brew link portaudio
 brew --prefix portaudio
 ```
 
-Run 
+Run
+
 ```bash
 sudo vi $HOME/.pydistutils.cfg
 ```
@@ -40,6 +41,7 @@ library_dirs=<PATH FROM STEP 3>/lib/
 ```
 
 Finally run:
+
 ```bash
 pip install -r requirements.txt
 ```
@@ -47,10 +49,10 @@ pip install -r requirements.txt
 ## Running the Script
 
 ```bash
-OPENAI_API_KEY=<OPEN API SECRET KEY HERE> python gpt3_assistant/main.py
+python gpt3_assistant/main.py --log-level=INFO --open-ai-key=<OPEN API SECRET KEY HERE>
 ```
 
-Start speaking and turn up your volume to hear the AI 
+Start speaking and turn up your volume to hear the AI
 assistant respond.
 
 Say the word "exit" to stop the application.
@@ -60,19 +62,19 @@ Say the word "exit" to stop the application.
 Specify both the `LANGUAGE` and `TOP_LEVEL_DOMAIN` vars to override the default English (United States)
 
 ```bash
-OPENAI_API_KEY=<OPEN API SECRET KEY HERE> LANGUAGE=<Language code> TOP_LEVEL_DOMAIN=<Top-level domain> python gpt3_assistant/main.py
+LANGUAGE=<Language code> TOP_LEVEL_DOMAIN=<Top-level domain> python gpt3_assistant/main.py --open-ai-key=<OPENAI_KEY>
 ```
 
 #### Language Examples
 
 * English (United States) *DEFAULT*
-  * `LANGUAGE=en TOP_LEVEL_DOMAIN=com`
+    * `LANGUAGE=en TOP_LEVEL_DOMAIN=com`
 * English (Australia)
-  * `LANGUAGE=en TOP_LEVEL_DOMAIN=com.au`
+    * `LANGUAGE=en TOP_LEVEL_DOMAIN=com.au`
 * English (India)
-  * `LANGUAGE=en TOP_LEVEL_DOMAIN=co.in`
+    * `LANGUAGE=en TOP_LEVEL_DOMAIN=co.in`
 * French (France)
-  * `LANGUAGE=fr TOP_LEVEL_DOMAIN=fr`
+    * `LANGUAGE=fr TOP_LEVEL_DOMAIN=fr`
 
 See Localized 'accents' section on gTTS docs for more information
 
@@ -81,7 +83,6 @@ See Localized 'accents' section on gTTS docs for more information
 [SpeechRecognition library docs](https://pypi.org/project/SpeechRecognition/1.2.3)
 
 [Google Translate's Text-to-Speech API (gTTS)](https://gtts.readthedocs.io/en/latest/module.html#)
-
 
 ## Testing
 

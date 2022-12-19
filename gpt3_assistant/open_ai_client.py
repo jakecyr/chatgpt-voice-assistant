@@ -8,6 +8,7 @@ class OpenAIClient:
 
     def __init__(self, api_key: str):
         # set API key on OpenAI object
+        logging.debug(f"Setting API key to {api_key}")
         openai.api_key = api_key
 
     def get_completion(self, **kwargs):
@@ -23,15 +24,15 @@ class OpenAIClient:
         if "prompt" not in kwargs:
             raise Exception("Missing required 'prompt' argument")
 
-        if "previous_responses" not in kwargs:
-            raise Exception("Missing required 'previous_responses' argument")
+        if "previous_exchanges" not in kwargs:
+            raise Exception("Missing required 'previous_exchanges' argument")
 
         prompt = kwargs['prompt']
         previous_exchanges = kwargs['previous_exchanges']
         model = kwargs['model'] if "model" in kwargs else 'text-davinci-003'
         max_tokens = kwargs['max_tokens'] if "max_tokens" in kwargs else 100
 
-        request = self.get_request_under_max_tokens(max_tokens, prompt, previous_exchanges)
+        request = self._get_request_under_max_tokens(max_tokens, prompt, previous_exchanges)
 
         completion = openai.Completion.create(
             model=model,

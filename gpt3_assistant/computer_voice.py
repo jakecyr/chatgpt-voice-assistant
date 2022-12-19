@@ -18,11 +18,14 @@ class ComputerVoice:
         self.cleanup_temp_files()
 
     def speak(self, text_to_speak: str):
-        tts = self.get_gtts(text_to_speak)
-        tts.save(self._mp3_filename)
-        full_mp3_path = os.path.join(os.getcwd(), self._mp3_filename)
-        subprocess.call(["afplay", full_mp3_path])
-        os.remove(self._mp3_filename)
+        try:
+            logging.debug(f"Starting to speak: '{text_to_speak}'")
+            tts = self.get_gtts(text_to_speak)
+            tts.save(self._mp3_filename)
+            full_mp3_path = os.path.join(os.getcwd(), self._mp3_filename)
+            subprocess.call(["afplay", full_mp3_path])
+        finally:
+            self.cleanup_temp_files()
 
     def cleanup_temp_files(self):
         try:
