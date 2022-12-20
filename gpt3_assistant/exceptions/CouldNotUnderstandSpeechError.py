@@ -1,0 +1,2 @@
+class CouldNotUnderstandSpeechError(Exception):
+    pass

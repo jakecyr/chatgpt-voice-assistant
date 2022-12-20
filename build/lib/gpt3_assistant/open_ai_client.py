@@ -1,6 +1,5 @@
 import openai
 from exchange import Exchange
-import logging
 
 
 # Client to interact with the Open AI API
@@ -8,7 +7,6 @@ class OpenAIClient:
 
     def __init__(self, api_key: str):
         # set API key on OpenAI object
-        logging.debug(f"Setting API key to {api_key}")
         openai.api_key = api_key
 
     def get_completion(self, **kwargs):
@@ -24,15 +22,15 @@ class OpenAIClient:
         if "prompt" not in kwargs:
             raise Exception("Missing required 'prompt' argument")
 
-        if "previous_exchanges" not in kwargs:
-            raise Exception("Missing required 'previous_exchanges' argument")
+        if "previous_responses" not in kwargs:
+            raise Exception("Missing required 'previous_responses' argument")
 
         prompt = kwargs['prompt']
         previous_exchanges = kwargs['previous_exchanges']
         model = kwargs['model'] if "model" in kwargs else 'text-davinci-003'
         max_tokens = kwargs['max_tokens'] if "max_tokens" in kwargs else 100
 
-        request = self._get_request_under_max_tokens(max_tokens, prompt, previous_exchanges)
+        request = self.get_request_under_max_tokens(max_tokens, prompt, previous_exchanges)
 
         completion = openai.Completion.create(
             model=model,
@@ -51,9 +49,8 @@ class OpenAIClient:
         first_choice = completion["choices"][0]
 
         if first_choice['finish_reason'] == 'length':
-            logging.warning("OpenAI stopped producing output due to a limit on the max tokens")
-            logging.warning(
-                f"Max tokens is set to: {max_tokens}. Total tokens consumed with prompt were: {tokens_used}")
+            print("OpenAI stopped producing output due to a limit on the max tokens")
+            print(f"Max tokens is set to: {max_tokens}. Total tokens consumed with prompt were: {tokens_used}")
             was_cut_short = True
 
         first_choice_text = first_choice["text"].replace("\n", " ").strip()

@@ -1,0 +1,2 @@
+class SpeechRecognitionRequestError(Exception):
+    pass
