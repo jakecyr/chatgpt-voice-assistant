@@ -17,17 +17,16 @@ previous_responses = []
 class Main:
 
     def __init__(self, open_ai_key, input_device_name):
-        self.open_ai_key = open_ai_key
-        self.input_device_name = input_device_name
-        self.computer_voice = ComputerVoice("temp.mp3", lang, tld)
+        self._open_ai_client = OpenAIClient(open_ai_key)
+        self._input_device_name = input_device_name
+        self._computer_voice = ComputerVoice("temp.mp3", lang, tld)
+        self._speech_listener = SpeechListener()
 
     def start_conversation(self):
-        open_ai_client = OpenAIClient(self.open_ai_key)
-        speech_listener = SpeechListener()
         text: str = None
 
         try:
-            text = speech_listener.listen_for_speech(device_name=self.input_device_name)
+            text = self._speech_listener.listen_for_speech(device_name=self.input_device_name)
         except CouldNotUnderstandSpeechError as e:
             logging.error(e)
         except SpeechRecognitionRequestError as e:
@@ -40,7 +39,7 @@ class Main:
         if text is None or len(text) <= 1:
             self.start_conversation()
 
-        response = open_ai_client.get_completion(
+        response = self._open_ai_client.get_completion(
             prompt=text,
             previous_exchanges=previous_responses,
             model="text-davinci-003",
@@ -97,7 +96,7 @@ if __name__ == "__main__":
     main = Main(args.open_ai_key, input_device_name)
 
 
-    def signal_handler(sig, frame):
+    def signal_handler(_sig, _frame):
         main.cleanup_and_exit()
 
 

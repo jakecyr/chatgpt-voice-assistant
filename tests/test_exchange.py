@@ -1,4 +1,4 @@
-from gpt3_assistant.exchange import Exchange
+from gpt3_assistant.models.exchange import Exchange
 
 
 def test_basic_methods():

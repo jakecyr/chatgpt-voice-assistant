@@ -1,5 +1,5 @@
 import openai
-from exchange import Exchange
+from gpt3_assistant.models.exchange import Exchange
 import logging
 
 

@@ -93,3 +93,17 @@ The project has to be installed as a module first with:
 ```
 
 Then you can run `python -m pytest` to run all unit tests.
+
+### Coverage Report
+
+Get the coverage with:
+
+```bash
+coverage run -m pytest
+```
+
+View the coverage report:
+
+```bash
+coverage report
+```
