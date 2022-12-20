@@ -15,7 +15,9 @@ class ComputerVoice:
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        self.cleanup_temp_files()
+        if exc_type == FileNotFoundError:
+            logging.warning(f"File not found warning whent trying to delete file: '{self._mp3_filename}'")
+            return True
 
     def speak(self, text_to_speak: str):
         try:
@@ -28,13 +30,7 @@ class ComputerVoice:
             self.cleanup_temp_files()
 
     def cleanup_temp_files(self):
-        try:
-            os.remove(self._mp3_filename)
-        except FileNotFoundError:
-            pass
-        except Exception as e:
-            logging.error(f"Exception cleaning up temporary files: {e}")
-            raise e
+        os.remove(self._mp3_filename)
 
     def get_gtts(self, text_to_speak: str):
         try:

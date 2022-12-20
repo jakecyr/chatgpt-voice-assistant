@@ -23,7 +23,7 @@ class SpeechListener:
         if 'device_index' in kwargs:
             device_index = kwargs['device_index']
         elif 'device_name' in kwargs:
-            device_index = self._get_device_input_from_name(kwargs['device_name'])
+            device_index = self._get_device_index_from_name(kwargs['device_name'])
 
         input_device_name = self._py_audio.get_device_info_by_index(device_index)['name']
 
@@ -46,7 +46,7 @@ class SpeechListener:
 
         return input_devices
 
-    def _get_device_input_from_name(self, name_to_find):
+    def _get_device_index_from_name(self, name_to_find):
         logging.debug(f"Looking for input device {name_to_find}")
         count_of_input_devices = self._py_audio.get_device_count()
 
