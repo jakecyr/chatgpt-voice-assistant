@@ -5,3 +5,4 @@ env
 gpt3_assistant.egg-info
 .pytest_cache
 **/*/__pycache__/**/*
+.coverage
