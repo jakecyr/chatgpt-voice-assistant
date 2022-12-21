@@ -84,6 +84,11 @@ See Localized 'accents' section on gTTS docs for more information
 
 [Google Translate's Text-to-Speech API (gTTS)](https://gtts.readthedocs.io/en/latest/module.html#)
 
+## Linting
+
+Run `black gpt3_assistant` to automatically reformat all source files
+based on the default configuration.
+
 ## Testing
 
 The project has to be installed as a module first with:

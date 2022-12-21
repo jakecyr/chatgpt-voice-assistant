@@ -29,7 +29,7 @@ def test_get_list_of_input_devices(speech_listener):
 
 def test_get_device_info_from_name(speech_listener):
     for index, input_device in enumerate(speech_listener.get_list_of_input_devices()):
-        target_device_name = input_device['name']
+        target_device_name = input_device["name"]
         device_index = speech_listener._get_device_index_from_name(target_device_name)
         assert device_index is not None
         assert device_index == index
@@ -44,13 +44,19 @@ def test_recognize_text_in_audio(recognize_google, speech_listener):
     assert text == recognized_text
 
 
-@mock.patch("speech_recognition.Recognizer.recognize_google", recognize_google_raise_unknown_value_error)
+@mock.patch(
+    "speech_recognition.Recognizer.recognize_google",
+    recognize_google_raise_unknown_value_error,
+)
 def test_recognize_text_in_audio_throws_could_not_understand_error(speech_listener):
     with pytest.raises(CouldNotUnderstandSpeechError):
         speech_listener._recognize_text_in_audio({})
 
 
-@mock.patch("speech_recognition.Recognizer.recognize_google", recognize_google_raise_request_error)
+@mock.patch(
+    "speech_recognition.Recognizer.recognize_google",
+    recognize_google_raise_request_error,
+)
 def test_recognize_text_in_audio_throws_request_error(speech_listener):
     with pytest.raises(SpeechRecognitionRequestError):
         speech_listener._recognize_text_in_audio({})

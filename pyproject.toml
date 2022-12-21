@@ -11,7 +11,8 @@ dependencies = [
   "gtts",
   "pytest",
   "mock",
-  "coverage"
+  "coverage",
+  "black"
 ]
 description = "Package to speak with OpenAI's GPT-3 model"
 readme = "README.md"

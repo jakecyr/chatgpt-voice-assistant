@@ -20,7 +20,7 @@ class MockGTTS:
     _save_calls = 0
 
     def __init__(self, text_to_speech, **kwargs):
-        print(f'mock_get_gtts called with: {text_to_speech}, {kwargs}')
+        print(f"mock_get_gtts called with: {text_to_speech}, {kwargs}")
         MockGTTS._init_calls += 1
         assert text_to_speech == TEXT_TO_SPEAK
         self.text_to_speech = text_to_speech
@@ -57,7 +57,7 @@ class MockGTTSThrowsError:
         assert filename == TEMP_FILE_NAME
 
 
-@mock.patch('subprocess.call')
+@mock.patch("subprocess.call")
 def test_speak_context_manager_file_deletion(_subprocess_call, computer_voice):
     with mock.patch("gtts.gTTS", MockGTTS) as mock_gtts:
         with computer_voice as cv:
@@ -69,7 +69,7 @@ def test_speak_context_manager_file_deletion(_subprocess_call, computer_voice):
     assert not os.path.exists(FULL_MP3_PATH)
 
 
-@mock.patch('subprocess.call')
+@mock.patch("subprocess.call")
 def test_speak_error_handling(_subprocess_call, computer_voice):
     with mock.patch("gtts.gTTS", MockGTTSThrowsError) as mock_gtts:
         with computer_voice as cv:

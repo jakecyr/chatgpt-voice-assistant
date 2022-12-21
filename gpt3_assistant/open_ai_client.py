@@ -5,7 +5,6 @@ import logging
 
 # Client to interact with the Open AI API
 class OpenAIClient:
-
     def __init__(self, api_key: str):
         # set API key on OpenAI object
         logging.debug(f"Setting API key to {api_key}")
@@ -27,22 +26,21 @@ class OpenAIClient:
         if "previous_exchanges" not in kwargs:
             raise Exception("Missing required 'previous_exchanges' argument")
 
-        prompt = kwargs['prompt']
-        previous_exchanges = kwargs['previous_exchanges']
-        model = kwargs['model'] if "model" in kwargs else 'text-davinci-003'
-        max_tokens = kwargs['max_tokens'] if "max_tokens" in kwargs else 100
+        prompt = kwargs["prompt"]
+        previous_exchanges = kwargs["previous_exchanges"]
+        model = kwargs["model"] if "model" in kwargs else "text-davinci-003"
+        max_tokens = kwargs["max_tokens"] if "max_tokens" in kwargs else 100
 
-        request = self._get_request_under_max_tokens(max_tokens, prompt, previous_exchanges)
+        request = self._get_request_under_max_tokens(
+            max_tokens, prompt, previous_exchanges
+        )
 
         completion = openai.Completion.create(
-            model=model,
-            prompt=request,
-            max_tokens=max_tokens,
-            temperature=0.7
+            model=model, prompt=request, max_tokens=max_tokens, temperature=0.7
         )
 
         choices = completion["choices"]
-        tokens_used = completion['usage']['total_tokens']
+        tokens_used = completion["usage"]["total_tokens"]
         was_cut_short = False
 
         if len(choices) == 0:
@@ -50,10 +48,13 @@ class OpenAIClient:
 
         first_choice = completion["choices"][0]
 
-        if first_choice['finish_reason'] == 'length':
-            logging.warning("OpenAI stopped producing output due to a limit on the max tokens")
+        if first_choice["finish_reason"] == "length":
             logging.warning(
-                f"Max tokens is set to: {max_tokens}. Total tokens consumed with prompt were: {tokens_used}")
+                "OpenAI stopped producing output due to a limit on the max tokens"
+            )
+            logging.warning(
+                f"Max tokens is set to: {max_tokens}. Total tokens consumed with prompt were: {tokens_used}"
+            )
             was_cut_short = True
 
         first_choice_text = first_choice["text"].replace("\n", " ").strip()

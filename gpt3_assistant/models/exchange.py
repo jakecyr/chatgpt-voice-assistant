@@ -1,5 +1,4 @@
 class Exchange:
-
     def __init__(self, user, computer, was_cut_short=None):
         self._user = user
         self._computer = computer
