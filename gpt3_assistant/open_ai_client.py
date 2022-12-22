@@ -73,7 +73,7 @@ class OpenAIClient:
         request_header = ""
 
         for exchange in previous_exchanges:
-            exchange_string = f"User: {exchange.get_user_message()}\nAssistant: {exchange.get_computer_response()}"
+            exchange_string = f"User: {exchange.user_message}\nAssistant: {exchange.computer_response}"
             draft_request = f"{request_header}\n{exchange_string}\n{new_request}"
 
             if len(draft_request) > max_tokens:
