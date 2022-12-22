@@ -96,5 +96,5 @@ def test_get_completion_returns_first_response(open_ai_client):
     )
 
     assert response is not None
-    assert response.get_computer_response() == MOCK_RESPONSES[0]["text"]
-    assert response.get_user_message() == prompt
+    assert response.computer_response == MOCK_RESPONSES[0]["text"]
+    assert response.user_message == prompt
