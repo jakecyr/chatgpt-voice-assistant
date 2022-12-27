@@ -40,7 +40,7 @@ include_dirs=<PATH FROM STEP 3>/include/
 library_dirs=<PATH FROM STEP 3>/lib/
 ```
 
-Finally run:
+Finally, run the following to install all required Python packages:
 
 ```bash
 pip install -e .
@@ -62,7 +62,7 @@ Say the word "exit" to stop the application.
 Specify both the `LANGUAGE` and `TOP_LEVEL_DOMAIN` vars to override the default English (United States)
 
 ```bash
-LANGUAGE=<Language code> TOP_LEVEL_DOMAIN=<Top-level domain> python gpt3_assistant/main.py --open-ai-key=<OPENAI_KEY>
+python gpt3_assistant/main.py --open-ai-key=<OPENAI_KEY> --lang=en --tld=com
 ```
 
 #### Language Examples
@@ -82,7 +82,7 @@ See Localized 'accents' section on gTTS docs for more information
 
 [SpeechRecognition library docs](https://pypi.org/project/SpeechRecognition/1.2.3)
 
-[Google Translate's Text-to-Speech API (gTTS)](https://gtts.readthedocs.io/en/latest/module.html#)
+[Google Translate Text-to-Speech API (gTTS)](https://gtts.readthedocs.io/en/latest/module.html#)
 
 ## Linting
 
@@ -91,13 +91,9 @@ based on the default configuration.
 
 ## Testing
 
-The project has to be installed as a module first with:
+### Unit Tests
 
-```commandline
- pip install -e .
-```
-
-Then you can run `python -m pytest` to run all unit tests.
+Run `pytest` to run all unit tests.
 
 ### Coverage Report
 
@@ -112,3 +108,11 @@ View the coverage report:
 ```bash
 coverage report
 ```
+
+
+## Class Diagram
+
+Download GraphViz with homebrew `brew install graphviz`.
+
+Then run `pyreverse -o png -A -my -p gpt3_assistant gpt3_assistant` to generate
+a class and package diagram.

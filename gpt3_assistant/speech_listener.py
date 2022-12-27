@@ -1,13 +1,12 @@
-import pyaudio
 import speech_recognition as sr
-from exceptions.CouldNotUnderstandSpeechError import CouldNotUnderstandSpeechError
-from exceptions.SpeechRecognitionRequestError import SpeechRecognitionRequestError
+from gpt3_assistant.exceptions.CouldNotUnderstandSpeechError import CouldNotUnderstandSpeechError
+from gpt3_assistant.exceptions.SpeechRecognitionRequestError import SpeechRecognitionRequestError
+from gpt3_assistant.input_devices import InputDevices
 import logging
 
 
 class SpeechListener:
     def __init__(self):
-        self._py_audio = pyaudio.PyAudio()
         self._recognizer = sr.Recognizer()
 
     def listen_for_speech(self, **kwargs):
@@ -21,9 +20,8 @@ class SpeechListener:
         if "device_index" in kwargs:
             device_index = kwargs["device_index"]
 
-        input_device_name = self._py_audio.get_device_info_by_index(device_index)[
-            "name"
-        ]
+        input_device = InputDevices.get_device_info_by_index(device_index)
+        input_device_name = input_device["name"]
 
         # can change device_index to something other than 0 to change the input mic
         with sr.Microphone(device_index=device_index) as source:
@@ -32,7 +30,6 @@ class SpeechListener:
             logging.debug("Received speech input.")
 
         return self._recognize_text_in_audio(audio)
-
 
     def _recognize_text_in_audio(self, audio):
         try:

@@ -1,24 +1,23 @@
 import sys
 import logging
-from computer_voice import ComputerVoice
-from exceptions.SpeechRecognitionRequestError import SpeechRecognitionRequestError
-from exceptions.CouldNotUnderstandSpeechError import CouldNotUnderstandSpeechError
+from gpt3_assistant.computer_voice import ComputerVoice
+from gpt3_assistant.exceptions.SpeechRecognitionRequestError import SpeechRecognitionRequestError
+from gpt3_assistant.exceptions.CouldNotUnderstandSpeechError import CouldNotUnderstandSpeechError
 
 
 class Conversation:
-
     def __init__(self, **kwargs):
         self._previous_responses = []
-        self._open_ai_client = kwargs['open_ai_client']
-        self._speech_listener = kwargs['speech_listener']
-        self._input_device_index = kwargs['input_device_index']
-        self._model = kwargs.get('model', "text-davinci-003")
-        self._max_tokens = kwargs.get('max_tokens', 200)
-        self._safe_word = kwargs.get('safe_word', 'EXIT')
+        self._open_ai_client = kwargs["open_ai_client"]
+        self._speech_listener = kwargs["speech_listener"]
+        self._input_device_index = kwargs["input_device_index"]
+        self._model = kwargs.get("model", "text-davinci-003")
+        self._max_tokens = kwargs.get("max_tokens", 200)
+        self._safe_word = kwargs.get("safe_word", "EXIT")
         self._computer_voice = ComputerVoice(
-            kwargs.get('temp_mp3_filename', "temp.mp3"),
-            kwargs.get('lang'),
-            kwargs.get('tld')
+            kwargs.get("temp_mp3_filename", "temp.mp3"),
+            kwargs.get("lang", None),
+            kwargs.get("tld", None),
         )
 
     def start_conversation(self):

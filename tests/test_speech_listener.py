@@ -5,7 +5,7 @@ from exceptions.CouldNotUnderstandSpeechError import CouldNotUnderstandSpeechErr
 from exceptions.SpeechRecognitionRequestError import SpeechRecognitionRequestError
 import pytest
 import speech_recognition as sr
-import pyaudio
+from gpt3_assistant.input_devices import InputDevices
 
 
 @fixture
@@ -19,20 +19,6 @@ def recognize_google_raise_unknown_value_error(self, audio_data, **kwargs):
 
 def recognize_google_raise_request_error(self, audio_data, **kwargs):
     raise sr.RequestError("Error making request")
-
-
-def test_get_list_of_input_devices(speech_listener):
-    input_devices = speech_listener.get_list_of_input_devices()
-    assert len(input_devices) > 0, "Expected input devices length to be > 0"
-    assert pyaudio.PyAudio().get_device_count() == len(input_devices)
-
-
-def test_get_device_info_from_name(speech_listener):
-    for index, input_device in enumerate(speech_listener.get_list_of_input_devices()):
-        target_device_name = input_device["name"]
-        device_index = speech_listener._get_device_index_from_name(target_device_name)
-        assert device_index is not None
-        assert device_index == index
 
 
 @mock.patch("speech_recognition.Recognizer.recognize_google")

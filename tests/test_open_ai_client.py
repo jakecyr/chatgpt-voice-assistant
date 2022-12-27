@@ -1,4 +1,4 @@
-from gpt3_assistant.open_ai_client import OpenAIClient
+from gpt3_assistant.clients.open_ai_client import OpenAIClient
 from gpt3_assistant.models.exchange import Exchange
 from pytest import fixture, raises
 import mock
