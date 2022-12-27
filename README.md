@@ -43,7 +43,7 @@ library_dirs=<PATH FROM STEP 3>/lib/
 Finally run:
 
 ```bash
-pip install -r requirements.txt
+pip install -e .
 ```
 
 ## Running the Script

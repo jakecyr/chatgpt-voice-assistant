@@ -1,0 +1,5 @@
+build
+gpt3_assistant.egg-info
+.github
+.pytest_cache
+env

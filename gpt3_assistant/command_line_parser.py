@@ -1,0 +1,34 @@
+import argparse
+from models.command_line_arguments import CommandLineArguments
+
+
+class CommandLineParser:
+
+    @staticmethod
+    def parse() -> CommandLineArguments:
+        """
+        Parse the command line arguments and return an object with the values.
+        :return: CommandLineArguments the command line arguments tuple
+        """
+        parser = argparse.ArgumentParser()
+
+        parser.add_argument(
+            "--log-level",
+            help="If to print at the debug level or not.",
+            default="INFO",
+            type=str,
+        )
+        parser.add_argument(
+            "--input-device-name", help="Input device name", default=None, type=str
+        )
+        parser.add_argument(
+            "--lang", help="Language", default=None, type=str
+        )
+        parser.add_argument(
+            "--tld", help="Top level domain", default=None, type=str
+        )
+        parser.add_argument(
+            "--open-ai-key", help="Open AI Secret Key", required=True, type=str
+        )
+
+        return parser.parse_args()
