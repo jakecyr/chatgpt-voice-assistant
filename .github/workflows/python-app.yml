@@ -25,13 +25,9 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0
-        pip install pyaudio --user
-        sudo apt-get install python-pyaudio
+        pip3 install pyaudio --user
         sudo apt-get install ffmpeg
-        sudo apt-get install libav-tools
-        sudo pip install pyaudio
-        python -m pip install --upgrade pip
-        pip install -e .
+        pip3 install -e .
     - name: Test with pytest
       run: |
         pytest
