@@ -6,4 +6,8 @@ class Responder(ABC):
 
     @abstractmethod
     def respond(self, text_to_speak: str):
-        pass
+        """
+        Respond to a request.
+        :param text_to_speak: the incoming request to respond to.
+        :return: the response.
+        """
