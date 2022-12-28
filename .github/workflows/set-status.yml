@@ -20,7 +20,7 @@ jobs:
           --header 'content-type: application/json' \
           --data '{
             "state": "${{ github.event.workflow_run.conclusion }}",
-            "context": "unit test (kube)",
+            "context": "test status",
             "target_url": "${{ github.event.workflow_run.html_url }}"
             }' \
           --fail
