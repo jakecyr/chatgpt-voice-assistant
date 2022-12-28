@@ -7,6 +7,7 @@ from helpers.get_input_device_from_user import get_input_device_from_user
 from input_devices import InputDevices
 from helpers.set_log_level import set_log_level
 from helpers.set_keyboard_interrupt_handler import set_keyboard_interrupt_handler
+from clients.google_text_to_speech_client import GoogleTextToSpeechClient
 
 if __name__ == "__main__":
     options = CommandLineParser.parse()
@@ -29,11 +30,15 @@ if __name__ == "__main__":
     # service to generate text given an input
     text_generator = OpenAITextGenerator(options.open_ai_key)
 
+    google_text_to_speech_client = GoogleTextToSpeechClient(
+        options.lang,
+        options.tld
+    )
+
     # service to respond to the user the generated text
     responder = ComputerVoiceResponder(
-        "temp.mp3",
-        options.lang,
-        options.tld,
+        google_text_to_speech_client,
+        "temp.mp3"
     )
 
     # set interrupt to exit the process when Cmd+C / Ctrl+C is hit

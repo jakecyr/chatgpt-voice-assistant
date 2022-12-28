@@ -1,16 +1,14 @@
 import os
 import subprocess
 import logging
-from gpt3_assistant.clients.google_text_to_speech_client import GoogleTextToSpeechClient
 from gpt3_assistant.bases.responder import Responder
+from clients.text_to_speech_client import TextToSpeechClient
 
 
 class ComputerVoiceResponder(Responder):
-    def __init__(self, mp3_filename, lang=None, tld=None):
+    def __init__(self, text_to_speech_client: TextToSpeechClient, mp3_filename):
         self._mp3_filename = mp3_filename
-        self._language = lang
-        self._top_level_domain = tld
-        self.text_to_speech_client = GoogleTextToSpeechClient(lang, tld)
+        self.text_to_speech_client: TextToSpeechClient = text_to_speech_client
 
     def respond(self, text_to_speak: str):
         """

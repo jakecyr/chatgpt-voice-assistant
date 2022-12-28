@@ -15,7 +15,8 @@ class OpenAITextGenerator(TextGenerator):
         self._open_ai_client = OpenAIClient(open_ai_key)
         self._model = kwargs.get("model", "text-davinci-003")
         self._max_tokens = kwargs.get("max_tokens", 200)
-        self._previous_responses: list[Exchange] = []
+        self._temperature = kwargs.get("temperature", 0.7)
+        self._previous_responses: list[Exchange] = kwargs.get('previous_responses', [])
 
     def generate_text(self, input_text) -> Exchange:
         """
@@ -23,13 +24,13 @@ class OpenAITextGenerator(TextGenerator):
         :param input_text: the input text.
         :return: the response.
         """
-        full_prompt_with_history: str = self._get_request_under_max_tokens(input_text)
+        full_prompt_with_history = self._get_request_under_max_tokens(input_text)
 
         exchange: Exchange = self._open_ai_client.get_completion(
             prompt=full_prompt_with_history,
             model=self._model,
             max_tokens=self._max_tokens,
-            temperature=0.7
+            temperature=self._temperature
         )
 
         self._previous_responses.append(exchange)

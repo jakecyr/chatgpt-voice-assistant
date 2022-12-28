@@ -14,9 +14,10 @@ class OpenAIClient:
         Get a completion (response) from the specified OpenAI GPT-3 model.
         Reference: https://beta.openai.com/docs/api-reference/completions
 
-        :param str prompt:      the prompt to send to the model for completion.
-        :param str model:       optionally specify the model to use.
-        :param int max_tokens:  the max number of tokens to use including the prompt and response.
+        :param str prompt:       the prompt to send to the model for completion.
+        :param str model:        optionally specify the model to use.
+        :param int max_tokens:   the max number of tokens to use including the prompt and response.
+        :param int temperature:  the temperature for the model to use.
         """
         completion = openai.Completion.create(
             model=model, prompt=prompt, max_tokens=max_tokens, temperature=temperature
