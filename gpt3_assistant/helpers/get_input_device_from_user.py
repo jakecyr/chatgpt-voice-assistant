@@ -13,7 +13,9 @@ def ask_user_which_input_device_to_use(input_devices: list[InputDevice]) -> Inpu
     return input_devices[chosen_device_index]
 
 
-def get_input_device_from_user(input_devices: list[InputDevice], input_device_name: str) -> InputDevice:
+def get_input_device_from_user(
+    input_devices: list[InputDevice], input_device_name: str
+) -> InputDevice:
     if len(input_devices) == 0:
         raise Exception("No input devices found")
 

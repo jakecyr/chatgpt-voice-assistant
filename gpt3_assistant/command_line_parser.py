@@ -21,9 +21,19 @@ class CommandLineParser:
             "--input-device-name", help="Input device name", default=None, type=str
         )
         parser.add_argument("--lang", help="Language", default=None, type=str)
-        parser.add_argument("--max-tokens", help="Max tokens to use for text generation", default=200, type=int)
+        parser.add_argument(
+            "--max-tokens",
+            help="Max tokens to use for text generation",
+            default=200,
+            type=int,
+        )
         parser.add_argument("--tld", help="Top level domain", default=None, type=str)
-        parser.add_argument("--safe-word", help="Word to speak to exit the application", default=None, type=str)
+        parser.add_argument(
+            "--safe-word",
+            help="Word to speak to exit the application",
+            default=None,
+            type=str,
+        )
         parser.add_argument(
             "--open-ai-key", help="Open AI Secret Key", required=True, type=str
         )

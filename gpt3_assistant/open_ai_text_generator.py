@@ -6,7 +6,6 @@ import logging
 
 
 class OpenAITextGenerator(TextGenerator):
-
     def __init__(self, open_ai_key: str, **kwargs):
         if not open_ai_key:
             logging.error("Missing open-ai-key parameter")
@@ -16,7 +15,7 @@ class OpenAITextGenerator(TextGenerator):
         self._model = kwargs.get("model", "text-davinci-003")
         self._max_tokens = kwargs.get("max_tokens", 200)
         self._temperature = kwargs.get("temperature", 0.7)
-        self._previous_responses: list[Exchange] = kwargs.get('previous_responses', [])
+        self._previous_responses: list[Exchange] = kwargs.get("previous_responses", [])
 
     def generate_text(self, input_text) -> Exchange:
         """
@@ -30,7 +29,7 @@ class OpenAITextGenerator(TextGenerator):
             prompt=full_prompt_with_history,
             model=self._model,
             max_tokens=self._max_tokens,
-            temperature=self._temperature
+            temperature=self._temperature,
         )
 
         self._previous_responses.append(exchange)

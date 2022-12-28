@@ -1,6 +1,10 @@
 import speech_recognition as sr
-from gpt3_assistant.exceptions.could_not_understand_speech_error import CouldNotUnderstandSpeechError
-from gpt3_assistant.exceptions.speech_recognition_request_error import SpeechRecognitionRequestError
+from gpt3_assistant.exceptions.could_not_understand_speech_error import (
+    CouldNotUnderstandSpeechError,
+)
+from gpt3_assistant.exceptions.speech_recognition_request_error import (
+    SpeechRecognitionRequestError,
+)
 import logging
 from gpt3_assistant.models.input_device import InputDevice
 from gpt3_assistant.bases.listener import Listener

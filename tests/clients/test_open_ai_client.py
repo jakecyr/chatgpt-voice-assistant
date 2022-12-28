@@ -29,9 +29,7 @@ def test_get_completion_throws_exception_no_responses(open_ai_client):
     prompt = "Yeah do you have one in mind?"
 
     with raises(Exception):
-        open_ai_client.get_completion(
-            prompt=prompt, max_tokens=max_tokens
-        )
+        open_ai_client.get_completion(prompt=prompt, max_tokens=max_tokens)
 
 
 @mock.patch("openai.Completion.create", mock_create_completion_multiple_responses)
@@ -39,9 +37,7 @@ def test_get_completion_returns_first_response(open_ai_client):
     max_tokens = 70
     prompt = "Yeah do you have one in mind?"
 
-    response = open_ai_client.get_completion(
-        prompt=prompt, max_tokens=max_tokens
-    )
+    response = open_ai_client.get_completion(prompt=prompt, max_tokens=max_tokens)
 
     assert response is not None
     assert response.computer_response == MOCK_RESPONSES[0]["text"]

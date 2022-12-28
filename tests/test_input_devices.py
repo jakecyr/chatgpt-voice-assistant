@@ -54,5 +54,5 @@ def test_get_input_device_index_throws_error_not_found():
         InputDevices.get_input_device_index(fake_input_device_name)
 
     assert (
-            str(e.value) == f"Input device with name '{fake_input_device_name}' not found"
+        str(e.value) == f"Input device with name '{fake_input_device_name}' not found"
     )

@@ -10,7 +10,7 @@ TEXT_TO_SPEAK = "hello there"
 GTTS_ERROR_TO_THROW = AssertionError
 
 
-class mock_subprocess_call():
+class mock_subprocess_call:
     _calls = 0
     _last_inputs = None
 
@@ -53,30 +53,31 @@ def computer_voice():
     mock_text_to_speech_client = MockGoogleTextToSpeechClient()
 
     return ComputerVoiceResponder(
-        text_to_speech_client=mock_text_to_speech_client,
-        mp3_filename=TEMP_FILE_NAME
+        text_to_speech_client=mock_text_to_speech_client, mp3_filename=TEMP_FILE_NAME
     )
 
 
 @mock.patch(
-    'gpt3_assistant.clients.google_text_to_speech_client.GoogleTextToSpeechClient',
-    MockGoogleTextToSpeechClient
+    "gpt3_assistant.clients.google_text_to_speech_client.GoogleTextToSpeechClient",
+    MockGoogleTextToSpeechClient,
 )
-@mock.patch('builtins.print', mock_print)
+@mock.patch("builtins.print", mock_print)
 @mock.patch("subprocess.call", mock_subprocess_call)
 def test_respond_succeeds(computer_voice):
     computer_voice.respond(TEXT_TO_SPEAK)
-    assert mock_print._last_printed is None or not mock_print._last_printed.startswith("Exception")
+    assert mock_print._last_printed is None or not mock_print._last_printed.startswith(
+        "Exception"
+    )
     assert mock_subprocess_call._calls == 1
     mock_print.reset()
     mock_subprocess_call.reset()
 
 
 @mock.patch(
-    'gpt3_assistant.clients.google_text_to_speech_client.GoogleTextToSpeechClient',
-    MockGoogleTextToSpeechClient
+    "gpt3_assistant.clients.google_text_to_speech_client.GoogleTextToSpeechClient",
+    MockGoogleTextToSpeechClient,
 )
-@mock.patch('builtins.print', mock_print)
+@mock.patch("builtins.print", mock_print)
 @mock.patch("subprocess.call", mock_subprocess_call)
 def test_respond_throws_error(computer_voice):
     MockGoogleTextToSpeechClient._exception = Exception("Bad news")

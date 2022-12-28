@@ -33,3 +33,7 @@ jobs:
       run: |
         coverage run -m pytest
         coverage report --fail-under=80
+    - name: Linting
+      run: |
+        pylint --rcfile pylintrc --fail-under=9 gpt3_assistant
+        pylint --rcfile pylintrc --fail-under=5 tests
