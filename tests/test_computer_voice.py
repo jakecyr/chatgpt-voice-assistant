@@ -1,7 +1,7 @@
 import os.path
 import mock
 from mock import mock
-from gpt3_assistant.computer_voice import ComputerVoice
+from gpt3_assistant.computer_voice_responder import ComputerVoiceResponder
 from pytest import fixture
 
 TEMP_FILE_NAME = "temp.mp3"
@@ -12,7 +12,7 @@ GTTS_ERROR_TO_THROW = AssertionError
 
 @fixture
 def computer_voice():
-    return ComputerVoice(mp3_filename=TEMP_FILE_NAME)
+    return ComputerVoiceResponder(mp3_filename=TEMP_FILE_NAME)
 
 
 class MockGTTS:

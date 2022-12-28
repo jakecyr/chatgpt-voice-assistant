@@ -1,2 +1,0 @@
-class CouldNotUnderstandSpeechError(Exception):
-    pass

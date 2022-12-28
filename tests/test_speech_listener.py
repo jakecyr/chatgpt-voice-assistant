@@ -1,8 +1,8 @@
 from gpt3_assistant.speech_listener import SpeechListener
 from pytest import fixture
 import mock
-from exceptions.CouldNotUnderstandSpeechError import CouldNotUnderstandSpeechError
-from exceptions.SpeechRecognitionRequestError import SpeechRecognitionRequestError
+from exceptions.could_not_understand_speech_error import CouldNotUnderstandSpeechError
+from exceptions.speech_recognition_request_error import SpeechRecognitionRequestError
 import pytest
 import speech_recognition as sr
 from gpt3_assistant.input_devices import InputDevices

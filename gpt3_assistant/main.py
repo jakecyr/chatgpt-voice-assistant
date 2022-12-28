@@ -1,63 +1,49 @@
-import sys
-import signal
-import logging
-from gpt3_assistant.command_line_parser import CommandLineParser
-from gpt3_assistant.conversation import Conversation
-from gpt3_assistant.input_devices import InputDevices
-from gpt3_assistant.speech_listener import SpeechListener
-from gpt3_assistant.clients.open_ai_client import OpenAIClient
+from command_line_parser import CommandLineParser
+from conversation import Conversation
+from open_ai_text_generator import OpenAITextGenerator
+from computer_voice_responder import ComputerVoiceResponder
+from speech_listener import SpeechListener
+from helpers.get_input_device_from_user import get_input_device_from_user
+from input_devices import InputDevices
+from helpers.set_log_level import set_log_level
+from helpers.set_keyboard_interrupt_handler import set_keyboard_interrupt_handler
 
 if __name__ == "__main__":
-    # get CLI parameters
     options = CommandLineParser.parse()
-    log_level = "INFO" if options.log_level is None else options.log_level
 
-    # set log level
-    numeric_level = getattr(logging, log_level.upper(), None)
-    if not isinstance(numeric_level, int):
-        raise ValueError("Invalid log level: %s" % log_level)
-    logging.basicConfig(level=numeric_level)
+    # set log level from CLI options
+    set_log_level(options.log_level)
 
-    # validate parameters
-    if not options.open_ai_key:
-        logging.error("Missing open-ai-key parameter")
-        sys.exit(1)
+    # get all input devices on the current machine
+    input_devices = InputDevices.get_list_of_input_devices()
 
-    input_device_index = None
+    # ask the user which input device to use for this session
+    input_device = get_input_device_from_user(
+        input_devices=input_devices,
+        input_device_name=options.input_device_name
+    )
 
-    if options.input_device_name is None:
-        input_devices = InputDevices.get_list_of_input_devices()
+    # service to listen for speech and convert it to text
+    listener = SpeechListener(input_device)
 
-        for index, input_device in enumerate(input_devices):
-            print(f"{index + 1}) {input_device['name']}")
+    # service to generate text given an input
+    text_generator = OpenAITextGenerator(options.open_ai_key)
 
-        chosen_device_index = (
-                int(input("Which input device would you like to use? ")) - 1
-        )
+    # service to respond to the user the generated text
+    responder = ComputerVoiceResponder(
+        "temp.mp3",
+        options.lang,
+        options.tld,
+    )
 
-        if chosen_device_index < 0 or chosen_device_index > len(input_devices) - 1:
-            raise Exception("Invalid input device index chosen")
-
-        chosen_device = input_devices[chosen_device_index]
-        input_device_index = chosen_device["index"]
-    else:
-        input_device_index = InputDevices.get_input_device_index(
-            options.input_device_name
-        )
+    # set interrupt to exit the process when Cmd+C / Ctrl+C is hit
+    set_keyboard_interrupt_handler()
 
     conversation = Conversation(
-        open_ai_client=OpenAIClient(options.open_ai_key),
-        speech_listener=SpeechListener(),
-        input_device_index=input_device_index,
-        lang=options.lang,
-        tld=options.tld,
+        listener=listener,
+        text_generator=text_generator,
+        responder=responder,
         safe_word=options.safe_word
     )
 
-
-    def signal_handler(_sig, _frame):
-        conversation.cleanup_and_exit()
-
-
-    signal.signal(signal.SIGINT, signal_handler)
     conversation.start_conversation()

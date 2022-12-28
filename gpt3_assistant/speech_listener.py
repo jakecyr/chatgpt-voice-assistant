@@ -1,31 +1,25 @@
 import speech_recognition as sr
-from gpt3_assistant.exceptions.CouldNotUnderstandSpeechError import CouldNotUnderstandSpeechError
-from gpt3_assistant.exceptions.SpeechRecognitionRequestError import SpeechRecognitionRequestError
-from gpt3_assistant.input_devices import InputDevices
+from gpt3_assistant.exceptions.could_not_understand_speech_error import CouldNotUnderstandSpeechError
+from gpt3_assistant.exceptions.speech_recognition_request_error import SpeechRecognitionRequestError
 import logging
+from gpt3_assistant.models.input_device import InputDevice
+from gpt3_assistant.bases.listener import Listener
 
 
-class SpeechListener:
-    def __init__(self):
+class SpeechListener(Listener):
+    def __init__(self, input_device: InputDevice):
         self._recognizer = sr.Recognizer()
+        self._input_device = input_device
 
-    def listen_for_speech(self, **kwargs):
+    def listen_for_speech(self):
         """
         Listen on the specified input device for speech and return the heard text.
-        :keyword str device_index: the index of the input device to use (from get_list_of_input_devices method)
+        :keyword InputDevice input_device: the input device to listen on.
         :return: the text from the speech listened to.
         """
-        device_index = 0
-
-        if "device_index" in kwargs:
-            device_index = kwargs["device_index"]
-
-        input_device = InputDevices.get_device_info_by_index(device_index)
-        input_device_name = input_device["name"]
-
         # can change device_index to something other than 0 to change the input mic
-        with sr.Microphone(device_index=device_index) as source:
-            logging.info(f"Listening for input with mic '{input_device_name}'...")
+        with sr.Microphone(device_index=self._input_device.index) as source:
+            logging.info(f"Listening for input with mic '{self._input_device.name}'...")
             audio = self._recognizer.listen(source)
             logging.debug("Received speech input.")
 

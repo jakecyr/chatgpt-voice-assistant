@@ -12,45 +12,33 @@ class GoogleTextToSpeechClient(TextToSpeechClient):
         tts = self._get_gtts(text_to_speak)
         tts.save(mp3_file_path)
 
-    def _get_gtts(self, text_to_speak: str):
-        logging.debug(
-            f"ComputerVoice.get_gtts - Language: {self._output_language}, TLD: {self._output_top_level_domain}"
-        )
-        exception_thrown = True
+    def _get_gtts(self, text_to_speak: str) -> gtts.gTTS:
+        if self._output_language is not None and self._output_top_level_domain is not None:
+            logging.debug(f"Using language: {self._output_language} ({self._output_top_level_domain})")
+            return self._get_lang_gtts(text_to_speak)
+        else:
+            logging.debug("Using default language")
+            return gtts.gTTS(text_to_speak)
 
+    def _get_lang_gtts(self, text_to_speak: str) -> gtts.gTTS:
         try:
-            gtts_instance = None
+            gtts_instance = gtts.gTTS(
+                text_to_speak,
+                lang=self._output_language,
+                tld=self._output_top_level_domain,
+            )
 
-            # if both language override params exist, attempt to use else default to no keyword args
-            # throws an error if language cannot be processed
-            if (
-                    self._output_language is not None
-                    and self._output_top_level_domain is not None
-            ):
-                logging.debug(f"Using language: {self._output_language}")
-                gtts_instance = gtts.gTTS(
-                    text_to_speak,
-                    lang=self._output_language,
-                    tld=self._output_top_level_domain,
-                )
-            else:
-                logging.debug("Using default language")
-                gtts_instance = gtts.gTTS(text_to_speak)
-
-            exception_thrown = False
             return gtts_instance
         except AssertionError as e:
             print(
                 f"Text to speak, '{text_to_speak}', can not be empty (before or after cleaning): {e}"
             )
+            raise e
         except ValueError as e:
             print(f"Specified lang, '{self._output_language}', is not supported: {e}")
+            raise e
         except RuntimeError as e:
             print(
                 f"Unable to load language dictionaries for language '{self._output_language}': {e}"
             )
-        except Exception as e:
-            print(f"Unknown error getting gTTS: {e}")
-        finally:
-            if exception_thrown:
-                return gtts.gTTS(text_to_speak)
+            raise e

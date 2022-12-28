@@ -1,16 +1,17 @@
 import logging
 import pyaudio
 from typing import Mapping
+from models.input_device import InputDevice
 
 
 class InputDevices:
     pyaudio = pyaudio.PyAudio()
 
     @staticmethod
-    def get_input_device_index(input_device_name):
+    def get_input_device_index(input_device_name: str) -> int:
         """
         Get the input device to use from the user.
-        :param input_device_name: the optional device name from the user to look for.
+        :param str input_device_name: the optional device name from the user to look for.
         :return: the index of the input device to use.
         """
         logging.debug(f"get_input_device_index called with: {input_device_name}")
@@ -32,12 +33,12 @@ class InputDevices:
                 f"Input device '{input_device_name}' not found in list: {input_devices}"
             )
             raise Exception(f"Input device with name '{input_device_name}' not found")
-        else:
-            logging.debug(f"Found input device index: {chosen_input_device['index']}")
-            return chosen_input_device["index"]
+
+        logging.debug(f"Found input device index: {chosen_input_device['index']}")
+        return chosen_input_device["index"]
 
     @staticmethod
-    def get_list_of_input_devices():
+    def get_list_of_input_devices() -> list[InputDevice]:
         """
         Get a list of the possible input devices for the current machine.
         :return: the list of input device objects for the current machine.
@@ -53,10 +54,15 @@ class InputDevices:
             )
 
         # filter out non-input devices (ex. speakers)
-        input_devices = list(filter(lambda x: x["maxInputChannels"] >= 1, all_devices))
+        input_devices: list[InputDevice] = []
 
-        logging.info(f"Found {len(input_devices)} input devices")
+        for input_device in all_devices:
+            if input_device['maxInputChannels'] >= 1:
+                input_devices.append(
+                    InputDevice(input_device['index'], input_device['name'])
+                )
 
+        logging.info(f"Found {len(input_devices)} input devices.")
         return input_devices
 
     @staticmethod
