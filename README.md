@@ -1,6 +1,6 @@
 # OpenAI GPT-3 Chatbot
 
-![GitHub Actions Build Status](https://github.com/jakecyr/openai-gpt3-chatbot-assistant/actions/workflows/python-app.yml/badge.svg)
+![GitHub Actions Build Status](https://github.com/jakecyr/openai-gpt3-chatbot/actions/workflows/test-application.yml/badge.svg)
 
 
 A simple interface to the OpenAI GPT-3 models with speech
