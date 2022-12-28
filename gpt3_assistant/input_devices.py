@@ -5,6 +5,10 @@ from models.input_device import InputDevice
 
 
 class InputDevices:
+    """
+    Class to interact with the current machines input devices.
+    """
+
     pyaudio = pyaudio.PyAudio()
 
     @staticmethod
@@ -57,9 +61,9 @@ class InputDevices:
         input_devices: list[InputDevice] = []
 
         for input_device in all_devices:
-            if input_device['maxInputChannels'] >= 1:
+            if input_device["maxInputChannels"] >= 1:
                 input_devices.append(
-                    InputDevice(input_device['index'], input_device['name'])
+                    InputDevice(input_device["index"], input_device["name"])
                 )
 
         logging.info(f"Found {len(input_devices)} input devices.")

@@ -3,7 +3,6 @@ from gpt3_assistant.models.exchange import Exchange
 
 
 class TextGenerator(ABC):
-
     @abstractmethod
     def generate_text(self, input_text: str) -> Exchange:
         """

@@ -9,15 +9,15 @@ from gpt3_assistant.bases.responder import Responder
 class Conversation:
     def __init__(self, **kwargs):
         self._listener: Listener = kwargs["listener"]
-        self._text_generator: TextGenerator = kwargs['text_generator']
-        self._responder: Responder = kwargs['responder']
+        self._text_generator: TextGenerator = kwargs["text_generator"]
+        self._responder: Responder = kwargs["responder"]
 
         safe_word = kwargs.get("safe_word", None)
         self._safe_word = "EXIT" if safe_word is None else safe_word
 
     def start_conversation(self):
         """
-        Start a continuous conversation until the safe word is said alone or the application is exited.
+        Start a continuous conversation until the safe word or the application is exited.
         :return: None
         """
         text: str = None

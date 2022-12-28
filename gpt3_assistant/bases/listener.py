@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 
 
 class Listener(ABC):
-
     @abstractmethod
     def listen_for_speech(self):
         """

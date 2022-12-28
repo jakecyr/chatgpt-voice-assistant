@@ -25,9 +25,7 @@ def test_get_request_under_max_tokens_shows_all_previous():
     ]
 
     open_ai_text_generator = OpenAITextGenerator(
-        OPEN_AI_KEY,
-        max_tokens=max_tokens,
-        previous_responses=previous_responses
+        OPEN_AI_KEY, max_tokens=max_tokens, previous_responses=previous_responses
     )
 
     request = open_ai_text_generator._get_request_under_max_tokens(prompt)
@@ -47,9 +45,7 @@ def test_get_request_under_max_tokens_maxes_out():
     ]
 
     open_ai_text_generator = OpenAITextGenerator(
-        OPEN_AI_KEY,
-        max_tokens=max_tokens,
-        previous_responses=previous_responses
+        OPEN_AI_KEY, max_tokens=max_tokens, previous_responses=previous_responses
     )
 
     request = open_ai_text_generator._get_request_under_max_tokens(prompt)
@@ -64,9 +60,7 @@ def test_get_request_under_max_tokens_no_previous():
     previous_responses = []
 
     open_ai_text_generator = OpenAITextGenerator(
-        OPEN_AI_KEY,
-        max_tokens=max_tokens,
-        previous_responses=previous_responses
+        OPEN_AI_KEY, max_tokens=max_tokens, previous_responses=previous_responses
     )
 
     request = open_ai_text_generator._get_request_under_max_tokens(prompt)

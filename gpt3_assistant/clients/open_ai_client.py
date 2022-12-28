@@ -6,10 +6,12 @@ import logging
 # Client to interact with the OpenAI API
 class OpenAIClient:
     def __init__(self, api_key: str):
-        logging.debug(f"Setting Open API key...")
+        logging.debug("Setting Open API key...")
         openai.api_key = api_key
 
-    def get_completion(self, prompt, model="text-davinci-003", max_tokens=200, temperature=0.7) -> Exchange:
+    def get_completion(
+        self, prompt, model="text-davinci-003", max_tokens=200, temperature=0.7
+    ) -> Exchange:
         """
         Get a completion (response) from the specified OpenAI GPT-3 model.
         Reference: https://beta.openai.com/docs/api-reference/completions
@@ -37,7 +39,9 @@ class OpenAIClient:
                 "OpenAI stopped producing output due to a limit on the max tokens"
             )
             logging.warning(
-                f"Max tokens is set to: {max_tokens}. Total tokens consumed with prompt were: {tokens_used}"
+                "Max tokens is set to: %d. Total tokens consumed with prompt were: %d",
+                max_tokens,
+                tokens_used,
             )
             was_cut_short = True
 
