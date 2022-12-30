@@ -1,7 +1,7 @@
 import logging
 import gtts
 from gpt3_assistant.clients.text_to_speech_client import TextToSpeechClient
-
+import os
 
 class GoogleTextToSpeechClient(TextToSpeechClient):
     """Google Text to Speech Client that converts a string to a mp3 file"""
@@ -11,6 +11,9 @@ class GoogleTextToSpeechClient(TextToSpeechClient):
         self._output_top_level_domain = output_top_level_domain
 
     def convert_text_to_mp3(self, text_to_speak, mp3_file_path):
+        if os.path.exists(mp3_file_path):
+            raise FileExistsError(f"The MP3 file path already exists: {mp3_file_path}")
+
         tts = self._get_gtts(text_to_speak)
         tts.save(mp3_file_path)
 
