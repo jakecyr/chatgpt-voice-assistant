@@ -1,6 +1,7 @@
-from gpt3_assistant.clients.open_ai_client import OpenAIClient
-from pytest import fixture, raises
 import mock
+from pytest import fixture, raises
+
+from gpt3_assistant.clients.open_ai_client import OpenAIClient
 
 OPEN_AI_KEY = "fake-key"
 MOCK_RESPONSES = [

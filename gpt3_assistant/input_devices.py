@@ -1,7 +1,9 @@
 import logging
-import pyaudio
 from typing import Mapping
-from models.input_device import InputDevice
+
+import pyaudio
+
+from gpt3_assistant.models.input_device import InputDevice
 
 
 class InputDevices:

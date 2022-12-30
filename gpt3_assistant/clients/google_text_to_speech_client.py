@@ -1,7 +1,10 @@
 import logging
-import gtts
-from gpt3_assistant.clients.text_to_speech_client import TextToSpeechClient
 import os
+
+import gtts
+
+from gpt3_assistant.clients.text_to_speech_client import TextToSpeechClient
+
 
 class GoogleTextToSpeechClient(TextToSpeechClient):
     """Google Text to Speech Client that converts a string to a mp3 file"""

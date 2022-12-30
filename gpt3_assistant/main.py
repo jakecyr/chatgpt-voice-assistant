@@ -1,13 +1,15 @@
-from command_line_parser import CommandLineParser
-from conversation import Conversation
-from open_ai_text_generator import OpenAITextGenerator
-from computer_voice_responder import ComputerVoiceResponder
-from speech_listener import SpeechListener
-from input_devices import InputDevices
-from helpers.get_input_device_from_user import get_input_device_from_user
-from helpers.set_log_level import set_log_level
-from helpers.set_keyboard_interrupt_handler import set_keyboard_interrupt_handler
-from clients.google_text_to_speech_client import GoogleTextToSpeechClient
+from gpt3_assistant.clients.google_text_to_speech_client import GoogleTextToSpeechClient
+from gpt3_assistant.command_line_parser import CommandLineParser
+from gpt3_assistant.computer_voice_responder import ComputerVoiceResponder
+from gpt3_assistant.conversation import Conversation
+from gpt3_assistant.helpers.get_input_device_from_user import get_input_device_from_user
+from gpt3_assistant.helpers.set_keyboard_interrupt_handler import (
+    set_keyboard_interrupt_handler,
+)
+from gpt3_assistant.helpers.set_log_level import set_log_level
+from gpt3_assistant.input_devices import InputDevices
+from gpt3_assistant.open_ai_text_generator import OpenAITextGenerator
+from gpt3_assistant.speech_listener import SpeechListener
 
 if __name__ == "__main__":
     options = CommandLineParser.parse()

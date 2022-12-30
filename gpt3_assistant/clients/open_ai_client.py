@@ -1,6 +1,8 @@
-import openai
-from gpt3_assistant.models.exchange import Exchange
 import logging
+
+import openai
+
+from gpt3_assistant.models.exchange import Exchange
 
 
 # Client to interact with the OpenAI API

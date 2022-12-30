@@ -1,9 +1,11 @@
-from gpt3_assistant.clients.text_to_speech_client import TextToSpeechClient
-from gpt3_assistant.clients.google_text_to_speech_client import GoogleTextToSpeechClient
-import os
 import mimetypes
-import pytest
+import os
+
 import gtts
+import pytest
+
+from gpt3_assistant.clients.google_text_to_speech_client import GoogleTextToSpeechClient
+from gpt3_assistant.clients.text_to_speech_client import TextToSpeechClient
 
 
 def test_convert_text_to_mp3():
@@ -38,7 +40,6 @@ def test_get_lang_gtts():
 
 
 def test_get_gtts_default_language():
-    # Test that the _get_gtts method returns a gTTS instance with the default language when no language and top-level domain are specified
     text_to_speak = "This is a test"
     client = GoogleTextToSpeechClient(None, None)
     gtts_instance = client._get_gtts(text_to_speak)

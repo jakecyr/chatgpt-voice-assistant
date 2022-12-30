@@ -1,8 +1,9 @@
-from gpt3_assistant.bases.text_generator import TextGenerator
-from clients.open_ai_client import OpenAIClient
-from sys import exit
-from gpt3_assistant.models.exchange import Exchange
 import logging
+from sys import exit
+
+from gpt3_assistant.bases.text_generator import TextGenerator
+from gpt3_assistant.clients.open_ai_client import OpenAIClient
+from gpt3_assistant.models.exchange import Exchange
 
 
 class OpenAITextGenerator(TextGenerator):

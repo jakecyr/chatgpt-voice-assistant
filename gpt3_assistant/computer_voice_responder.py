@@ -1,8 +1,9 @@
+import logging
 import os
 import subprocess
-import logging
+
 from gpt3_assistant.bases.responder import Responder
-from clients.text_to_speech_client import TextToSpeechClient
+from gpt3_assistant.clients.text_to_speech_client import TextToSpeechClient
 
 
 class ComputerVoiceResponder(Responder):

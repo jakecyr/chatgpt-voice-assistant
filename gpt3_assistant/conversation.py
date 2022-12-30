@@ -1,9 +1,14 @@
 import logging
-from exceptions.speech_recognition_request_error import SpeechRecognitionRequestError
-from exceptions.could_not_understand_speech_error import CouldNotUnderstandSpeechError
-from gpt3_assistant.bases.text_generator import TextGenerator
+
 from gpt3_assistant.bases.listener import Listener
 from gpt3_assistant.bases.responder import Responder
+from gpt3_assistant.bases.text_generator import TextGenerator
+from gpt3_assistant.exceptions.could_not_understand_speech_error import (
+    CouldNotUnderstandSpeechError,
+)
+from gpt3_assistant.exceptions.speech_recognition_request_error import (
+    SpeechRecognitionRequestError,
+)
 
 
 class Conversation:

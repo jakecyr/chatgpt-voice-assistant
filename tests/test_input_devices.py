@@ -1,5 +1,6 @@
-import pytest
 import mock
+import pytest
+
 from gpt3_assistant.input_devices import InputDevices
 
 

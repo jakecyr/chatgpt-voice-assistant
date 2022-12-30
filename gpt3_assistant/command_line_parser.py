@@ -1,4 +1,5 @@
 import argparse
+
 from models.command_line_arguments import CommandLineArguments
 
 

@@ -89,6 +89,12 @@ See Localized 'accents' section on gTTS docs for more information
 
 ## Linting
 
+Sort all imports with:
+
+```bash
+isort --multi-line 3 --profile black --python-version 38 gpt3_assistant
+```
+
 Run `black gpt3_assistant` to automatically reformat all source files
 based on the default configuration.
 

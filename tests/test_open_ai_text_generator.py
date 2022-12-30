@@ -1,5 +1,5 @@
-from gpt3_assistant.open_ai_text_generator import OpenAITextGenerator
 from gpt3_assistant.models.exchange import Exchange
+from gpt3_assistant.open_ai_text_generator import OpenAITextGenerator
 
 OPEN_AI_KEY = "fake-key"
 MOCK_RESPONSES = [

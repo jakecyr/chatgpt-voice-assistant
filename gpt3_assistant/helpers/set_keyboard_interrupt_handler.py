@@ -1,6 +1,6 @@
-import sys
-import signal
 import logging
+import signal
+import sys
 
 
 def set_keyboard_interrupt_handler():

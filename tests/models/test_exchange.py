@@ -34,5 +34,5 @@ def test_throws_error_on_change():
 
     exchange = Exchange(user_message, computer_response, was_cut_short)
 
-    with pytest.raises(AttributeError) as e:
+    with pytest.raises(AttributeError):
         exchange.user_message = "New user message"

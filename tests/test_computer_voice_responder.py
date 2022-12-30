@@ -1,8 +1,10 @@
 import os.path
+
 from mock import mock
-from gpt3_assistant.computer_voice_responder import ComputerVoiceResponder
 from pytest import fixture
+
 from gpt3_assistant.clients.text_to_speech_client import TextToSpeechClient
+from gpt3_assistant.computer_voice_responder import ComputerVoiceResponder
 
 TEMP_FILE_NAME = "temp.mp3"
 FULL_MP3_PATH = os.path.join(os.getcwd(), TEMP_FILE_NAME)

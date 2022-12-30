@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+
 from gpt3_assistant.models.exchange import Exchange
 
 
