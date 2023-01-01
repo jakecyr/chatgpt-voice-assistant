@@ -1,4 +1,5 @@
 import logging
+import sys
 
 from gpt3_assistant.bases.listener import Listener
 from gpt3_assistant.bases.responder import Responder
@@ -20,7 +21,7 @@ class Conversation:
         safe_word = kwargs.get("safe_word", None)
         self._safe_word = "EXIT" if safe_word is None else safe_word
 
-    def start_conversation(self):
+    def start_conversation(self, run_once=False):
         """
         Start a continuous conversation until the safe word or the application is exited.
         :return: None
@@ -31,15 +32,19 @@ class Conversation:
             text = self._listener.listen_for_speech()
         except CouldNotUnderstandSpeechError as e:
             logging.error(e)
+            return
         except SpeechRecognitionRequestError as e:
             logging.error(e)
-            self.cleanup_and_exit()
+            self._cleanup_and_exit()
+            return
 
         if text is None or len(text) <= 1:
-            return self.start_conversation()
+            if not run_once:
+                self.start_conversation(run_once=run_once)
+            return
 
         if text.upper() == self._safe_word.upper():
-            return self.cleanup_and_exit()
+            return self._cleanup_and_exit()
 
         response = self._text_generator.generate_text(text)
         response_text = response.computer_response
@@ -54,5 +59,9 @@ class Conversation:
                 "I apologize, but I ran out of tokens to finish my response."
             )
 
-        logging.debug("Starting to listen again...")
-        self.start_conversation()
+        if not run_once:
+            logging.debug("Starting to listen again...")
+            self.start_conversation(run_once=run_once)
+
+    def _cleanup_and_exit(self, exit_code=0):
+        sys.exit(exit_code)
