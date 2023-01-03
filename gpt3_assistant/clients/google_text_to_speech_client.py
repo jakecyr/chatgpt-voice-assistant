@@ -3,7 +3,7 @@ import os
 
 import gtts
 
-from gpt3_assistant.clients.text_to_speech_client import TextToSpeechClient
+from gpt3_assistant.bases.text_to_speech_client import TextToSpeechClient
 
 
 class GoogleTextToSpeechClient(TextToSpeechClient):

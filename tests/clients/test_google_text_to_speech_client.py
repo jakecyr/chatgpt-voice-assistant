@@ -5,7 +5,7 @@ import gtts
 import pytest
 
 from gpt3_assistant.clients.google_text_to_speech_client import GoogleTextToSpeechClient
-from gpt3_assistant.clients.text_to_speech_client import TextToSpeechClient
+from gpt3_assistant.bases.text_to_speech_client import TextToSpeechClient
 
 
 def test_convert_text_to_mp3():

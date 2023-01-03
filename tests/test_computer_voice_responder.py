@@ -3,7 +3,7 @@ import os.path
 from mock import mock
 from pytest import fixture
 
-from gpt3_assistant.clients.text_to_speech_client import TextToSpeechClient
+from gpt3_assistant.bases.text_to_speech_client import TextToSpeechClient
 from gpt3_assistant.computer_voice_responder import ComputerVoiceResponder
 
 TEMP_FILE_NAME = "temp.mp3"
