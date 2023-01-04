@@ -4,12 +4,12 @@ import sys
 from gpt3_assistant.bases.listener import Listener
 from gpt3_assistant.bases.responder import Responder
 from gpt3_assistant.bases.text_generator import TextGenerator
-from gpt3_assistant.exceptions.could_not_understand_speech_error import (
-    CouldNotUnderstandSpeechError,
+from gpt3_assistant.exceptions.failed_to_understand_listener_error import (
+    FailedToUnderstandListenerError,
 )
-from gpt3_assistant.exceptions.speech_recognition_request_error import (
-    SpeechRecognitionRequestError,
-)
+from gpt3_assistant.exceptions.listener_fatal_error import ListenerFatalError
+from gpt3_assistant.exceptions.no_input_listener_error import NoInputListenerError
+from gpt3_assistant.exceptions.respond_error import RespondError
 
 
 class Conversation:
@@ -29,18 +29,19 @@ class Conversation:
         text: str = None
 
         try:
-            text = self._listener.listen_for_speech()
-        except CouldNotUnderstandSpeechError as e:
-            logging.error(e)
-            return
-        except SpeechRecognitionRequestError as e:
-            logging.error(e)
+            text = self._listener.listen()
+        except ListenerFatalError as e:
+            logging.error(f"Listener fatal error: {e}")
             self._cleanup_and_exit()
             return
-
-        if text is None or len(text) <= 1:
+        except (FailedToUnderstandListenerError, NoInputListenerError) as e:
+            logging.error(f"Listener error: {e}")
             if not run_once:
                 self.start_conversation(run_once=run_once)
+            return
+
+        if text is None:
+            logging.error("Listener returned None")
             return
 
         if text.upper() == self._safe_word.upper():
@@ -53,15 +54,15 @@ class Conversation:
 
         self._responder.respond(response_text)
 
-        # If the response was cut short, let the user know they hit the max token limit
-        if response.was_cut_short:
-            self._responder.respond(
-                "I apologize, but I ran out of tokens to finish my response."
-            )
-
         if not run_once:
             logging.debug("Starting to listen again...")
             self.start_conversation(run_once=run_once)
+
+    def _send_response(self, response_text: str) -> None:
+        try:
+            self._responder.respond(response_text)
+        except RespondError as e:
+            logging.error(f"Error responding to user: {e}")
 
     def _cleanup_and_exit(self, exit_code=0):
         sys.exit(exit_code)

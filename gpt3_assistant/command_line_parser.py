@@ -1,7 +1,7 @@
 import argparse
 
-from gpt3_assistant.models.command_line_arguments import CommandLineArguments
 from gpt3_assistant.bases.options_parser import OptionsParser
+from gpt3_assistant.models.command_line_arguments import CommandLineArguments
 
 
 class CommandLineParser(OptionsParser):

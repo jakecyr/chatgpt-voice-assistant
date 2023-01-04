@@ -1,3 +1,6 @@
+import pytest
+
+from gpt3_assistant.exceptions.text_generation_error import TextGenerationError
 from gpt3_assistant.models.exchange import Exchange
 from gpt3_assistant.open_ai_text_generator import OpenAITextGenerator
 
@@ -16,6 +19,21 @@ def mock_create_completion_multiple_responses(**kwargs):
     return {"choices": MOCK_RESPONSES, "usage": {"total_tokens": kwargs["max_tokens"]}}
 
 
+def test_throws_error_if_key_is_none():
+    with pytest.raises(TextGenerationError):
+        OpenAITextGenerator(open_ai_key=None, max_tokens=100, previous_responses=[])
+
+
+def test_throws_error_if_key_is_empty():
+    with pytest.raises(TextGenerationError):
+        OpenAITextGenerator(open_ai_key="", max_tokens=100, previous_responses=[])
+
+
+def test_throws_error_if_key_is_not_a_string():
+    with pytest.raises(TextGenerationError):
+        OpenAITextGenerator(open_ai_key=True, max_tokens=100, previous_responses=[])
+
+
 def test_get_request_under_max_tokens_shows_all_previous():
     max_tokens = 150
     prompt = "Do you have something in mind?"
@@ -31,8 +49,6 @@ def test_get_request_under_max_tokens_shows_all_previous():
     request = open_ai_text_generator._get_request_under_max_tokens(prompt)
     expected_request = f"\nUser: Hey\nAssistant: Hey there\nUser: What's up\nAssistant: Not much\nUser: {prompt}\nAssistant: "
 
-    print(f"Request:\n{request}")
-    print(f"Expected:\n{expected_request}")
     assert request == expected_request, f"Expected different request"
 
 

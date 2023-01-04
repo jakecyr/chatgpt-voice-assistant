@@ -1,7 +1,7 @@
-from gpt3_assistant.bases.text_to_speech_client import TextToSpeechClient
-from gpt3_assistant.bases.text_generator import TextGenerator
 from gpt3_assistant.bases.listener import Listener
-from gpt3_assistant.models.input_device import InputDevice
+from gpt3_assistant.bases.options_parser import OptionsParser
+from gpt3_assistant.bases.text_generator import TextGenerator
+from gpt3_assistant.bases.text_to_speech_client import TextToSpeechClient
 from gpt3_assistant.clients.google_text_to_speech_client import GoogleTextToSpeechClient
 from gpt3_assistant.command_line_parser import CommandLineParser
 from gpt3_assistant.computer_voice_responder import ComputerVoiceResponder
@@ -12,9 +12,9 @@ from gpt3_assistant.helpers.set_keyboard_interrupt_handler import (
 )
 from gpt3_assistant.helpers.set_log_level import set_log_level
 from gpt3_assistant.input_devices import InputDevices
+from gpt3_assistant.models.input_device import InputDevice
 from gpt3_assistant.open_ai_text_generator import OpenAITextGenerator
 from gpt3_assistant.speech_listener import SpeechListener
-from gpt3_assistant.bases.options_parser import OptionsParser
 
 if __name__ == "__main__":
     options_parser: OptionsParser = CommandLineParser()
@@ -40,7 +40,9 @@ if __name__ == "__main__":
     text_generator: TextGenerator = OpenAITextGenerator(options.open_ai_key)
 
     # client to create speech from a given text
-    text_to_speech_client: TextToSpeechClient = GoogleTextToSpeechClient(options.lang, options.tld)
+    text_to_speech_client: TextToSpeechClient = GoogleTextToSpeechClient(
+        options.lang, options.tld
+    )
 
     # service to respond to the user the generated text
     responder = ComputerVoiceResponder(text_to_speech_client, "temp.mp3")

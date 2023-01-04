@@ -20,7 +20,9 @@ class InputDevices:
         :param str input_device_name: the optional device name from the user to look for.
         :return: the index of the input device to use.
         """
-        logging.debug(f"get_input_device_index called with: {input_device_name}")
+        logging.debug(
+            f"InputDevices.get_input_device_index called with: {input_device_name}"
+        )
 
         input_devices = InputDevices.get_list_of_input_devices()
 
@@ -49,7 +51,7 @@ class InputDevices:
         Get a list of the possible input devices for the current machine.
         :return: the list of input device objects for the current machine.
         """
-        logging.debug("get_list_of_input_devices called")
+        logging.debug("InputDevices.get_list_of_input_devices called")
 
         all_devices = []
         count_of_input_devices = InputDevices.pyaudio.get_device_count()
@@ -72,5 +74,5 @@ class InputDevices:
         return input_devices
 
     @staticmethod
-    def get_device_info_by_index(index) -> Mapping[str, int | str | float]:
+    def get_device_info_by_index(index: int) -> Mapping[str, int | str | float]:
         return InputDevices.pyaudio.get_device_info_by_index(index)

@@ -1,0 +1,2 @@
+class ListenerError(Exception):
+    pass
