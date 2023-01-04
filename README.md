@@ -81,12 +81,6 @@ python gpt3_assistant/main.py --open-ai-key=<OPENAI_KEY> --lang=en --tld=com
 
 See Localized 'accents' section on gTTS docs for more information
 
-## References
-
-[SpeechRecognition library docs](https://pypi.org/project/SpeechRecognition/1.2.3)
-
-[Google Translate Text-to-Speech API (gTTS)](https://gtts.readthedocs.io/en/latest/module.html#)
-
 ## Linting
 
 Sort all imports with:
@@ -117,3 +111,9 @@ View the coverage report:
 ```bash
 coverage report --fail-under=90 --include="gpt3_assistant/*"
 ```
+
+## References
+
+[SpeechRecognition library docs](https://pypi.org/project/SpeechRecognition/1.2.3)
+
+[Google Translate Text-to-Speech API (gTTS)](https://gtts.readthedocs.io/en/latest/module.html#)
