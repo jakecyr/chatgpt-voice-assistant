@@ -3,8 +3,8 @@ from abc import ABC, abstractmethod
 
 class Listener(ABC):
     @abstractmethod
-    def listen_for_speech(self):
+    def listen(self):
         """
-        Listen on the specified input device and return the text.
-        :return: the text heard.
+        Listen for user input and return it.
+        :return: the user input received.
         """

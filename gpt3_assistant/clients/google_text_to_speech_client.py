@@ -3,7 +3,7 @@ import os
 
 import gtts
 
-from gpt3_assistant.clients.text_to_speech_client import TextToSpeechClient
+from gpt3_assistant.bases.text_to_speech_client import TextToSpeechClient
 
 
 class GoogleTextToSpeechClient(TextToSpeechClient):
@@ -43,15 +43,17 @@ class GoogleTextToSpeechClient(TextToSpeechClient):
 
             return gtts_instance
         except AssertionError as e:
-            print(
+            logging.error(
                 f"Text to speak, '{text_to_speak}', can not be empty (before or after cleaning): {e}"
             )
             raise e
         except ValueError as e:
-            print(f"Specified lang, '{self._output_language}', is not supported: {e}")
+            logging.error(
+                f"Specified lang, '{self._output_language}', is not supported: {e}"
+            )
             raise e
         except RuntimeError as e:
-            print(
+            logging.error(
                 f"Unable to load language dictionaries for language '{self._output_language}': {e}"
             )
             raise e

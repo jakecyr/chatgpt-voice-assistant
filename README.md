@@ -109,19 +109,11 @@ Run `pytest` to run all unit tests.
 Get the coverage with:
 
 ```bash
-coverage run -m pytest
+coverage run -m pytest tests
 ```
 
 View the coverage report:
 
 ```bash
-coverage report
+coverage report --fail-under=90 --include="gpt3_assistant/*"
 ```
-
-
-## Class Diagram
-
-Download GraphViz with homebrew `brew install graphviz`.
-
-Then run `pyreverse -o png -A -my -p gpt3_assistant gpt3_assistant` to generate
-a class and package diagram.

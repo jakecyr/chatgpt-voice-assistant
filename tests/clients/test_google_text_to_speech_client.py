@@ -4,8 +4,8 @@ import os
 import gtts
 import pytest
 
+from gpt3_assistant.bases.text_to_speech_client import TextToSpeechClient
 from gpt3_assistant.clients.google_text_to_speech_client import GoogleTextToSpeechClient
-from gpt3_assistant.clients.text_to_speech_client import TextToSpeechClient
 
 
 def test_convert_text_to_mp3():
@@ -43,8 +43,8 @@ def test_get_gtts_default_language():
     text_to_speak = "This is a test"
     client = GoogleTextToSpeechClient(None, None)
     gtts_instance = client._get_gtts(text_to_speak)
-    assert gtts_instance.lang == 'en'
-    assert gtts_instance.tld == 'com'
+    assert gtts_instance.lang == "en"
+    assert gtts_instance.tld == "com"
 
 
 def test_get_lang_gtts_empty_text():
