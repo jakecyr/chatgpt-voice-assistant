@@ -5,6 +5,8 @@ from gpt3_assistant.models.command_line_arguments import CommandLineArguments
 
 
 class CommandLineParser(OptionsParser):
+    """Class to parse the command line arguments."""
+
     def parse(self) -> CommandLineArguments:
         """
         Parse the command line arguments and return an object with the values.

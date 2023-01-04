@@ -9,7 +9,7 @@ from gpt3_assistant.models.exchange import Exchange
 
 class OpenAITextGenerator(TextGenerator):
     def __init__(self, open_ai_key: str, **kwargs):
-        if not open_ai_key or type(open_ai_key) is not str:
+        if not open_ai_key or not isinstance(open_ai_key, str):
             raise TextGenerationError("Missing open_ai_key value parameter")
 
         self._open_ai_client = OpenAIClient(open_ai_key)

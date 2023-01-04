@@ -14,7 +14,9 @@ dependencies = [
   "coverage",
   "black",
   "pylint",
-  "isort"
+  "isort",
+  "mypy",
+  "types-pyaudio"
 ]
 description = "Package to speak with OpenAI's GPT-3 model"
 readme = "README.md"

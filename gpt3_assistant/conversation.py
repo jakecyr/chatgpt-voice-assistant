@@ -12,6 +12,8 @@ from gpt3_assistant.exceptions.no_input_listener_error import NoInputListenerErr
 
 
 class Conversation:
+    """Class to handle the conversation between the user and the computer."""
+
     def __init__(self, **kwargs):
         """
         Create a new Conversation instance.
@@ -33,7 +35,7 @@ class Conversation:
         :param run_once: if the method should run once or keep running.
         :return: None
         """
-        text: str = None
+        text: str | None = None
 
         try:
             text = self._listener.listen()
@@ -51,7 +53,8 @@ class Conversation:
             logging.error("Listener returned None")
             return
 
-        if text.upper() == self._safe_word.upper():
+        if text.upper() == self._safe_word:
+            logging.info("Safe word detected, exiting...")
             return self._cleanup_and_exit()
 
         response = self._text_generator.generate_text(text)
