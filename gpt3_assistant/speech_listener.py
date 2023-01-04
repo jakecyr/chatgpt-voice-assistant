@@ -25,7 +25,6 @@ class SpeechListener(Listener):
     def listen(self) -> str:
         """
         Listen on the specified input device for speech and return the heard text.
-        :keyword InputDevice input_device: the input device to listen on.
         :return: the text from the speech listened to.
         """
         # can change device_index to something other than 0 to change the input mic

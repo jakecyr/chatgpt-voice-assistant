@@ -8,11 +8,11 @@ from gpt3_assistant.exceptions.respond_error import RespondError
 
 
 class ComputerVoiceResponder(Responder):
-    def __init__(self, text_to_speech_client: TextToSpeechClient, mp3_filename):
+    def __init__(self, text_to_speech_client: TextToSpeechClient, mp3_filename: str):
         self._mp3_filename = mp3_filename
         self.text_to_speech_client: TextToSpeechClient = text_to_speech_client
 
-    def respond(self, text_to_speak: str):
+    def respond(self, text_to_speak: str) -> None:
         """
         Speak the referenced text on the machine speakers.
         :param text_to_speak: the text to speak.

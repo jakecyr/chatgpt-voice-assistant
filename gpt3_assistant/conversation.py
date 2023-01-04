@@ -9,11 +9,17 @@ from gpt3_assistant.exceptions.failed_to_understand_listener_error import (
 )
 from gpt3_assistant.exceptions.listener_fatal_error import ListenerFatalError
 from gpt3_assistant.exceptions.no_input_listener_error import NoInputListenerError
-from gpt3_assistant.exceptions.respond_error import RespondError
 
 
 class Conversation:
     def __init__(self, **kwargs):
+        """
+        Create a new Conversation instance.
+        :keyword Listener listener: the listen instance to use to get user input.
+        :keyword TextGenerator text_generator: the text generation instance.
+        :keyword Responder responder: the service to response to the input received.
+        :keyword str safe_word: optional safe word string that causes the program to exit on input.
+        """
         self._listener: Listener = kwargs["listener"]
         self._text_generator: TextGenerator = kwargs["text_generator"]
         self._responder: Responder = kwargs["responder"]
@@ -21,9 +27,10 @@ class Conversation:
         safe_word = kwargs.get("safe_word", None)
         self._safe_word = "EXIT" if safe_word is None else safe_word
 
-    def start_conversation(self, run_once=False):
+    def start_conversation(self, run_once=False) -> None:
         """
         Start a continuous conversation until the safe word or the application is exited.
+        :param run_once: if the method should run once or keep running.
         :return: None
         """
         text: str = None
@@ -58,11 +65,10 @@ class Conversation:
             logging.debug("Starting to listen again...")
             self.start_conversation(run_once=run_once)
 
-    def _send_response(self, response_text: str) -> None:
-        try:
-            self._responder.respond(response_text)
-        except RespondError as e:
-            logging.error(f"Error responding to user: {e}")
-
-    def _cleanup_and_exit(self, exit_code=0):
+    def _cleanup_and_exit(self, exit_code: int = 0) -> None:
+        """
+        Run cleanup (if needed) and end the application process.
+        :param exit_code: the exit code to end the process with.
+        :return: None
+        """
         sys.exit(exit_code)
