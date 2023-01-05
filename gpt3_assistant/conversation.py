@@ -26,8 +26,8 @@ class Conversation:
         self._text_generator: TextGenerator = kwargs["text_generator"]
         self._responder: Responder = kwargs["responder"]
 
-        safe_word = kwargs.get("safe_word", None)
-        self._safe_word = "EXIT" if safe_word is None else safe_word
+        safe_word: str | None = kwargs.get("safe_word", None)
+        self._safe_word: str = "EXIT" if safe_word is None else safe_word.upper()
 
     def start_conversation(self, run_once=False) -> None:
         """
@@ -52,6 +52,8 @@ class Conversation:
         if text is None:
             logging.error("Listener returned None")
             return
+
+        print(f"SAFE WORD: {self._safe_word}")
 
         if text.upper() == self._safe_word:
             logging.info("Safe word detected, exiting...")
