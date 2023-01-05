@@ -1,6 +1,3 @@
-import logging
-from sys import exit
-
 from gpt3_assistant.bases.text_generator import TextGenerator
 from gpt3_assistant.clients.open_ai_client import OpenAIClient
 from gpt3_assistant.exceptions.text_generation_error import TextGenerationError
@@ -8,6 +5,8 @@ from gpt3_assistant.models.exchange import Exchange
 
 
 class OpenAITextGenerator(TextGenerator):
+    """Text Generator using the OpenAI completion API"""
+
     def __init__(self, open_ai_key: str, **kwargs):
         if not open_ai_key or not isinstance(open_ai_key, str):
             raise TextGenerationError("Missing open_ai_key value parameter")
