@@ -3,6 +3,7 @@ import logging
 import openai
 
 from gpt3_assistant.models.exchange import Exchange
+from gpt3_assistant.exceptions.text_generation_error import TextGenerationError
 
 
 # Client to interact with the OpenAI API
@@ -12,7 +13,7 @@ class OpenAIClient:
         openai.api_key = api_key
 
     def get_completion(
-        self, prompt, model="text-davinci-003", max_tokens=200, temperature=0.7
+            self, prompt, model="text-davinci-003", max_tokens=200, temperature=0.7
     ) -> Exchange:
         """
         Get a completion (response) from the specified OpenAI GPT-3 model.
@@ -32,9 +33,9 @@ class OpenAIClient:
         was_cut_short = False
 
         if len(choices) == 0:
-            raise Exception(f"No choices returned from Open AI for prompt: {prompt}")
+            raise TextGenerationError(f"No choices returned from Open AI for prompt: {prompt}")
 
-        first_choice = completion["choices"][0]
+        first_choice = choices[0]
 
         if first_choice["finish_reason"] == "length":
             logging.warning(
