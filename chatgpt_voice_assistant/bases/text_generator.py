@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from gpt3_assistant.models.exchange import Exchange
+from chatgpt_voice_assistant.models.exchange import Exchange
 
 
 class TextGenerator(ABC):

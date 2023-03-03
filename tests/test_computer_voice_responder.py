@@ -4,8 +4,9 @@ import pytest
 from mock import MagicMock, mock
 from pytest import fixture
 
-from gpt3_assistant.computer_voice_responder import ComputerVoiceResponder
-from gpt3_assistant.exceptions.respond_error import RespondError
+from chatgpt_voice_assistant.computer_voice_responder import \
+    ComputerVoiceResponder
+from chatgpt_voice_assistant.exceptions.respond_error import RespondError
 
 TEMP_FILE_NAME = "temp.mp3"
 FULL_MP3_PATH = os.path.join(os.getcwd(), TEMP_FILE_NAME)

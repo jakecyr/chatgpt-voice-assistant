@@ -3,6 +3,7 @@ from typing import TypedDict
 
 class PyAudioDeviceInfo(TypedDict):
     """PyAudio device info object type definition."""
+
     index: int
     structVersion: str
     name: str

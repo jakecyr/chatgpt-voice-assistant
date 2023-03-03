@@ -1,8 +1,9 @@
 import mock
 from pytest import fixture, raises
 
-from gpt3_assistant.clients.open_ai_client import OpenAIClient
-from gpt3_assistant.exceptions.text_generation_error import TextGenerationError
+from chatgpt_voice_assistant.clients.open_ai_client import OpenAIClient
+from chatgpt_voice_assistant.exceptions.text_generation_error import \
+    TextGenerationError
 
 OPEN_AI_KEY = "fake-key"
 MOCK_RESPONSES = [
@@ -27,7 +28,7 @@ def mock_create_completion_multiple_responses(**kwargs):
 def mock_create_completion_stop_due_to_length(**kwargs):
     return {
         "choices": [{"finish_reason": "length", "text": "hey there"}],
-        "usage": {"total_tokens": kwargs["max_tokens"]}
+        "usage": {"total_tokens": kwargs["max_tokens"]},
     }
 
 

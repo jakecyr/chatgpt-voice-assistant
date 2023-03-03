@@ -1,7 +1,8 @@
 import argparse
 
-from gpt3_assistant.bases.options_parser import OptionsParser
-from gpt3_assistant.models.command_line_arguments import CommandLineArguments
+from chatgpt_voice_assistant.bases.options_parser import OptionsParser
+from chatgpt_voice_assistant.models.command_line_arguments import \
+    CommandLineArguments
 
 
 class CommandLineParser(OptionsParser):
@@ -41,4 +42,14 @@ class CommandLineParser(OptionsParser):
             "--open-ai-key", help="Open AI Secret Key", required=True, type=str
         )
 
-        return parser.parse_args()
+        parsed_args = parser.parse_args()
+
+        return CommandLineArguments(
+            log_level=parsed_args.log_level,
+            input_device_name=parsed_args.input_device_name,
+            lang=parsed_args.lang,
+            tld=parsed_args.tld,
+            open_ai_key=parsed_args.open_ai_key,
+            safe_word=parsed_args.safe_word,
+            max_tokens=parsed_args.max_tokens,
+        )

@@ -1,8 +1,9 @@
 import pytest
 
-from gpt3_assistant.exceptions.text_generation_error import TextGenerationError
-from gpt3_assistant.models.exchange import Exchange
-from gpt3_assistant.open_ai_text_generator import OpenAITextGenerator
+from chatgpt_voice_assistant.exceptions.text_generation_error import \
+    TextGenerationError
+from chatgpt_voice_assistant.models.exchange import Exchange
+from chatgpt_voice_assistant.open_ai_text_generator import OpenAITextGenerator
 
 OPEN_AI_KEY = "fake-key"
 MOCK_RESPONSES = [

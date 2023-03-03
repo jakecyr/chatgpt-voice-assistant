@@ -1,6 +1,6 @@
 import pytest
 
-from gpt3_assistant.models.exchange import Exchange
+from chatgpt_voice_assistant.models.exchange import Exchange
 
 
 def test_basic_methods():

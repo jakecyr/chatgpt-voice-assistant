@@ -1,23 +1,21 @@
 import logging
 
-from speech_recognition import (
-    AudioData,
-    Microphone,
-    Recognizer,
-    RequestError,
-    UnknownValueError,
-)
+from speech_recognition import (AudioData, Microphone, Recognizer,
+                                RequestError, UnknownValueError)
 
-from gpt3_assistant.bases.listener import Listener
-from gpt3_assistant.exceptions.failed_to_understand_listener_error import (
-    FailedToUnderstandListenerError,
-)
-from gpt3_assistant.exceptions.listener_fatal_error import ListenerFatalError
-from gpt3_assistant.exceptions.no_input_listener_error import NoInputListenerError
-from gpt3_assistant.models.input_device import InputDevice
+from chatgpt_voice_assistant.bases.listener import Listener
+from chatgpt_voice_assistant.exceptions.failed_to_understand_listener_error import \
+    FailedToUnderstandListenerError
+from chatgpt_voice_assistant.exceptions.listener_fatal_error import \
+    ListenerFatalError
+from chatgpt_voice_assistant.exceptions.no_input_listener_error import \
+    NoInputListenerError
+from chatgpt_voice_assistant.models.input_device import InputDevice
 
 
 class SpeechListener(Listener):
+    """Class to listen to speech convert it to text"""
+
     def __init__(self, input_device: InputDevice):
         self._recognizer = Recognizer()
         self._input_device = input_device
@@ -35,9 +33,9 @@ class SpeechListener(Listener):
 
         return self._recognize_text_in_audio(audio)
 
-    def _recognize_text_in_audio(self, audio) -> str:
+    def _recognize_text_in_audio(self, audio: AudioData) -> str:
         try:
-            text = self._recognizer.recognize_google(
+            text: str = self._recognizer.recognize_google(
                 audio, show_all=False, with_confidence=False
             )
 
@@ -45,11 +43,11 @@ class SpeechListener(Listener):
                 raise NoInputListenerError("No speech detected in audio")
 
             return text
-        except UnknownValueError:
+        except UnknownValueError as unknown_value:
             raise FailedToUnderstandListenerError(
                 "Google Speech Recognition could not understand audio"
-            )
+            ) from unknown_value
         except RequestError as e:
             raise ListenerFatalError(
                 f"Could not request results from Google Speech Recognition service: {e}"
-            )
+            ) from e

@@ -1,8 +1,11 @@
 import logging
-from pyaudio import PyAudio
-from gpt3_assistant.models.input_device import InputDevice
 from typing import cast
-from gpt3_assistant.models.pyaudio_device_info import PyAudioDeviceInfo
+
+from pyaudio import PyAudio
+
+from chatgpt_voice_assistant.models.input_device import InputDevice
+from chatgpt_voice_assistant.models.pyaudio_device_info import \
+    PyAudioDeviceInfo
 
 
 class InputDevices:
@@ -24,7 +27,10 @@ class InputDevices:
         count_of_input_devices = InputDevices.py_audio.get_device_count()
 
         for device_index in range(0, count_of_input_devices):
-            device_info: PyAudioDeviceInfo = cast(PyAudioDeviceInfo, InputDevices.py_audio.get_device_info_by_index(device_index))
+            device_info: PyAudioDeviceInfo = cast(
+                PyAudioDeviceInfo,
+                InputDevices.py_audio.get_device_info_by_index(device_index),
+            )
             all_devices.append(device_info)
 
         # filter out non-input devices (ex. speakers)

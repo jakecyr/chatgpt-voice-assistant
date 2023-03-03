@@ -1,6 +1,6 @@
 import logging
 
-from gpt3_assistant.models.input_device import InputDevice
+from chatgpt_voice_assistant.models.input_device import InputDevice
 
 
 def ask_user_which_input_device_to_use(input_devices: list[InputDevice]) -> InputDevice:

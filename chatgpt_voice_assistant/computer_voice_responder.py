@@ -2,9 +2,10 @@ import logging
 import os
 import subprocess
 
-from gpt3_assistant.bases.responder import Responder
-from gpt3_assistant.bases.text_to_speech_client import TextToSpeechClient
-from gpt3_assistant.exceptions.respond_error import RespondError
+from chatgpt_voice_assistant.bases.responder import Responder
+from chatgpt_voice_assistant.bases.text_to_speech_client import \
+    TextToSpeechClient
+from chatgpt_voice_assistant.exceptions.respond_error import RespondError
 
 
 class ComputerVoiceResponder(Responder):

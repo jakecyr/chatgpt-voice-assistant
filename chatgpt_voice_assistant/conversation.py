@@ -1,41 +1,49 @@
 import logging
 import sys
+from typing import Optional
 
-from gpt3_assistant.bases.listener import Listener
-from gpt3_assistant.bases.responder import Responder
-from gpt3_assistant.bases.text_generator import TextGenerator
-from gpt3_assistant.exceptions.failed_to_understand_listener_error import (
-    FailedToUnderstandListenerError,
-)
-from gpt3_assistant.exceptions.listener_fatal_error import ListenerFatalError
-from gpt3_assistant.exceptions.no_input_listener_error import NoInputListenerError
+from chatgpt_voice_assistant.bases.listener import Listener
+from chatgpt_voice_assistant.bases.responder import Responder
+from chatgpt_voice_assistant.bases.text_generator import TextGenerator
+from chatgpt_voice_assistant.exceptions.failed_to_understand_listener_error import \
+    FailedToUnderstandListenerError
+from chatgpt_voice_assistant.exceptions.listener_fatal_error import \
+    ListenerFatalError
+from chatgpt_voice_assistant.exceptions.no_input_listener_error import \
+    NoInputListenerError
 
 
 class Conversation:
     """Class to handle the conversation between the user and the computer."""
 
-    def __init__(self, **kwargs):
+    def __init__(
+        self,
+        listener: Listener,
+        text_generator: TextGenerator,
+        responder: Responder,
+        safe_word: Optional[str] = None,
+    ):
         """
         Create a new Conversation instance.
-        :keyword Listener listener: the listen instance to use to get user input.
-        :keyword TextGenerator text_generator: the text generation instance.
-        :keyword Responder responder: the service to response to the input received.
-        :keyword str safe_word: optional safe word string that causes the program to exit on input.
-        """
-        self._listener: Listener = kwargs["listener"]
-        self._text_generator: TextGenerator = kwargs["text_generator"]
-        self._responder: Responder = kwargs["responder"]
 
-        safe_word: str | None = kwargs.get("safe_word", None)
+        Args:
+            listener: the listen instance to use to get user input.
+            text_generator: the text generation instance.
+            responder: the service to response to the input received.
+            safe_word: optional safe word string that causes the program to exit on input.
+        """
+        self._listener: Listener = listener
+        self._text_generator: TextGenerator = text_generator
+        self._responder: Responder = responder
         self._safe_word: str = "EXIT" if safe_word is None else safe_word.upper()
 
-    def start_conversation(self, run_once=False) -> None:
+    def start_conversation(self, run_once: bool = False) -> None:
         """
         Start a continuous conversation until the safe word or the application is exited.
         :param run_once: if the method should run once or keep running.
         :return: None
         """
-        text: str | None = None
+        text: Optional[str] = None
 
         try:
             text = self._listener.listen()

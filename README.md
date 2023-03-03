@@ -1,10 +1,8 @@
-# OpenAI GPT-3 Chatbot
+# ChatGPT Voice Assistant
 
 ![GitHub Actions Build Status](https://github.com/jakecyr/openai-gpt3-chatbot/actions/workflows/test-application.yml/badge.svg)
 
-
-A simple interface to the OpenAI GPT-3 models with speech
-to text for input and text to speech for the output from OpenAI.
+A simple interface to the OpenAI ChatGPT model with speech to text for input and text to speech for the output.
 
 ## Setup
 
@@ -29,7 +27,7 @@ brew link portaudio
 brew --prefix portaudio
 ```
 
-Run
+Run:
 
 ```bash
 sudo vi $HOME/.pydistutils.cfg
@@ -43,74 +41,49 @@ include_dirs=<PATH FROM STEP 3>/include/
 library_dirs=<PATH FROM STEP 3>/lib/
 ```
 
-Finally, run the following to install all required Python packages:
+Finally, run the following to install all required Python packages and the chatgpt_voice_assistant package in editable mode:
 
 ```bash
 pip install -e .
 ```
 
+To install the bash command `chatgpt-assist`, run `pip install .`.
+
 ## Running the Script
 
 ```bash
-python gpt3_assistant/main.py --log-level=INFO --open-ai-key=<OPEN API SECRET KEY HERE>
+# explicitly
+python chatgpt_voice_assistant/main.py --log-level=INFO --open-ai-key=<OPEN API SECRET KEY HERE>
+
+# with the installed bash command
+chatgpt-assist --log-level=INFO --open-ai-key=<OPEN API SECRET KEY HERE>
 ```
 
 Start speaking and turn up your volume to hear the AI
 assistant respond.
 
-Say the word "exit" to stop the application.
+Say the word "exit" or hit Ctrl+C in your terminal to stop the application.
 
 ### Optional: Specifying an Output Language Accent
 
 Specify both the `LANGUAGE` and `TOP_LEVEL_DOMAIN` vars to override the default English (United States)
 
 ```bash
-python gpt3_assistant/main.py --open-ai-key=<OPENAI_KEY> --lang=en --tld=com
+python chatgpt_voice_assistant/main.py --open-ai-key=<OPENAI_KEY> --lang=en --tld=com
 ```
 
 #### Language Examples
 
-* English (United States) *DEFAULT*
-    * `LANGUAGE=en TOP_LEVEL_DOMAIN=com`
-* English (Australia)
-    * `LANGUAGE=en TOP_LEVEL_DOMAIN=com.au`
-* English (India)
-    * `LANGUAGE=en TOP_LEVEL_DOMAIN=co.in`
-* French (France)
-    * `LANGUAGE=fr TOP_LEVEL_DOMAIN=fr`
+- English (United States) _DEFAULT_
+  - `LANGUAGE=en TOP_LEVEL_DOMAIN=com`
+- English (Australia)
+  - `LANGUAGE=en TOP_LEVEL_DOMAIN=com.au`
+- English (India)
+  - `LANGUAGE=en TOP_LEVEL_DOMAIN=co.in`
+- French (France)
+  - `LANGUAGE=fr TOP_LEVEL_DOMAIN=fr`
 
 See Localized 'accents' section on gTTS docs for more information
-
-## Linting
-
-Sort all imports with:
-
-```bash
-isort --multi-line 3 --profile black --python-version 38 gpt3_assistant
-```
-
-Run `black gpt3_assistant` to automatically reformat all source files
-based on the default configuration.
-
-## Testing
-
-### Unit Tests
-
-Run `pytest` to run all unit tests.
-
-### Coverage Report
-
-Get the coverage with:
-
-```bash
-coverage run -m pytest tests
-```
-
-View the coverage report:
-
-```bash
-coverage report --fail-under=90 --include="gpt3_assistant/*"
-```
 
 ## References
 

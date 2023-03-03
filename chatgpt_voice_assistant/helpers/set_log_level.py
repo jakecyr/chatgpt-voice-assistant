@@ -1,7 +1,8 @@
 import logging
+from typing import Optional
 
 
-def set_log_level(log_level: str | None = None) -> None:
+def set_log_level(log_level: Optional[str] = None) -> None:
     log_level = "INFO" if log_level is None else log_level
 
     # set log level

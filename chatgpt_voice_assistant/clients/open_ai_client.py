@@ -2,8 +2,9 @@ import logging
 
 import openai
 
-from gpt3_assistant.models.exchange import Exchange
-from gpt3_assistant.exceptions.text_generation_error import TextGenerationError
+from chatgpt_voice_assistant.exceptions.text_generation_error import \
+    TextGenerationError
+from chatgpt_voice_assistant.models.exchange import Exchange
 
 
 # Client to interact with the OpenAI API
@@ -13,16 +14,20 @@ class OpenAIClient:
         openai.api_key = api_key
 
     def get_completion(
-            self, prompt, model="text-davinci-003", max_tokens=200, temperature=0.7
+        self, prompt, model="gpt-3.5-turbo", max_tokens=200, temperature=0.7
     ) -> Exchange:
         """
-        Get a completion (response) from the specified OpenAI GPT-3 model.
-        Reference: https://beta.openai.com/docs/api-reference/completions
+        Get a chat completion (response) from the specified OpenAI GPT-3 model.
+        Reference: https://platform.openai.com/docs/api-reference/chat/create
 
-        :param str prompt:       the prompt to send to the model for completion.
-        :param str model:        optionally specify the model to use.
-        :param int max_tokens:   the max number of tokens to use including the prompt and response.
-        :param int temperature:  the temperature for the model to use.
+        Args:
+            prompt:       the prompt to send to the model for completion.
+            model:        optionally specify the model to use.
+            max_tokens:   the max number of tokens to use including the prompt and response.
+            temperature:  the temperature for the model to use.
+
+        Returns:
+            the exchange between the user and the model
         """
         completion = openai.Completion.create(
             model=model, prompt=prompt, max_tokens=max_tokens, temperature=temperature
@@ -33,7 +38,9 @@ class OpenAIClient:
         was_cut_short = False
 
         if len(choices) == 0:
-            raise TextGenerationError(f"No choices returned from Open AI for prompt: {prompt}")
+            raise TextGenerationError(
+                f"No choices returned from Open AI for prompt: {prompt}"
+            )
 
         first_choice = choices[0]
 
