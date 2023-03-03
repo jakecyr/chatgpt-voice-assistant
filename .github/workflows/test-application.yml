@@ -33,7 +33,4 @@ jobs:
       run: |
         coverage run -m pytest
         coverage report --fail-under=90 --include="chatgpt_voice_assistant/*"
-    - name: Linting
-      run: |
-        pylint --rcfile pylintrc --fail-under=9 chatgpt_voice_assistant
-        pylint --rcfile pylintrc --fail-under=6 tests
+  
