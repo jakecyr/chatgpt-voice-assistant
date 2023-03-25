@@ -10,4 +10,5 @@ class CommandLineArguments(NamedTuple):
     tld: str
     open_ai_key: str
     safe_word: str
+    wake_word: str
     max_tokens: int

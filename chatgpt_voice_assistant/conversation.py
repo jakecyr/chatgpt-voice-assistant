@@ -5,12 +5,13 @@ from typing import Optional
 from chatgpt_voice_assistant.bases.listener import Listener
 from chatgpt_voice_assistant.bases.responder import Responder
 from chatgpt_voice_assistant.bases.text_generator import TextGenerator
-from chatgpt_voice_assistant.exceptions.failed_to_understand_listener_error import \
-    FailedToUnderstandListenerError
-from chatgpt_voice_assistant.exceptions.listener_fatal_error import \
-    ListenerFatalError
-from chatgpt_voice_assistant.exceptions.no_input_listener_error import \
-    NoInputListenerError
+from chatgpt_voice_assistant.exceptions.failed_to_understand_listener_error import (
+    FailedToUnderstandListenerError,
+)
+from chatgpt_voice_assistant.exceptions.listener_fatal_error import ListenerFatalError
+from chatgpt_voice_assistant.exceptions.no_input_listener_error import (
+    NoInputListenerError,
+)
 
 
 class Conversation:
@@ -22,6 +23,7 @@ class Conversation:
         text_generator: TextGenerator,
         responder: Responder,
         safe_word: Optional[str] = None,
+        wake_word: Optional[str] = None,
     ):
         """
         Create a new Conversation instance.
@@ -31,11 +33,13 @@ class Conversation:
             text_generator: the text generation instance.
             responder: the service to response to the input received.
             safe_word: optional safe word string that causes the program to exit on input.
+            wake_word: optional wake word that will trigger the program to respond.
         """
         self._listener: Listener = listener
         self._text_generator: TextGenerator = text_generator
         self._responder: Responder = responder
         self._safe_word: str = "EXIT" if safe_word is None else safe_word.upper()
+        self._wake_word: Optional[str] = wake_word.upper() if wake_word else None
 
     def start_conversation(self, run_once: bool = False) -> None:
         """
@@ -61,7 +65,16 @@ class Conversation:
             logging.error("Listener returned None")
             return
 
-        print(f"SAFE WORD: {self._safe_word}")
+        if self._wake_word is not None:
+            if not text.upper().startswith(self._wake_word):
+                logging.info(
+                    f"Speech recognized, but wake word '{self._wake_word}' not heard."
+                )
+
+                logging.debug("Starting to listen again...")
+                return self.start_conversation(run_once=run_once)
+
+            text = text[len(self._wake_word) :].strip()
 
         if text.upper() == self._safe_word:
             logging.info("Safe word detected, exiting...")
