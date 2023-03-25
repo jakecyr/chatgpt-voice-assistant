@@ -1,8 +1,7 @@
 import argparse
 
 from chatgpt_voice_assistant.bases.options_parser import OptionsParser
-from chatgpt_voice_assistant.models.command_line_arguments import \
-    CommandLineArguments
+from chatgpt_voice_assistant.models.command_line_arguments import CommandLineArguments
 
 
 class CommandLineParser(OptionsParser):
@@ -39,6 +38,12 @@ class CommandLineParser(OptionsParser):
             type=str,
         )
         parser.add_argument(
+            "--wake-word",
+            help="Word to trigger a response",
+            default=None,
+            type=str,
+        )
+        parser.add_argument(
             "--open-ai-key", help="Open AI Secret Key", required=True, type=str
         )
 
@@ -51,5 +56,6 @@ class CommandLineParser(OptionsParser):
             tld=parsed_args.tld,
             open_ai_key=parsed_args.open_ai_key,
             safe_word=parsed_args.safe_word,
+            wake_word=parsed_args.wake_word,
             max_tokens=parsed_args.max_tokens,
         )

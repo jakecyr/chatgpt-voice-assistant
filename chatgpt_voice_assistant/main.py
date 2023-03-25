@@ -59,6 +59,7 @@ def main() -> None:
         text_generator=text_generator,
         responder=responder,
         safe_word=options.safe_word,
+        wake_word=options.wake_word,
     )
 
     conversation.start_conversation()

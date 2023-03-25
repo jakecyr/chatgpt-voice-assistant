@@ -2,8 +2,7 @@ import pytest
 from mock import MagicMock, mock, patch
 
 from chatgpt_voice_assistant.command_line_parser import CommandLineParser
-from chatgpt_voice_assistant.models.command_line_arguments import \
-    CommandLineArguments
+from chatgpt_voice_assistant.models.command_line_arguments import CommandLineArguments
 
 
 @patch("argparse.ArgumentParser.parse_args")
@@ -23,6 +22,7 @@ def test_parse_returns_command_line_arguments_object(mock_arg_parser):
         tld="tld",
         open_ai_key="fake-key",
         safe_word="stop",
+        wake_word="robot",
         max_tokens=100,
     ),
 )
