@@ -3,18 +3,9 @@
 ![GitHub Actions Build Status](https://github.com/jakecyr/openai-gpt3-chatbot/actions/workflows/test-application.yml/badge.svg)
 
 A simple interface to the OpenAI ChatGPT model with speech to text for input and text to speech for the output.
+chatgpt-voice-assistant uses Google Translate's text-to-speech free API for audio input and output (not OpenAI Whisper).
 
 ## Setup
-
-Optionally create a new Python environment and active it:
-
-```bash
-# create a new environment in the current directory called env
-python3 -m venv env
-
-# activate the environment
-source env/bin/activate
-```
 
 Install dependencies:
 
@@ -22,23 +13,24 @@ Install dependencies:
 # Mac OSX
 brew install portaudio
 brew link portaudio
-
-# save the output of this command
-brew --prefix portaudio
 ```
 
 Run:
 
 ```bash
-sudo vi $HOME/.pydistutils.cfg
+echo "[build_ext]" >> $HOME/.pydistutils.cfg
+echo "include_dirs="`brew --prefix portaudio`"/include/" >> $HOME/.pydistutils.cfg
+echo "library_dirs="`brew --prefix portaudio`"/lib/" >> $HOME/.pydistutils.cfg
 ```
 
-and paste the following text replacing the values with the output saved from above:
+Optionally create a new Python environment and activate it:
 
-```text
-[build_ext]
-include_dirs=<PATH FROM STEP 3>/include/
-library_dirs=<PATH FROM STEP 3>/lib/
+```bash
+# create a new environment in the current directory called env
+python3 -m venv env
+
+# activate the environment
+source env/bin/activate
 ```
 
 Finally, run the following to install all required Python packages and the chatgpt_voice_assistant package in editable mode:
@@ -54,13 +46,14 @@ To install the bash command `chatgpt-assist`, run `pip install .`.
 ```bash
 # explicitly
 python chatgpt_voice_assistant/main.py --log-level=INFO --open-ai-key=<OPEN API SECRET KEY HERE>
+```
 
+```bash
 # with the installed bash command
 chatgpt-assist --log-level=INFO --open-ai-key=<OPEN API SECRET KEY HERE>
 ```
 
-Start speaking and turn up your volume to hear the AI
-assistant respond.
+Start speaking and turn up your volume to hear the AI assistant respond.
 
 Say the word "exit" or hit Ctrl+C in your terminal to stop the application.
 
