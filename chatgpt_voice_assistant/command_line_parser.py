@@ -1,4 +1,5 @@
 import argparse
+import os
 
 from chatgpt_voice_assistant.bases.options_parser import OptionsParser
 from chatgpt_voice_assistant.models.command_line_arguments import CommandLineArguments
@@ -16,7 +17,7 @@ class CommandLineParser(OptionsParser):
 
         parser.add_argument(
             "--log-level",
-            help="If to print at the debug level or not.",
+            help="Whether to print at the debug level or not.",
             default="INFO",
             type=str,
         )
@@ -44,7 +45,9 @@ class CommandLineParser(OptionsParser):
             type=str,
         )
         parser.add_argument(
-            "--open-ai-key", help="Open AI Secret Key", required=True, type=str
+            "--open-ai-key", help="Required. Open AI Secret Key (or set OPENAI_API_KEY enviroment variable)",
+            default=os.environ.get("OPENAI_API_KEY"),
+            type=str
         )
         parser.add_argument(
             "--speech-rate", help="The rate at which to play speech. 1.0=normal",
@@ -53,6 +56,9 @@ class CommandLineParser(OptionsParser):
         )
 
         parsed_args = parser.parse_args()
+
+        if parsed_args.open_ai_key is None:
+            parser.error("Open AI Secret Key not specified and OPENAI_API_KEY not set in environment")
 
         return CommandLineArguments(
             input_device_name=parsed_args.input_device_name,
