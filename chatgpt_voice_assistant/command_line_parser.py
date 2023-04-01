@@ -47,6 +47,10 @@ class CommandLineParser(OptionsParser):
             "--open-ai-key", help="Open AI Secret Key", required=True, type=str
         )
         parser.add_argument(
+            '--tts', choices=['apple', 'google'], default='google',
+            help="Choose a text-to-speech engine ('apple' (say) or 'google' (gtts), defaults to 'google')"
+        )
+        parser.add_argument(
             "--speech-rate", help="The rate at which to play speech. 1.0=normal",
             default=1.0,
             type=float
@@ -63,5 +67,6 @@ class CommandLineParser(OptionsParser):
             safe_word=parsed_args.safe_word,
             speech_rate=parsed_args.speech_rate,
             tld=parsed_args.tld,
+            tts=parsed_args.tts,
             wake_word=parsed_args.wake_word,
         )
