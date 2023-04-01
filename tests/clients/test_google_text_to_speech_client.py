@@ -4,18 +4,18 @@ import os
 import gtts
 import pytest
 
-from chatgpt_voice_assistant.bases.text_to_speech_client import \
-    TextToSpeechClient
-from chatgpt_voice_assistant.clients.google_text_to_speech_client import \
-    GoogleTextToSpeechClient
+from chatgpt_voice_assistant.bases.text_to_speech_client import TextToSpeechClient
+from chatgpt_voice_assistant.clients.google_text_to_speech_client import (
+    GoogleTextToSpeechClient,
+)
 
 
-def test_convert_text_to_mp3():
-    # Test that the convert_text_to_mp3 method creates a valid MP3 file
+def test_convert_text_to_audio():
+    # Test that the convert_text_to_audio method creates a valid MP3 file
     text_to_speak = "This is a test"
     mp3_file_path = "test.mp3"
     client: TextToSpeechClient = GoogleTextToSpeechClient("en", "com")
-    client.convert_text_to_mp3(text_to_speak, mp3_file_path)
+    client.convert_text_to_audio(text_to_speak, mp3_file_path)
 
     # Check that the file was created and is a valid MP3 file
     assert os.path.exists(mp3_file_path)
@@ -73,41 +73,41 @@ def test_get_lang_gtts_missing_dictionaries():
         client._get_lang_gtts(text_to_speak)
 
 
-def test_convert_text_to_mp3_file_exists():
-    # Test that the convert_text_to_mp3 method raises an error if the output file already exists
+def test_convert_text_to_audio_file_exists():
+    # Test that the convert_text_to_audio method raises an error if the output file already exists
     text_to_speak = "This is a test"
     mp3_file_path = "test.mp3"
     client = GoogleTextToSpeechClient("en", "com")
-    client.convert_text_to_mp3(text_to_speak, mp3_file_path)
+    client.convert_text_to_audio(text_to_speak, mp3_file_path)
 
     with pytest.raises(FileExistsError):
-        client.convert_text_to_mp3(text_to_speak, mp3_file_path)
+        client.convert_text_to_audio(text_to_speak, mp3_file_path)
 
     os.remove(mp3_file_path)
 
 
-def test_convert_text_to_mp3_invalid_file_path():
-    # Test that the convert_text_to_mp3 method raises an error if the output file path is invalid
+def test_convert_text_to_audio_invalid_file_path():
+    # Test that the convert_text_to_audio method raises an error if the output file path is invalid
     text_to_speak = "This is a test"
     mp3_file_path = "invalid/path/test.mp3"
     client = GoogleTextToSpeechClient("en", "com")
     with pytest.raises(FileNotFoundError):
-        client.convert_text_to_mp3(text_to_speak, mp3_file_path)
+        client.convert_text_to_audio(text_to_speak, mp3_file_path)
 
 
-def test_convert_text_to_mp3_special_characters():
-    # Test that the convert_text_to_mp3 method correctly handles special characters in the input text
+def test_convert_text_to_audio_special_characters():
+    # Test that the convert_text_to_audio method correctly handles special characters in the input text
     text_to_speak = "This is a test with special characters: !@#$%^&*()"
     mp3_file_path = "test.mp3"
     client = GoogleTextToSpeechClient("en", "com")
-    client.convert_text_to_mp3(text_to_speak, mp3_file_path)
+    client.convert_text_to_audio(text_to_speak, mp3_file_path)
     os.remove(mp3_file_path)
 
 
-def test_convert_text_to_mp3_non_latin_scripts():
-    # Test that the convert_text_to_mp3 method correctly handles non-Latin scripts in the input text
+def test_convert_text_to_audio_non_latin_scripts():
+    # Test that the convert_text_to_audio method correctly handles non-Latin scripts in the input text
     text_to_speak = "これはテストです"  # Japanese
     mp3_file_path = "test.mp3"
     client = GoogleTextToSpeechClient("ja", "jp")
-    client.convert_text_to_mp3(text_to_speak, mp3_file_path)
+    client.convert_text_to_audio(text_to_speak, mp3_file_path)
     os.remove(mp3_file_path)
