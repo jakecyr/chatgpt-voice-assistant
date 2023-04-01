@@ -22,5 +22,5 @@ coverage run --source chatgpt_voice_assistant -m pytest tests
 View the coverage report:
 
 ```bash
-coverage report --fail-under=90
+coverage report --show-missing --fail-under=90
 ```

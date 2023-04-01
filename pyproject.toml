@@ -9,10 +9,10 @@ authors = [
   { name="Jake Cyr", email="cyrjake@gmail.com" },
 ]
 dependencies = [
-  "openai",
-  "SpeechRecognition",
-  "pyaudio",
-  "gtts",
+  "openai >= 0.27.2, < 0.28",
+  "SpeechRecognition >= 3.9.0, < 4.0",
+  "pyaudio >= 0.2.13, < 0.3",
+  "gtts >= 2.3.1, < 2.4",
 ]
 description = "Package to speak with OpenAI's GPT-3 model"
 readme = "README.md"
