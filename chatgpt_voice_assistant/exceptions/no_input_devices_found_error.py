@@ -1,0 +1,2 @@
+class NoInputDevicesFoundError(BaseException):
+    pass

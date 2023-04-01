@@ -1,2 +1,2 @@
-class ListenerError(Exception):
+class ListenerError(BaseException):
     pass

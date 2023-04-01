@@ -7,6 +7,8 @@ chatgpt-voice-assistant uses Google Translate's text-to-speech free API for audi
 
 ## Setup
 
+### Mac Prerequisites
+
 Install dependencies:
 
 ```bash
@@ -22,6 +24,8 @@ echo "[build_ext]" >> $HOME/.pydistutils.cfg
 echo "include_dirs="`brew --prefix portaudio`"/include/" >> $HOME/.pydistutils.cfg
 echo "library_dirs="`brew --prefix portaudio`"/lib/" >> $HOME/.pydistutils.cfg
 ```
+
+### General Setup
 
 Optionally create a new Python environment and activate it:
 

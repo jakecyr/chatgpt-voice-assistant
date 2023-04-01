@@ -5,6 +5,9 @@ from chatgpt_voice_assistant.bases.options_parser import OptionsParser
 from chatgpt_voice_assistant.models.command_line_arguments import CommandLineArguments
 
 
+OPENAI_KEY_ENV_VAR_NAME = "OPENAI_API_KEY"
+
+
 class CommandLineParser(OptionsParser):
     """Class to parse the command line arguments."""
 
@@ -46,8 +49,8 @@ class CommandLineParser(OptionsParser):
         )
         parser.add_argument(
             "--open-ai-key",
-            help="Required. Open AI Secret Key (or set OPENAI_API_KEY enviroment variable)",
-            default=os.environ.get("OPENAI_API_KEY"),
+            help=f"Required. Open AI Secret Key (or set {OPENAI_KEY_ENV_VAR_NAME} environment variable)",
+            default=os.environ.get(OPENAI_KEY_ENV_VAR_NAME),
             type=str,
         )
         parser.add_argument(

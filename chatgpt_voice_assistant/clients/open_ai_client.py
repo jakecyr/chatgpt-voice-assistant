@@ -13,7 +13,11 @@ class OpenAIClient:
         openai.api_key = api_key
 
     def get_completion(
-        self, prompt, model="gpt-3.5-turbo", max_tokens=200, temperature=0.7
+        self,
+        prompt: str,
+        model: str = "gpt-3.5-turbo",
+        max_tokens: int = 200,
+        temperature: float = 0.7,
     ) -> Exchange:
         """
         Get a chat completion (response) from the specified OpenAI GPT-3 model.

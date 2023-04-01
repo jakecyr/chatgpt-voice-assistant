@@ -47,15 +47,14 @@ class SpeechListener(Listener):
 
             if text is None or len(text) == 0:
                 raise NoInputListenerError("No speech detected in audio")
-            else:
-                logging.info(f"Speech: {text}")
 
+            logging.info(f"Speech: {text}")
             return text
         except UnknownValueError as unknown_value:
             raise FailedToUnderstandListenerError(
                 "Google Speech Recognition could not understand audio"
             ) from unknown_value
-        except RequestError as e:
+        except RequestError as request_error:
             raise ListenerFatalError(
-                f"Could not request results from Google Speech Recognition service: {e}"
-            ) from e
+                "Error requesting results from Google Speech Recognition service"
+            ) from request_error

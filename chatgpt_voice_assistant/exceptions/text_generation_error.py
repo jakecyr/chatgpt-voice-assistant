@@ -1,4 +1,2 @@
-class TextGenerationError(Exception):
+class TextGenerationError(BaseException):
     """Generic text generation exception"""
-
-    pass

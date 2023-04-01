@@ -16,10 +16,10 @@ class ComputerVoiceResponder(Responder):
         audio_filename: str,
         speech_rate: float = 1.0,
     ):
-        self.text_to_speech_client: TextToSpeechClient = text_to_speech_client
+        self._text_to_speech_client: TextToSpeechClient = text_to_speech_client
         self._audio_filename = os.path.join(
             os.getcwd(),
-            audio_filename + self.text_to_speech_client.get_audio_extension(),
+            audio_filename + self._text_to_speech_client.audio_extension,
         )
         self._speech_rate = speech_rate
 
@@ -31,14 +31,14 @@ class ComputerVoiceResponder(Responder):
         """
         try:
             logging.debug(f"ComputerVoiceResponder.speak - '{text_to_speak}'")
-            self.text_to_speech_client.convert_text_to_audio(
+            self._text_to_speech_client.convert_text_to_audio(
                 text_to_speak, self._audio_filename
             )
             cmd = ["afplay", "--rate", str(self._speech_rate), self._audio_filename]
             logging.debug(cmd)
             subprocess.call(cmd)
         except Exception as e:
-            raise RespondError(f"Error running computer voice response: {e}")
+            raise RespondError(f"Error running computer voice response: {e}") from e
         finally:
             self._cleanup_temp_files()
 

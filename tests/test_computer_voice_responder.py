@@ -24,7 +24,7 @@ def computer_voice():
 def test_respond_succeeds(mock_subprocess, computer_voice):
     computer_voice._cleanup_temp_files = MagicMock()
     computer_voice.respond(TEXT_TO_SPEAK)
-    computer_voice.text_to_speech_client.convert_text_to_audio.assert_called_once()
+    computer_voice._text_to_speech_client.convert_text_to_audio.assert_called_once()
     mock_subprocess.assert_called_once()
     computer_voice._cleanup_temp_files.assert_called_once()
 
@@ -33,7 +33,7 @@ def test_respond_succeeds(mock_subprocess, computer_voice):
 def test_respond_throws_error(mock_subprocess, computer_voice):
     with pytest.raises(RespondError):
         computer_voice._cleanup_temp_files
-        computer_voice.text_to_speech_client.convert_text_to_audio.side_effect = (
+        computer_voice._text_to_speech_client.convert_text_to_audio.side_effect = (
             Exception("Bad bad")
         )
         computer_voice.respond(TEXT_TO_SPEAK)

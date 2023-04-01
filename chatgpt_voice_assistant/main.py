@@ -2,11 +2,11 @@ from chatgpt_voice_assistant.bases.listener import Listener
 from chatgpt_voice_assistant.bases.options_parser import OptionsParser
 from chatgpt_voice_assistant.bases.text_generator import TextGenerator
 from chatgpt_voice_assistant.bases.text_to_speech_client import TextToSpeechClient
-from chatgpt_voice_assistant.clients.google_text_to_speech_client import (
-    GoogleTextToSpeechClient,
-)
 from chatgpt_voice_assistant.clients.apple_say_text_to_speech_client import (
     AppleSayClient,
+)
+from chatgpt_voice_assistant.clients.google_text_to_speech_client import (
+    GoogleTextToSpeechClient,
 )
 from chatgpt_voice_assistant.command_line_parser import CommandLineParser
 from chatgpt_voice_assistant.computer_voice_responder import ComputerVoiceResponder

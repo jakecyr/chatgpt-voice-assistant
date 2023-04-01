@@ -3,16 +3,7 @@
 1. Install the package in editable mode with `pip install -e .`
 2. Install all optional dev dependencies with `pip install '.[dev]'`
 
-## Linting
-
-Sort all imports with:
-
-```bash
-isort --multi-line 3 --profile black --python-version 39 chatgpt_voice_assistant
-```
-
-Run `black chatgpt_voice_assistant/**/*.py` to automatically reformat all source files
-based on the default configuration.
+See the main [README.md file](./README.md) for general setup instructions.
 
 ## Testing
 
@@ -25,12 +16,11 @@ Run `pytest` to run all unit tests.
 Get the coverage with:
 
 ```bash
-coverage run -m pytest tests
+coverage run --source chatgpt_voice_assistant -m pytest tests
 ```
 
 View the coverage report:
 
 ```bash
-coverage report --fail-under=90 --include="chatgpt_voice_assistant/*"
+coverage report --fail-under=90
 ```
-

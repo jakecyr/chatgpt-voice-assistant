@@ -1,0 +1,2 @@
+class InvalidInputDeviceIndexError(BaseException):
+    pass

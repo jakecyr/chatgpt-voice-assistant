@@ -1,4 +1,2 @@
-class RespondError(Exception):
+class RespondError(BaseException):
     """Generic error in a Responder class"""
-
-    pass
