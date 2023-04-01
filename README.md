@@ -47,13 +47,16 @@ To install the bash command `chatgpt-assist`, run `pip install .`.
 
 ## Running the Script
 
+Either set the `OPENAI_API_KEY` environment variable before running the script or pass in your secret key to the script like in the example below:
+
 ```bash
 # explicitly
 python chatgpt_voice_assistant/main.py --log-level=INFO --open-ai-key=<OPEN API SECRET KEY HERE>
 ```
 
+or run with the installed bash command:
+
 ```bash
-# with the installed bash command
 chatgpt-assist --log-level=INFO --open-ai-key=<OPEN API SECRET KEY HERE>
 ```
 
@@ -61,7 +64,46 @@ Start speaking and turn up your volume to hear the AI assistant respond.
 
 Say the word "exit" or hit Ctrl+C in your terminal to stop the application.
 
-### Optional: Specifying an Output Language Accent
+### Options
+
+Below is the help menu from the chatgpt-assist CLI detailing all available options:
+
+```txt
+-h, --help
+    show this help message and exit
+
+--log-level LOG_LEVEL
+    Whether to print at the debug level or not.
+
+--input-device-name INPUT_DEVICE_NAME
+    The input device name.
+
+--lang LANG
+    The language to listen for when running speech to text (ex. en or fr).
+
+--max-tokens MAX_TOKENS
+    Max OpenAI completion tokens to use for text generation.
+
+--tld TLD
+    Top level domain (ex. com or com.au).
+
+--safe-word SAFE_WORD
+    Word to speak to exit the application.
+
+--wake-word WAKE_WORD
+    (Optional) Word to trigger a response.
+
+--open-ai-key OPEN_AI_KEY
+    Required. Open AI Secret Key (or set OPENAI_API_KEY environment variable)
+
+--tts {apple,google}
+    Choose a text-to-speech engine ('apple' (say) or 'google' (gtts), defaults to 'google')
+
+--speech-rate SPEECH_RATE
+    The rate at which to play speech. 1.0=normal
+```
+
+### Specifying an Output Language Accent
 
 Specify both the `LANGUAGE` and `TOP_LEVEL_DOMAIN` vars to override the default English (United States)
 
