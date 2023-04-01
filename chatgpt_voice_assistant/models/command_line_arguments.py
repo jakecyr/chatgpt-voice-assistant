@@ -12,4 +12,5 @@ class CommandLineArguments(NamedTuple):
     safe_word: str
     speech_rate: float
     tld: str
+    tts: str
     wake_word: str
