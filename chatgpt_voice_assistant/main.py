@@ -5,6 +5,8 @@ from chatgpt_voice_assistant.bases.text_to_speech_client import \
     TextToSpeechClient
 from chatgpt_voice_assistant.clients.google_text_to_speech_client import \
     GoogleTextToSpeechClient
+from chatgpt_voice_assistant.clients.apple_say_text_to_speech_client import \
+    AppleSayClient
 from chatgpt_voice_assistant.command_line_parser import CommandLineParser
 from chatgpt_voice_assistant.computer_voice_responder import \
     ComputerVoiceResponder
@@ -44,12 +46,16 @@ def main() -> None:
     text_generator: TextGenerator = OpenAITextGenerator(options.open_ai_key)
 
     # client to create speech from a given text
-    text_to_speech_client: TextToSpeechClient = GoogleTextToSpeechClient(
-        options.lang, options.tld
-    )
+    text_to_speech_client: TextToSpeechClient
+    if options.tts == 'apple':
+        text_to_speech_client = AppleSayClient()
+    else:
+        text_to_speech_client = GoogleTextToSpeechClient(
+            options.lang, options.tld
+        )
 
     # service to respond to the user the generated text
-    responder = ComputerVoiceResponder(text_to_speech_client, "temp.mp3")
+    responder = ComputerVoiceResponder(text_to_speech_client, "temp_audio", options.speech_rate)
 
     # set interrupt to exit the process when Cmd+C / Ctrl+C is hit
     set_keyboard_interrupt_handler()

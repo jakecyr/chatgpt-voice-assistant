@@ -41,6 +41,8 @@ class SpeechListener(Listener):
 
             if text is None or len(text) == 0:
                 raise NoInputListenerError("No speech detected in audio")
+            else:
+                logging.info(f"Speech: {text}")
 
             return text
         except UnknownValueError as unknown_value:
