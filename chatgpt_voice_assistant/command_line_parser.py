@@ -58,15 +58,6 @@ class CommandLineParser(OptionsParser):
             default=1.0,
             type=float
         )
-        parser.add_argument(
-            '--tts', choices=['apple', 'google'], default='google',
-            help="Choose a text-to-speech engine ('apple' (say) or 'google' (gtts), defaults to 'google')"
-        )
-        parser.add_argument(
-            "--speech-rate", help="The rate at which to play speech. 1.0=normal",
-            default=1.0,
-            type=float
-        )
 
         parsed_args = parser.parse_args()
 
