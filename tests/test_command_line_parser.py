@@ -24,6 +24,8 @@ def test_parse_returns_command_line_arguments_object(mock_arg_parser):
         safe_word="stop",
         wake_word="robot",
         max_tokens=100,
+        speech_rate=1.0,
+        tts="google",
     ),
 )
 def test_parse_returns_correct_values(mock_arg_parser):
