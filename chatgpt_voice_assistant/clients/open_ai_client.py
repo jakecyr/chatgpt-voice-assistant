@@ -2,8 +2,7 @@ import logging
 
 import openai
 
-from chatgpt_voice_assistant.exceptions.text_generation_error import \
-    TextGenerationError
+from chatgpt_voice_assistant.exceptions.text_generation_error import TextGenerationError
 from chatgpt_voice_assistant.models.exchange import Exchange
 
 

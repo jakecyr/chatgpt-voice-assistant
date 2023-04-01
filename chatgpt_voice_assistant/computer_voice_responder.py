@@ -3,17 +3,24 @@ import os
 import subprocess
 
 from chatgpt_voice_assistant.bases.responder import Responder
-from chatgpt_voice_assistant.bases.text_to_speech_client import \
-    TextToSpeechClient
+from chatgpt_voice_assistant.bases.text_to_speech_client import TextToSpeechClient
 from chatgpt_voice_assistant.exceptions.respond_error import RespondError
 
 
 class ComputerVoiceResponder(Responder):
     """Responder that responds to the user with the Computer Voice"""
 
-    def __init__(self, text_to_speech_client: TextToSpeechClient, audio_filename: str, speech_rate: float=1.0):
+    def __init__(
+        self,
+        text_to_speech_client: TextToSpeechClient,
+        audio_filename: str,
+        speech_rate: float = 1.0,
+    ):
         self.text_to_speech_client: TextToSpeechClient = text_to_speech_client
-        self._audio_filename = os.path.join(os.getcwd(), audio_filename + self.text_to_speech_client.get_audio_extension())
+        self._audio_filename = os.path.join(
+            os.getcwd(),
+            audio_filename + self.text_to_speech_client.get_audio_extension(),
+        )
         self._speech_rate = speech_rate
 
     def respond(self, text_to_speak: str) -> None:
@@ -24,8 +31,10 @@ class ComputerVoiceResponder(Responder):
         """
         try:
             logging.debug(f"ComputerVoiceResponder.speak - '{text_to_speak}'")
-            self.text_to_speech_client.convert_text_to_audio(text_to_speak, self._audio_filename)
-            cmd = [ "afplay", "--rate", str(self._speech_rate), self._audio_filename ]
+            self.text_to_speech_client.convert_text_to_audio(
+                text_to_speak, self._audio_filename
+            )
+            cmd = ["afplay", "--rate", str(self._speech_rate), self._audio_filename]
             logging.debug(cmd)
             subprocess.call(cmd)
         except Exception as e:

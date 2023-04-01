@@ -3,8 +3,7 @@ import os
 
 import gtts
 
-from chatgpt_voice_assistant.bases.text_to_speech_client import \
-    TextToSpeechClient
+from chatgpt_voice_assistant.bases.text_to_speech_client import TextToSpeechClient
 
 
 class GoogleTextToSpeechClient(TextToSpeechClient):
@@ -16,7 +15,9 @@ class GoogleTextToSpeechClient(TextToSpeechClient):
 
     def convert_text_to_audio(self, text_to_speak, audio_file_path):
         if os.path.exists(audio_file_path):
-            raise FileExistsError(f"The audio file path already exists: {audio_file_path}")
+            raise FileExistsError(
+                f"The audio file path already exists: {audio_file_path}"
+            )
 
         tts = self._get_gtts(text_to_speak)
         tts.save(audio_file_path)

@@ -24,7 +24,9 @@ def get_input_device_from_user(
     input_device = None
 
     if input_device_name is not None:
-        if matches := [device for device in input_devices if device.name == input_device_name]:
+        if matches := [
+            device for device in input_devices if device.name == input_device_name
+        ]:
             return matches[0]
         else:
             logging.info(f'No input device named "{input_device_name}"')

@@ -165,6 +165,7 @@ def test_start_conversation_starts_again_if_wake_word_not_spoken(
     assert conversation._text_generator.generate_text.call_count == 1
     assert conversation._responder.respond.call_count == 1
 
+
 @mock.patch("sys.exit")
 def test_start_conversation_keeps_running_until_safe_word(
     sys_exit: MagicMock, conversation: Conversation

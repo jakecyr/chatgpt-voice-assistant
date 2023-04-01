@@ -45,24 +45,30 @@ class CommandLineParser(OptionsParser):
             type=str,
         )
         parser.add_argument(
-            "--open-ai-key", help="Required. Open AI Secret Key (or set OPENAI_API_KEY enviroment variable)",
+            "--open-ai-key",
+            help="Required. Open AI Secret Key (or set OPENAI_API_KEY enviroment variable)",
             default=os.environ.get("OPENAI_API_KEY"),
-            type=str
+            type=str,
         )
         parser.add_argument(
-            '--tts', choices=['apple', 'google'], default='google',
-            help="Choose a text-to-speech engine ('apple' (say) or 'google' (gtts), defaults to 'google')"
+            "--tts",
+            choices=["apple", "google"],
+            default="google",
+            help="Choose a text-to-speech engine ('apple' (say) or 'google' (gtts), defaults to 'google')",
         )
         parser.add_argument(
-            "--speech-rate", help="The rate at which to play speech. 1.0=normal",
+            "--speech-rate",
+            help="The rate at which to play speech. 1.0=normal",
             default=1.0,
-            type=float
+            type=float,
         )
 
         parsed_args = parser.parse_args()
 
         if parsed_args.open_ai_key is None:
-            parser.error("Open AI Secret Key not specified and OPENAI_API_KEY not set in environment")
+            parser.error(
+                "Open AI Secret Key not specified and OPENAI_API_KEY not set in environment"
+            )
 
         return CommandLineArguments(
             input_device_name=parsed_args.input_device_name,

@@ -1,7 +1,6 @@
 from chatgpt_voice_assistant.bases.text_generator import TextGenerator
 from chatgpt_voice_assistant.clients.open_ai_client import OpenAIClient
-from chatgpt_voice_assistant.exceptions.text_generation_error import \
-    TextGenerationError
+from chatgpt_voice_assistant.exceptions.text_generation_error import TextGenerationError
 from chatgpt_voice_assistant.models.exchange import Exchange
 
 

@@ -7,4 +7,4 @@ class TextToSpeechClient(ABC):
         pass
 
     def get_audio_extension(self):
-        return '.mp3'
+        return ".mp3"
