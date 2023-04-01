@@ -12,12 +12,11 @@ chatgpt-voice-assistant uses Google Translate's text-to-speech free API for audi
 Install dependencies:
 
 ```bash
-# Mac OSX
 brew install portaudio
 brew link portaudio
 ```
 
-Run:
+Update your pydistutils config file for portaudio usage by running the following:
 
 ```bash
 echo "[build_ext]" >> $HOME/.pydistutils.cfg
