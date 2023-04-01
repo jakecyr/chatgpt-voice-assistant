@@ -49,6 +49,11 @@ class CommandLineParser(OptionsParser):
             default=os.environ.get("OPENAI_API_KEY"),
             type=str
         )
+        parser.add_argument(
+            "--speech-rate", help="The rate at which to play speech. 1.0=normal",
+            default=1.0,
+            type=float
+        )
 
         parsed_args = parser.parse_args()
 
@@ -56,12 +61,13 @@ class CommandLineParser(OptionsParser):
             parser.error("Open AI Secret Key not specified and OPENAI_API_KEY not set in environment")
 
         return CommandLineArguments(
-            log_level=parsed_args.log_level,
             input_device_name=parsed_args.input_device_name,
             lang=parsed_args.lang,
-            tld=parsed_args.tld,
+            log_level=parsed_args.log_level,
+            max_tokens=parsed_args.max_tokens,
             open_ai_key=parsed_args.open_ai_key,
             safe_word=parsed_args.safe_word,
+            speech_rate=parsed_args.speech_rate,
+            tld=parsed_args.tld,
             wake_word=parsed_args.wake_word,
-            max_tokens=parsed_args.max_tokens,
         )

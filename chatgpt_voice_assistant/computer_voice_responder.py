@@ -24,9 +24,7 @@ class ComputerVoiceResponder(Responder):
         try:
             logging.debug(f"ComputerVoiceResponder.speak - '{text_to_speak}'")
             full_mp3_path = os.path.join(os.getcwd(), self._mp3_filename)
-            self.text_to_speech_client.convert_text_to_mp3(text_to_speak, full_mp3_path)
-            subprocess.call(["afplay", full_mp3_path])
-        except Exception as e:
+            cmd = [ "afplay", "--rate", str(self._speech_rate), self._audio_filename ]
             raise RespondError(f"Error running computer voice response: {e}")
         finally:
             self._cleanup_temp_files()
