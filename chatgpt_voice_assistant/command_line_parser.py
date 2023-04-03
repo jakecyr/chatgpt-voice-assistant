@@ -54,6 +54,12 @@ class CommandLineParser(OptionsParser):
             type=str,
         )
         parser.add_argument(
+            "--open-ai-model",
+            help=f"The Open AI model to use. See: https://platform.openai.com/docs/models/overview",
+            default="gpt-3.5-turbo",
+            type=str,
+        )
+        parser.add_argument(
             "--tts",
             choices=["apple", "google"],
             default="google",

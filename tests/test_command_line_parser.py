@@ -12,9 +12,8 @@ MOCK_COMMAND_LINE_ARGUMENTS: CommandLineArguments = CommandLineArguments(
     lang="en",
     tld="tld",
     open_ai_key="fake-key",
+    open_ai_model="gpt-3.5-turbo",
     safe_word="stop",
-    wake_word="robot",
-    max_tokens=100,
     speech_rate=1.0,
     tts="google",
 )
@@ -26,9 +25,8 @@ MOCK_COMMAND_LINE_ARGUMENTS_NO_API_KEY: CommandLineArguments = CommandLineArgume
     lang="en",
     tld="tld",
     open_ai_key=None,
+    open_ai_model="gpt-3.5-turbo",
     safe_word="stop",
-    wake_word="robot",
-    max_tokens=100,
     speech_rate=1.0,
     tts="google",
 )
@@ -100,6 +98,16 @@ def test_parse_returns_correct_open_ai_key(mock_arg_parser):
     command_line_parser = CommandLineParser()
     args: CommandLineArguments = command_line_parser.parse()
     assert args.open_ai_key == "fake-key"
+
+
+@patch(
+    "argparse.ArgumentParser.parse_args",
+    return_value=MOCK_COMMAND_LINE_ARGUMENTS,
+)
+def test_parse_returns_correct_open_ai_model(mock_arg_parser):
+    command_line_parser = CommandLineParser()
+    args: CommandLineArguments = command_line_parser.parse()
+    assert args.open_ai_model == "gpt-3.5-turbo"
 
 
 @patch(
