@@ -7,28 +7,32 @@ from chatgpt_voice_assistant.command_line_parser import (
 from chatgpt_voice_assistant.models.command_line_arguments import CommandLineArguments
 
 MOCK_COMMAND_LINE_ARGUMENTS: CommandLineArguments = CommandLineArguments(
-    log_level="INFO",
     input_device_name="Airpods",
     lang="en",
-    tld="tld",
+    log_level="INFO",
+    max_tokens=100,
     open_ai_key="fake-key",
     open_ai_model="gpt-3.5-turbo",
     safe_word="stop",
     speech_rate=1.0,
+    tld="tld",
     tts="google",
+    wake_word="robot",
 )
 
 
 MOCK_COMMAND_LINE_ARGUMENTS_NO_API_KEY: CommandLineArguments = CommandLineArguments(
-    log_level="INFO",
     input_device_name="Airpods",
     lang="en",
-    tld="tld",
+    log_level="INFO",
+    max_tokens=100,
     open_ai_key=None,
     open_ai_model="gpt-3.5-turbo",
     safe_word="stop",
     speech_rate=1.0,
+    tld="tld",
     tts="google",
+    wake_word="robot",
 )
 
 

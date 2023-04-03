@@ -48,8 +48,6 @@ def main() -> None:
     text_generator: TextGenerator = OpenAITextGenerator(
         open_ai_key=options.open_ai_key, model=options.open_ai_model
     )
-    if options.initial_prompt:
-        text_generator.generate_text(options.initial_prompt)
 
     # client to create speech from a given text
     text_to_speech_client: TextToSpeechClient
