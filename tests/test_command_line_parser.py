@@ -7,30 +7,32 @@ from chatgpt_voice_assistant.command_line_parser import (
 from chatgpt_voice_assistant.models.command_line_arguments import CommandLineArguments
 
 MOCK_COMMAND_LINE_ARGUMENTS: CommandLineArguments = CommandLineArguments(
-    log_level="INFO",
     input_device_name="Airpods",
     lang="en",
-    tld="tld",
-    open_ai_key="fake-key",
-    safe_word="stop",
-    wake_word="robot",
+    log_level="INFO",
     max_tokens=100,
+    open_ai_key="fake-key",
+    open_ai_model="gpt-3.5-turbo",
+    safe_word="stop",
     speech_rate=1.0,
+    tld="tld",
     tts="google",
+    wake_word="robot",
 )
 
 
 MOCK_COMMAND_LINE_ARGUMENTS_NO_API_KEY: CommandLineArguments = CommandLineArguments(
-    log_level="INFO",
     input_device_name="Airpods",
     lang="en",
-    tld="tld",
-    open_ai_key=None,
-    safe_word="stop",
-    wake_word="robot",
+    log_level="INFO",
     max_tokens=100,
+    open_ai_key=None,
+    open_ai_model="gpt-3.5-turbo",
+    safe_word="stop",
     speech_rate=1.0,
+    tld="tld",
     tts="google",
+    wake_word="robot",
 )
 
 
@@ -100,6 +102,16 @@ def test_parse_returns_correct_open_ai_key(mock_arg_parser):
     command_line_parser = CommandLineParser()
     args: CommandLineArguments = command_line_parser.parse()
     assert args.open_ai_key == "fake-key"
+
+
+@patch(
+    "argparse.ArgumentParser.parse_args",
+    return_value=MOCK_COMMAND_LINE_ARGUMENTS,
+)
+def test_parse_returns_correct_open_ai_model(mock_arg_parser):
+    command_line_parser = CommandLineParser()
+    args: CommandLineArguments = command_line_parser.parse()
+    assert args.open_ai_model == "gpt-3.5-turbo"
 
 
 @patch(
