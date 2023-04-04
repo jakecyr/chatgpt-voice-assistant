@@ -15,13 +15,13 @@ class OpenAIClient:
     def get_completion(
         self,
         prompt: str,
-        model: str = "gpt-3.5-turbo",
+        model: str = "text-davinci-003",
         max_tokens: int = 200,
         temperature: float = 0.7,
     ) -> Exchange:
         """
-        Get a chat completion (response) from the specified OpenAI GPT-3 model.
-        Reference: https://platform.openai.com/docs/api-reference/chat/create
+        Get a completion (response) from the specified OpenAI GPT-3 model.
+        Reference: https://platform.openai.com/docs/api-reference/completions
 
         Args:
             prompt:       the prompt to send to the model for completion.
