@@ -81,7 +81,7 @@ class Conversation:
             return self._cleanup_and_exit()
 
         response = self._text_generator.generate_text(text)
-        response_text = response.computer_response
+        response_text = response.content
 
         logging.info(f"Text generator response: {response_text}")
 

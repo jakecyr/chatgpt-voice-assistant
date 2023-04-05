@@ -1,39 +1,58 @@
 import logging
+from typing import List
 
 import openai
 
 from chatgpt_voice_assistant.exceptions.text_generation_error import TextGenerationError
-from chatgpt_voice_assistant.models.exchange import Exchange
+from chatgpt_voice_assistant.models.message import Message
+from chatgpt_voice_assistant.models.open_ai_chat_completion import (
+    ChatCompletionMessage,
+)
+import json
 
 
-# Client to interact with the OpenAI API
 class OpenAIClient:
+    """Client to interact with the OpenAI API."""
+
     def __init__(self, api_key: str):
         logging.debug("Setting Open API key...")
         openai.api_key = api_key
 
-    def get_completion(
+    def get_chat_completion(
         self,
-        prompt: str,
-        model: str = "text-davinci-003",
-        max_tokens: int = 200,
+        messages: List[ChatCompletionMessage],
+        model: str = "gpt-3.5-turbo",
+        max_tokens: int = 500,
         temperature: float = 0.7,
-    ) -> Exchange:
+    ) -> Message:
         """
-        Get a completion (response) from the specified OpenAI GPT-3 model.
-        Reference: https://platform.openai.com/docs/api-reference/completions
+        Returns a completion (response) from the specified OpenAI GPT model.
+        Reference: https://platform.openai.com/docs/api-reference/chat
 
         Args:
-            prompt:       the prompt to send to the model for completion.
-            model:        optionally specify the model to use.
-            max_tokens:   the max number of tokens to use including the prompt and response.
-            temperature:  the temperature for the model to use.
+            messages:    messages to provide as context.
+            prompt:      the prompt to send to the model for completion.
+            model:       optionally specify the model to use.
+            max_tokens:  the max number of tokens to use including the prompt and response.
+            temperature: the temperature for the model to use.
 
         Returns:
-            the exchange between the user and the model
+            The exchange between the user and the model.
         """
-        completion = openai.Completion.create(
-            model=model, prompt=prompt, max_tokens=max_tokens, temperature=temperature
+        if len(messages) == 0:
+            raise ValueError(
+                "The messages argument must be a list with at least one object."
+            )
+
+        logging.debug(
+            f"Sending prompt to chat completion endpoint: {json.dumps(messages)}"
+        )
+
+        completion = openai.ChatCompletion.create(
+            messages=messages,
+            model=model,
+            max_tokens=max_tokens,
+            temperature=temperature,
         )
 
         choices = completion["choices"]
@@ -42,22 +61,24 @@ class OpenAIClient:
 
         if len(choices) == 0:
             raise TextGenerationError(
-                f"No choices returned from Open AI for prompt: {prompt}"
+                "No choices returned from Open AI for provided context"
             )
 
         first_choice = choices[0]
+        prompt: ChatCompletionMessage = messages[-1]
 
         if first_choice["finish_reason"] == "length":
             logging.warning(
-                "OpenAI stopped producing output due to a limit on the max tokens"
-            )
-            logging.warning(
-                "Max tokens is set to: %d. Total tokens consumed with prompt were: %d",
-                max_tokens,
-                tokens_used,
+                "OpenAI stopped generating due to a limit on the max tokens. "
+                f"Max tokens is set to: {max_tokens}. "
+                f"Total tokens consumed with prompt were: {tokens_used}"
             )
             was_cut_short = True
 
-        first_choice_text = first_choice["text"].replace("\n", " ").strip()
+        first_choice_text = (
+            first_choice["message"]["content"].replace("\n", " ").strip()
+        )
 
-        return Exchange(prompt, first_choice_text, was_cut_short)
+        return Message(
+            first_choice_text, first_choice["message"]["role"], was_cut_short
+        )

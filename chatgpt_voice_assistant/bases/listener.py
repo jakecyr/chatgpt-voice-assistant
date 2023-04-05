@@ -3,8 +3,7 @@ from abc import ABC, abstractmethod
 
 class Listener(ABC):
     @abstractmethod
-    def listen(self):
+    def listen(self) -> str:
         """
-        Listen for user input and return it.
-        :return: the user input received.
+        Listen for user input and return the text.
         """

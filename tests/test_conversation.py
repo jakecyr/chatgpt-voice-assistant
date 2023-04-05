@@ -9,7 +9,7 @@ from chatgpt_voice_assistant.exceptions.failed_to_understand_listener_error impo
     FailedToUnderstandListenerError,
 )
 from chatgpt_voice_assistant.exceptions.listener_fatal_error import ListenerFatalError
-from chatgpt_voice_assistant.models.exchange import Exchange
+from chatgpt_voice_assistant.models.message import Message
 
 current_safe_word = "exit"
 current_wake_word = "robot"
@@ -70,7 +70,7 @@ def test_start_conversation_no_safe_word(
     sys_exit: MagicMock, conversation: Conversation
 ):
     conversation._listener.listen.return_value = "my response"
-    conversation._text_generator.generate_text.return_value = Exchange(
+    conversation._text_generator.generate_text.return_value = Message(
         "hello", "hey there", False
     )
 
@@ -86,7 +86,7 @@ def test_start_conversation_no_safe_word(
 def test_start_conversation_could_not_understand_error(
     sys_exit: MagicMock, conversation: Conversation
 ):
-    conversation._text_generator.generate_text.return_value = Exchange(
+    conversation._text_generator.generate_text.return_value = Message(
         "hello", "hey there", False
     )
 
@@ -106,7 +106,7 @@ def test_start_conversation_could_not_understand_error(
 def test_start_conversation_recognition_request_error(
     sys_exit: MagicMock, conversation: Conversation
 ):
-    conversation._text_generator.generate_text.return_value = Exchange(
+    conversation._text_generator.generate_text.return_value = Message(
         "hello", "hey there", False
     )
 
@@ -123,7 +123,7 @@ def test_start_conversation_recognition_request_error(
 @mock.patch("sys.exit")
 def test_start_conversation_exits(sys_exit: MagicMock, conversation: Conversation):
     conversation._listener.listen.return_value = current_safe_word
-    conversation._text_generator.generate_text.return_value = Exchange(
+    conversation._text_generator.generate_text.return_value = Message(
         "hello", "hey there", False
     )
     conversation.start_conversation(run_once=True)
@@ -138,7 +138,7 @@ def test_start_conversation_exits(sys_exit: MagicMock, conversation: Conversatio
 def test_start_conversation_called_again_if_no_text(
     sys_exit: MagicMock, conversation: Conversation
 ):
-    conversation._text_generator.generate_text.return_value = Exchange(
+    conversation._text_generator.generate_text.return_value = Message(
         "hello", "hey there", False
     )
 
@@ -154,7 +154,7 @@ def test_start_conversation_called_again_if_no_text(
 def test_start_conversation_starts_again_if_wake_word_not_spoken(
     sys_exit: MagicMock, conversation: Conversation
 ):
-    conversation._text_generator.generate_text.return_value = Exchange(
+    conversation._text_generator.generate_text.return_value = Message(
         "hello", "hey there", False
     )
 
@@ -170,7 +170,7 @@ def test_start_conversation_starts_again_if_wake_word_not_spoken(
 def test_start_conversation_keeps_running_until_safe_word(
     sys_exit: MagicMock, conversation: Conversation
 ):
-    conversation._text_generator.generate_text.return_value = Exchange(
+    conversation._text_generator.generate_text.return_value = Message(
         "hello", "hey there", False
     )
 
