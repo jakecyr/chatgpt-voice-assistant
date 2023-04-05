@@ -4,10 +4,10 @@ import os
 import gtts
 import pytest
 
-from chatgpt_voice_assistant.bases.text_to_speech_client import \
-    TextToSpeechClient
-from chatgpt_voice_assistant.clients.google_text_to_speech_client import \
-    GoogleTextToSpeechClient
+from chatgpt_voice_assistant.bases.text_to_speech_client import TextToSpeechClient
+from chatgpt_voice_assistant.clients.google_text_to_speech_client import (
+    GoogleTextToSpeechClient,
+)
 
 
 def test_convert_text_to_audio():

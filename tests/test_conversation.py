@@ -5,10 +5,10 @@ from chatgpt_voice_assistant.bases.listener import Listener
 from chatgpt_voice_assistant.bases.responder import Responder
 from chatgpt_voice_assistant.bases.text_generator import TextGenerator
 from chatgpt_voice_assistant.conversation import Conversation
-from chatgpt_voice_assistant.exceptions.failed_to_understand_listener_error import \
-    FailedToUnderstandListenerError
-from chatgpt_voice_assistant.exceptions.listener_fatal_error import \
-    ListenerFatalError
+from chatgpt_voice_assistant.exceptions.failed_to_understand_listener_error import (
+    FailedToUnderstandListenerError,
+)
+from chatgpt_voice_assistant.exceptions.listener_fatal_error import ListenerFatalError
 from chatgpt_voice_assistant.models.message import Message
 
 current_safe_word = "exit"

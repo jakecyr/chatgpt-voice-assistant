@@ -1,7 +1,6 @@
 import pytest
 
-from chatgpt_voice_assistant.exceptions.text_generation_error import \
-    TextGenerationError
+from chatgpt_voice_assistant.exceptions.text_generation_error import TextGenerationError
 from chatgpt_voice_assistant.open_ai_text_generator import OpenAITextGenerator
 
 

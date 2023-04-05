@@ -4,8 +4,7 @@ import pytest
 from mock import MagicMock, mock
 from pytest import fixture
 
-from chatgpt_voice_assistant.computer_voice_responder import \
-    ComputerVoiceResponder
+from chatgpt_voice_assistant.computer_voice_responder import ComputerVoiceResponder
 from chatgpt_voice_assistant.exceptions.respond_error import RespondError
 
 TEMP_FILE_NAME = "temp.mp3"
