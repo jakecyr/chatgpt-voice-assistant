@@ -2,9 +2,11 @@ from typing import List, Optional
 
 from chatgpt_voice_assistant.bases.text_generator import TextGenerator
 from chatgpt_voice_assistant.clients.open_ai_client import OpenAIClient
-from chatgpt_voice_assistant.exceptions.text_generation_error import TextGenerationError
+from chatgpt_voice_assistant.exceptions.text_generation_error import \
+    TextGenerationError
 from chatgpt_voice_assistant.models.message import Message, MessageRole
-from chatgpt_voice_assistant.models.open_ai_chat_completion import ChatCompletionMessage
+from chatgpt_voice_assistant.models.open_ai_chat_completion import \
+    ChatCompletionMessage
 
 
 class OpenAITextGenerator(TextGenerator):

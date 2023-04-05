@@ -3,7 +3,8 @@ import os
 import subprocess
 
 from chatgpt_voice_assistant.bases.responder import Responder
-from chatgpt_voice_assistant.bases.text_to_speech_client import TextToSpeechClient
+from chatgpt_voice_assistant.bases.text_to_speech_client import \
+    TextToSpeechClient
 from chatgpt_voice_assistant.exceptions.respond_error import RespondError
 
 

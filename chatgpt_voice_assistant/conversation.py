@@ -5,13 +5,12 @@ from typing import Optional
 from chatgpt_voice_assistant.bases.listener import Listener
 from chatgpt_voice_assistant.bases.responder import Responder
 from chatgpt_voice_assistant.bases.text_generator import TextGenerator
-from chatgpt_voice_assistant.exceptions.failed_to_understand_listener_error import (
-    FailedToUnderstandListenerError,
-)
-from chatgpt_voice_assistant.exceptions.listener_fatal_error import ListenerFatalError
-from chatgpt_voice_assistant.exceptions.no_input_listener_error import (
-    NoInputListenerError,
-)
+from chatgpt_voice_assistant.exceptions.failed_to_understand_listener_error import \
+    FailedToUnderstandListenerError
+from chatgpt_voice_assistant.exceptions.listener_fatal_error import \
+    ListenerFatalError
+from chatgpt_voice_assistant.exceptions.no_input_listener_error import \
+    NoInputListenerError
 
 
 class Conversation:
