@@ -2,9 +2,9 @@ name: Test Application
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ['master']
   pull_request:
-    branches: [ "master" ]
+    branches: ['master']
 
 permissions:
   contents: read
@@ -14,23 +14,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.10"
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0
-        pip3 install pyaudio --user
-        sudo apt-get install ffmpeg
-        pip3 install -e .[dev]
-    - name: Test with pytest
-      run: |
-        pytest
-    - name: Test Coverage
-      run: |
-        coverage run -m pytest
-        coverage report --fail-under=90 --include="chatgpt_voice_assistant/*"
-  
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0
+          pip3 install pyaudio --user
+          sudo apt-get install ffmpeg
+          pip3 install -e .[dev]
+      - name: Test with pytest
+        run: |
+          pytest
+      - name: Check formatting with black
+        run: |
+          black --check chatgpt_voice_assistant/**/*.py
+          black --check tests/**/*.py
+      - name: Check formatting with isort
+        run: |
+          isort --check chatgpt_voice_assistant
+          isort --check tests
+      - name: Lint with flake8
+        run: |
+          flake8 --config .flake8
+      - name: Test Coverage
+        run: |
+          coverage run -m pytest
+          coverage report --fail-under=90 --include="chatgpt_voice_assistant/*"

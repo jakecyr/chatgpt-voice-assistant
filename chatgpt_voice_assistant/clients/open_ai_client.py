@@ -4,11 +4,9 @@ from typing import List
 
 import openai
 
-from chatgpt_voice_assistant.exceptions.text_generation_error import \
-    TextGenerationError
+from chatgpt_voice_assistant.exceptions.text_generation_error import TextGenerationError
 from chatgpt_voice_assistant.models.message import Message
-from chatgpt_voice_assistant.models.open_ai_chat_completion import \
-    ChatCompletionMessage
+from chatgpt_voice_assistant.models.open_ai_chat_completion import ChatCompletionMessage
 
 
 class OpenAIClient:
@@ -65,7 +63,6 @@ class OpenAIClient:
             )
 
         first_choice = choices[0]
-        prompt: ChatCompletionMessage = messages[-1]
 
         if first_choice["finish_reason"] == "length":
             logging.warning(

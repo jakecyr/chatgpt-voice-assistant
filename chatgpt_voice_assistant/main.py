@@ -4,7 +4,7 @@ from chatgpt_voice_assistant.bases.text_generator import TextGenerator
 from chatgpt_voice_assistant.bases.text_to_speech_client import \
     TextToSpeechClient
 from chatgpt_voice_assistant.clients.apple_say_text_to_speech_client import \
-    AppleSayClient
+    AppleSayTextToSpeechClient
 from chatgpt_voice_assistant.clients.google_text_to_speech_client import \
     GoogleTextToSpeechClient
 from chatgpt_voice_assistant.command_line_parser import CommandLineParser
@@ -50,7 +50,7 @@ def main() -> None:
     # client to create speech from a given text
     text_to_speech_client: TextToSpeechClient
     if options.tts == "apple":
-        text_to_speech_client = AppleSayClient()
+        text_to_speech_client = AppleSayTextToSpeechClient()
     else:
         text_to_speech_client = GoogleTextToSpeechClient(options.lang, options.tld)
 
