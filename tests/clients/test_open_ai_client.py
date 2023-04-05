@@ -1,13 +1,13 @@
 from typing import Any, Dict, List
+
 import mock
 from pytest import fixture, raises
 
-from chatgpt_voice_assistant.clients.open_ai_client import (
-    OpenAIClient,
-)
-
-from chatgpt_voice_assistant.models.open_ai_chat_completion import ChatCompletionMessage
-from chatgpt_voice_assistant.exceptions.text_generation_error import TextGenerationError
+from chatgpt_voice_assistant.clients.open_ai_client import OpenAIClient
+from chatgpt_voice_assistant.exceptions.text_generation_error import \
+    TextGenerationError
+from chatgpt_voice_assistant.models.open_ai_chat_completion import \
+    ChatCompletionMessage
 
 OPEN_AI_KEY = "fake-key"
 
@@ -66,7 +66,7 @@ def test_get_chat_completion_throws_exception_no_responses(
 ):
     max_tokens = 70
 
-    message = ChatCompletionMessage("user", "Yeah do you have one in mind?")
+    message = {"role": "user", "content": "Yeah do you have one in mind?"}
 
     with raises(TextGenerationError):
         open_ai_client.get_chat_completion(messages=[message], max_tokens=max_tokens)
@@ -75,7 +75,7 @@ def test_get_chat_completion_throws_exception_no_responses(
 @mock.patch("openai.ChatCompletion.create", mock_create_completion_multiple_responses)
 def test_get_chat_completion_returns_first_response(open_ai_client: OpenAIClient):
     max_tokens = 70
-    message = ChatCompletionMessage("user", "Yeah do you have one in mind?")
+    message = {"role": "user", "content": "Yeah do you have one in mind?"}
 
     response = open_ai_client.get_chat_completion(
         messages=[message], max_tokens=max_tokens
@@ -90,7 +90,7 @@ def test_get_chat_completion_returns_first_response(open_ai_client: OpenAIClient
 @mock.patch("openai.ChatCompletion.create", mock_create_completion_stop_due_to_length)
 def test_get_chat_completion_sets_was_cut_short_to_true(open_ai_client: OpenAIClient):
     max_tokens = 70
-    message = ChatCompletionMessage("user", "Yeah do you have one in mind?")
+    message = {"role": "user", "content": "Yeah do you have one in mind?"}
 
     response = open_ai_client.get_chat_completion(
         messages=[message], max_tokens=max_tokens

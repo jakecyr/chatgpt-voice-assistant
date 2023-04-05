@@ -1,21 +1,15 @@
 import logging
 
-from speech_recognition import (
-    AudioData,
-    Microphone,
-    Recognizer,
-    RequestError,
-    UnknownValueError,
-)
+from speech_recognition import (AudioData, Microphone, Recognizer,
+                                RequestError, UnknownValueError)
 
 from chatgpt_voice_assistant.bases.listener import Listener
-from chatgpt_voice_assistant.exceptions.failed_to_understand_listener_error import (
-    FailedToUnderstandListenerError,
-)
-from chatgpt_voice_assistant.exceptions.listener_fatal_error import ListenerFatalError
-from chatgpt_voice_assistant.exceptions.no_input_listener_error import (
-    NoInputListenerError,
-)
+from chatgpt_voice_assistant.exceptions.failed_to_understand_listener_error import \
+    FailedToUnderstandListenerError
+from chatgpt_voice_assistant.exceptions.listener_fatal_error import \
+    ListenerFatalError
+from chatgpt_voice_assistant.exceptions.no_input_listener_error import \
+    NoInputListenerError
 from chatgpt_voice_assistant.models.input_device import InputDevice
 
 

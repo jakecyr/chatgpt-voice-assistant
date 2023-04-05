@@ -1,6 +1,6 @@
-from typing import NamedTuple
+from typing import TypedDict
 
 
-class ChatCompletionMessage(NamedTuple):
+class ChatCompletionMessage(TypedDict):
     role: str
     content: str

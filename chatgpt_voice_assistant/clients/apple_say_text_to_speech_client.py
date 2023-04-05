@@ -2,7 +2,8 @@ import logging
 import os
 import subprocess
 
-from chatgpt_voice_assistant.bases.text_to_speech_client import TextToSpeechClient
+from chatgpt_voice_assistant.bases.text_to_speech_client import \
+    TextToSpeechClient
 
 
 class AppleSayClient(TextToSpeechClient):

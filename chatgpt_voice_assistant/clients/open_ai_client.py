@@ -1,14 +1,14 @@
+import json
 import logging
 from typing import List
 
 import openai
 
-from chatgpt_voice_assistant.exceptions.text_generation_error import TextGenerationError
+from chatgpt_voice_assistant.exceptions.text_generation_error import \
+    TextGenerationError
 from chatgpt_voice_assistant.models.message import Message
-from chatgpt_voice_assistant.models.open_ai_chat_completion import (
-    ChatCompletionMessage,
-)
-import json
+from chatgpt_voice_assistant.models.open_ai_chat_completion import \
+    ChatCompletionMessage
 
 
 class OpenAIClient:

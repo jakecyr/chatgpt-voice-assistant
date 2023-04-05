@@ -4,7 +4,8 @@ from typing import cast
 from pyaudio import PyAudio
 
 from chatgpt_voice_assistant.models.input_device import InputDevice
-from chatgpt_voice_assistant.models.pyaudio_device_info import PyAudioDeviceInfo
+from chatgpt_voice_assistant.models.pyaudio_device_info import \
+    PyAudioDeviceInfo
 
 
 class InputDevices:

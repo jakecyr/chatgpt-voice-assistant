@@ -2,8 +2,8 @@ import argparse
 import os
 
 from chatgpt_voice_assistant.bases.options_parser import OptionsParser
-from chatgpt_voice_assistant.models.command_line_arguments import CommandLineArguments
-
+from chatgpt_voice_assistant.models.command_line_arguments import \
+    CommandLineArguments
 
 OPENAI_KEY_ENV_VAR_NAME = "OPENAI_API_KEY"
 
