@@ -1,9 +1,11 @@
 import logging
 
-from chatgpt_voice_assistant.exceptions.invalid_input_device_index_error import \
-    InvalidInputDeviceIndexError
-from chatgpt_voice_assistant.exceptions.no_input_devices_found_error import \
-    NoInputDevicesFoundError
+from chatgpt_voice_assistant.exceptions.invalid_input_device_index_error import (
+    InvalidInputDeviceIndexError,
+)
+from chatgpt_voice_assistant.exceptions.no_input_devices_found_error import (
+    NoInputDevicesFoundError,
+)
 from chatgpt_voice_assistant.models.input_device import InputDevice
 
 

@@ -3,8 +3,7 @@ import os
 
 import gtts
 
-from chatgpt_voice_assistant.bases.text_to_speech_client import \
-    TextToSpeechClient
+from chatgpt_voice_assistant.bases.text_to_speech_client import TextToSpeechClient
 
 
 class GoogleTextToSpeechClient(TextToSpeechClient):

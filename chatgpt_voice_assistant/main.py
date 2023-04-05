@@ -1,20 +1,22 @@
 from chatgpt_voice_assistant.bases.listener import Listener
 from chatgpt_voice_assistant.bases.options_parser import OptionsParser
 from chatgpt_voice_assistant.bases.text_generator import TextGenerator
-from chatgpt_voice_assistant.bases.text_to_speech_client import \
-    TextToSpeechClient
-from chatgpt_voice_assistant.clients.apple_say_text_to_speech_client import \
-    AppleSayTextToSpeechClient
-from chatgpt_voice_assistant.clients.google_text_to_speech_client import \
-    GoogleTextToSpeechClient
+from chatgpt_voice_assistant.bases.text_to_speech_client import TextToSpeechClient
+from chatgpt_voice_assistant.clients.apple_say_text_to_speech_client import (
+    AppleSayTextToSpeechClient,
+)
+from chatgpt_voice_assistant.clients.google_text_to_speech_client import (
+    GoogleTextToSpeechClient,
+)
 from chatgpt_voice_assistant.command_line_parser import CommandLineParser
-from chatgpt_voice_assistant.computer_voice_responder import \
-    ComputerVoiceResponder
+from chatgpt_voice_assistant.computer_voice_responder import ComputerVoiceResponder
 from chatgpt_voice_assistant.conversation import Conversation
-from chatgpt_voice_assistant.helpers.get_input_device_from_user import \
-    get_input_device_from_user
-from chatgpt_voice_assistant.helpers.set_keyboard_interrupt_handler import \
-    set_keyboard_interrupt_handler
+from chatgpt_voice_assistant.helpers.get_input_device_from_user import (
+    get_input_device_from_user,
+)
+from chatgpt_voice_assistant.helpers.set_keyboard_interrupt_handler import (
+    set_keyboard_interrupt_handler,
+)
 from chatgpt_voice_assistant.helpers.set_log_level import set_log_level
 from chatgpt_voice_assistant.input_devices import InputDevices
 from chatgpt_voice_assistant.models.input_device import InputDevice
