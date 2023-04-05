@@ -26,6 +26,7 @@ dev = [
   "black",
   "pylint",
   "isort",
+  "flake8",
   "mypy",
   "types-pyaudio",
   "types-mock",
