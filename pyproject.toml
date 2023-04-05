@@ -45,6 +45,9 @@ pythonpath = [
 [tool.setuptools]
 packages = ["chatgpt_voice_assistant"]
 
+[tool.isort]
+profile = "black"
+
 [tool.mypy]
 python_version = "3.9"
 warn_return_any = true
