@@ -39,7 +39,7 @@ MOCK_COMMAND_LINE_ARGUMENTS_NO_API_KEY: CommandLineArguments = CommandLineArgume
 
 
 @patch("argparse.ArgumentParser.parse_args")
-def test_parse_returns_command_line_arguments_object(mock_arg_parser):
+def test_parse_returns_command_line_arguments_object(mock_arg_parser: MagicMock):
     command_line_parser = CommandLineParser()
     args: CommandLineArguments = command_line_parser.parse()
     assert isinstance(args, CommandLineArguments)
@@ -50,7 +50,7 @@ def test_parse_returns_command_line_arguments_object(mock_arg_parser):
     "argparse.ArgumentParser.parse_args",
     return_value=MOCK_COMMAND_LINE_ARGUMENTS,
 )
-def test_parse_returns_correct_instance(mock_arg_parser):
+def test_parse_returns_correct_instance(mock_arg_parser: MagicMock):
     command_line_parser = CommandLineParser()
     args: CommandLineArguments = command_line_parser.parse()
     assert isinstance(args, CommandLineArguments)
@@ -60,7 +60,7 @@ def test_parse_returns_correct_instance(mock_arg_parser):
     "argparse.ArgumentParser.parse_args",
     return_value=MOCK_COMMAND_LINE_ARGUMENTS,
 )
-def test_parse_returns_correct_log_level(mock_arg_parser):
+def test_parse_returns_correct_log_level(mock_arg_parser: MagicMock):
     command_line_parser = CommandLineParser()
     args: CommandLineArguments = command_line_parser.parse()
     assert args.log_level == "INFO"
@@ -70,7 +70,7 @@ def test_parse_returns_correct_log_level(mock_arg_parser):
     "argparse.ArgumentParser.parse_args",
     return_value=MOCK_COMMAND_LINE_ARGUMENTS,
 )
-def test_parse_returns_correct_input_device_name(mock_arg_parser):
+def test_parse_returns_correct_input_device_name(mock_arg_parser: MagicMock):
     command_line_parser = CommandLineParser()
     args: CommandLineArguments = command_line_parser.parse()
     assert args.input_device_name == "Airpods"
@@ -80,7 +80,7 @@ def test_parse_returns_correct_input_device_name(mock_arg_parser):
     "argparse.ArgumentParser.parse_args",
     return_value=MOCK_COMMAND_LINE_ARGUMENTS,
 )
-def test_parse_returns_correct_lang(mock_arg_parser):
+def test_parse_returns_correct_lang(mock_arg_parser: MagicMock):
     command_line_parser = CommandLineParser()
     args: CommandLineArguments = command_line_parser.parse()
     assert args.lang == "en"
@@ -90,7 +90,7 @@ def test_parse_returns_correct_lang(mock_arg_parser):
     "argparse.ArgumentParser.parse_args",
     return_value=MOCK_COMMAND_LINE_ARGUMENTS,
 )
-def test_parse_returns_correct_tld(mock_arg_parser):
+def test_parse_returns_correct_tld(mock_arg_parser: MagicMock):
     command_line_parser = CommandLineParser()
     args: CommandLineArguments = command_line_parser.parse()
     assert args.tld == "tld"
@@ -100,7 +100,7 @@ def test_parse_returns_correct_tld(mock_arg_parser):
     "argparse.ArgumentParser.parse_args",
     return_value=MOCK_COMMAND_LINE_ARGUMENTS,
 )
-def test_parse_returns_correct_open_ai_key(mock_arg_parser):
+def test_parse_returns_correct_open_ai_key(mock_arg_parser: MagicMock):
     command_line_parser = CommandLineParser()
     args: CommandLineArguments = command_line_parser.parse()
     assert args.open_ai_key == "fake-key"
@@ -110,7 +110,7 @@ def test_parse_returns_correct_open_ai_key(mock_arg_parser):
     "argparse.ArgumentParser.parse_args",
     return_value=MOCK_COMMAND_LINE_ARGUMENTS,
 )
-def test_parse_returns_correct_open_ai_model(mock_arg_parser):
+def test_parse_returns_correct_open_ai_model(mock_arg_parser: MagicMock):
     command_line_parser = CommandLineParser()
     args: CommandLineArguments = command_line_parser.parse()
     assert args.open_ai_model == "gpt-3.5-turbo"
@@ -120,7 +120,7 @@ def test_parse_returns_correct_open_ai_model(mock_arg_parser):
     "argparse.ArgumentParser.parse_args",
     return_value=MOCK_COMMAND_LINE_ARGUMENTS,
 )
-def test_parse_returns_correct_safe_word(mock_arg_parser):
+def test_parse_returns_correct_safe_word(mock_arg_parser: MagicMock):
     command_line_parser = CommandLineParser()
     args: CommandLineArguments = command_line_parser.parse()
     assert args.safe_word == "stop"
@@ -130,7 +130,7 @@ def test_parse_returns_correct_safe_word(mock_arg_parser):
     "argparse.ArgumentParser.parse_args",
     return_value=MOCK_COMMAND_LINE_ARGUMENTS,
 )
-def test_parse_returns_correct_max_tokens(mock_arg_parser):
+def test_parse_returns_correct_max_tokens(mock_arg_parser: MagicMock):
     command_line_parser = CommandLineParser()
     args: CommandLineArguments = command_line_parser.parse()
     assert args.max_tokens == 100
@@ -140,7 +140,7 @@ def test_parse_returns_correct_max_tokens(mock_arg_parser):
     "argparse.ArgumentParser.parse_args",
     return_value=MOCK_COMMAND_LINE_ARGUMENTS,
 )
-def test_parse_returns_correct_speech_rate(mock_arg_parser):
+def test_parse_returns_correct_speech_rate(mock_arg_parser: MagicMock):
     command_line_parser = CommandLineParser()
     args: CommandLineArguments = command_line_parser.parse()
     assert args.speech_rate == 1.0
@@ -150,7 +150,7 @@ def test_parse_returns_correct_speech_rate(mock_arg_parser):
     "argparse.ArgumentParser.parse_args",
     return_value=MOCK_COMMAND_LINE_ARGUMENTS,
 )
-def test_parse_returns_correct_tts(mock_arg_parser):
+def test_parse_returns_correct_tts(mock_arg_parser: MagicMock):
     command_line_parser = CommandLineParser()
     args: CommandLineArguments = command_line_parser.parse()
     assert args.tts == "google"

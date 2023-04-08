@@ -31,13 +31,20 @@ class SpeechListener(Listener):
         Listen on the specified input device for speech and return the heard text.
         :return: the text from the speech listened to.
         """
-        # can change device_index to something other than 0 to change the input mic
         with Microphone(device_index=self._input_device.index) as source:
             logging.info(f"Listening for input with mic '{self._input_device.name}'...")
             audio: AudioData = self._recognizer.listen(source)
             logging.debug("Received speech input.")
 
         return self._recognize_text_in_audio(audio)
+
+    def set_input_device(self, input_device: InputDevice) -> None:
+        """Set the input device to use when listening.
+
+        Args:
+            input_device: The new input device to use for listening.
+        """
+        self._input_device = input_device
 
     def _recognize_text_in_audio(self, audio: AudioData) -> str:
         try:
