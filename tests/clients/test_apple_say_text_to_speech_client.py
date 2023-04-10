@@ -1,5 +1,6 @@
 import mimetypes
 import os
+import sys
 
 import pytest
 
@@ -9,6 +10,10 @@ from chatgpt_voice_assistant.clients.apple_say_text_to_speech_client import (
 )
 
 
+NOT_DARWIN = sys.platform != "darwin"
+
+
+@pytest.mark.skipif(NOT_DARWIN, reason="Skipping on non-Mac platforms")
 def test_convert_text_to_audio_creates_audio_file():
     # Test that the convert_text_to_audio method creates a valid MP3 file
     text_to_speak = "This is a test"
@@ -24,6 +29,7 @@ def test_convert_text_to_audio_creates_audio_file():
     os.remove(audio_file_path)
 
 
+@pytest.mark.skipif(NOT_DARWIN, reason="Skipping on non-Mac platforms")
 def test_convert_text_to_audio_raises_error_if_file_exists():
     # Test that the convert_text_to_audio method creates a valid MP3 file
     text_to_speak = "This is a test"
