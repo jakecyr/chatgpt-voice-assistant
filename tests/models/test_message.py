@@ -59,4 +59,4 @@ def test_message_throws_error_on_change():
     exchange = Message(content, role, was_cut_short)
 
     with pytest.raises(AttributeError):
-        exchange.content = "New user message" # type: ignore
+        exchange.content = "New user message"  # type: ignore
