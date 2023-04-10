@@ -4,7 +4,6 @@ import os
 from chatgpt_voice_assistant.bases.options_parser import OptionsParser
 from chatgpt_voice_assistant.models.command_line_arguments import CommandLineArguments
 
-
 OPENAI_KEY_ENV_VAR_NAME = "OPENAI_API_KEY"
 
 
@@ -55,7 +54,7 @@ class CommandLineParser(OptionsParser):
         )
         parser.add_argument(
             "--open-ai-model",
-            help=f"The Open AI model to use. See: https://platform.openai.com/docs/models/overview",
+            help="The Open AI model to use. See: https://platform.openai.com/docs/models/overview",
             default="gpt-3.5-turbo",
             type=str,
         )

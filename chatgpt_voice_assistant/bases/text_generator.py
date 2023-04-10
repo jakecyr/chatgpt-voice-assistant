@@ -1,14 +1,17 @@
 from abc import ABC, abstractmethod
 
-from chatgpt_voice_assistant.models.exchange import Exchange
+from chatgpt_voice_assistant.models.message import Message
 
 
 class TextGenerator(ABC):
     @abstractmethod
-    def generate_text(self, input_text: str) -> Exchange:
+    def generate_text(self, prompt: str) -> Message:
         """
         Generates text based on the input and returns it.
-        :param str input_text: the input text.
-        :return: the generated text.
+
+        Args:
+            prompt: the input text.
+
+        Returns:
+            The generated message.
         """
-        pass

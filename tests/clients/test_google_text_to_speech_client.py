@@ -3,6 +3,7 @@ import os
 
 import gtts
 import pytest
+from mock import patch
 
 from chatgpt_voice_assistant.bases.text_to_speech_client import TextToSpeechClient
 from chatgpt_voice_assistant.clients.google_text_to_speech_client import (
@@ -10,7 +11,7 @@ from chatgpt_voice_assistant.clients.google_text_to_speech_client import (
 )
 
 
-def test_convert_text_to_audio():
+def test_convert_text_to_audio() -> None:
     # Test that the convert_text_to_audio method creates a valid MP3 file
     text_to_speak = "This is a test"
     mp3_file_path = "test.mp3"
@@ -54,6 +55,14 @@ def test_get_lang_gtts_empty_text():
     text_to_speak = ""
     client = GoogleTextToSpeechClient("en", "com")
     with pytest.raises(AssertionError):
+        client._get_lang_gtts(text_to_speak)
+
+
+@patch("gtts.gTTS", side_effect=RuntimeError("Error loading dictionaries"))
+def test_get_lang_gtts_raises_runtime_error_if_dictionaries_fail_to_load(gtts_gtts):
+    text_to_speak = ""
+    client = GoogleTextToSpeechClient("en", "com")
+    with pytest.raises(RuntimeError):
         client._get_lang_gtts(text_to_speak)
 
 

@@ -26,6 +26,7 @@ dev = [
   "black",
   "pylint",
   "isort",
+  "flake8",
   "mypy",
   "types-pyaudio",
   "types-mock",
@@ -44,6 +45,9 @@ pythonpath = [
 
 [tool.setuptools]
 packages = ["chatgpt_voice_assistant"]
+
+[tool.isort]
+profile = "black"
 
 [tool.mypy]
 python_version = "3.9"

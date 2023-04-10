@@ -5,7 +5,7 @@ import subprocess
 from chatgpt_voice_assistant.bases.text_to_speech_client import TextToSpeechClient
 
 
-class AppleSayClient(TextToSpeechClient):
+class AppleSayTextToSpeechClient(TextToSpeechClient):
     """Apple 'say' TTS CLI client that generates an AIFF file"""
 
     audio_extension = ".aiff"

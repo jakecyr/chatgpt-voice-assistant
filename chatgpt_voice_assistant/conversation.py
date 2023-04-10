@@ -74,14 +74,15 @@ class Conversation:
                 logging.debug("Starting to listen again...")
                 return self.start_conversation(run_once=run_once)
 
-            text = text[len(self._wake_word) :].strip()
+            wake_word_length = len(self._wake_word)
+            text = text[wake_word_length:].strip()
 
         if text.upper() == self._safe_word:
             logging.info("Safe word detected, exiting...")
             return self._cleanup_and_exit()
 
         response = self._text_generator.generate_text(text)
-        response_text = response.computer_response
+        response_text = response.content
 
         logging.info(f"Text generator response: {response_text}")
 
