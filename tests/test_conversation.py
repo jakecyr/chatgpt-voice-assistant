@@ -9,7 +9,7 @@ from chatgpt_voice_assistant.exceptions.failed_to_understand_listener_error impo
     FailedToUnderstandListenerError,
 )
 from chatgpt_voice_assistant.exceptions.listener_fatal_error import ListenerFatalError
-from chatgpt_voice_assistant.models.message import Message
+from chatgpt_voice_assistant.models.message import Message, MessageRole
 
 current_safe_word = "exit"
 current_wake_word = "robot"
@@ -66,12 +66,10 @@ def conversation_with_wake_word(
 
 
 @mock.patch("sys.exit")
-def test_start_conversation_no_safe_word(
-    sys_exit: MagicMock, conversation: Conversation
-):
+def test_start_conversation_no_safe_word(sys_exit: MagicMock, conversation: MagicMock):
     conversation._listener.listen.return_value = "my response"
     conversation._text_generator.generate_text.return_value = Message(
-        "hello", "hey there", False
+        "hello", MessageRole.USER, False
     )
 
     conversation.start_conversation(run_once=True)
@@ -84,10 +82,10 @@ def test_start_conversation_no_safe_word(
 
 @mock.patch("sys.exit")
 def test_start_conversation_could_not_understand_error(
-    sys_exit: MagicMock, conversation: Conversation
+    sys_exit: MagicMock, conversation: MagicMock
 ):
     conversation._text_generator.generate_text.return_value = Message(
-        "hello", "hey there", False
+        "hello", MessageRole.USER, False
     )
 
     conversation._listener.listen.side_effect = FailedToUnderstandListenerError(
@@ -104,10 +102,10 @@ def test_start_conversation_could_not_understand_error(
 
 @mock.patch("sys.exit")
 def test_start_conversation_recognition_request_error(
-    sys_exit: MagicMock, conversation: Conversation
+    sys_exit: MagicMock, conversation: MagicMock
 ):
     conversation._text_generator.generate_text.return_value = Message(
-        "hello", "hey there", False
+        "hello", MessageRole.USER, False
     )
 
     conversation._listener.listen.side_effect = ListenerFatalError("Bad request")
@@ -121,10 +119,10 @@ def test_start_conversation_recognition_request_error(
 
 
 @mock.patch("sys.exit")
-def test_start_conversation_exits(sys_exit: MagicMock, conversation: Conversation):
+def test_start_conversation_exits(sys_exit: MagicMock, conversation: MagicMock):
     conversation._listener.listen.return_value = current_safe_word
     conversation._text_generator.generate_text.return_value = Message(
-        "hello", "hey there", False
+        "hello", MessageRole.USER, False
     )
     conversation.start_conversation(run_once=True)
 
@@ -136,10 +134,10 @@ def test_start_conversation_exits(sys_exit: MagicMock, conversation: Conversatio
 
 @mock.patch("sys.exit")
 def test_start_conversation_called_again_if_no_text(
-    sys_exit: MagicMock, conversation: Conversation
+    sys_exit: MagicMock, conversation: MagicMock
 ):
     conversation._text_generator.generate_text.return_value = Message(
-        "hello", "hey there", False
+        "hello", MessageRole.USER, False
     )
 
     conversation._listener.listen.side_effect = ["test", conversation._safe_word]
@@ -152,10 +150,10 @@ def test_start_conversation_called_again_if_no_text(
 
 @mock.patch("sys.exit")
 def test_start_conversation_starts_again_if_wake_word_not_spoken(
-    sys_exit: MagicMock, conversation: Conversation
+    sys_exit: MagicMock, conversation: MagicMock
 ):
     conversation._text_generator.generate_text.return_value = Message(
-        "hello", "hey there", False
+        "hello", MessageRole.USER, False
     )
 
     conversation._listener.listen.side_effect = ["test", conversation._safe_word]
@@ -168,10 +166,10 @@ def test_start_conversation_starts_again_if_wake_word_not_spoken(
 
 @mock.patch("sys.exit")
 def test_start_conversation_keeps_running_until_safe_word(
-    sys_exit: MagicMock, conversation: Conversation
+    sys_exit: MagicMock, conversation: MagicMock
 ):
     conversation._text_generator.generate_text.return_value = Message(
-        "hello", "hey there", False
+        "hello", MessageRole.USER, False
     )
 
     conversation._listener.listen.side_effect = [

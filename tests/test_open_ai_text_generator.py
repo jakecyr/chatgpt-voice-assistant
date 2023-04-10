@@ -20,7 +20,7 @@ def test_init_defaults_tokens():
 
 def test_throws_error_if_key_is_none():
     with pytest.raises(TextGenerationError):
-        OpenAITextGenerator(open_ai_key=None, max_tokens=100, previous_responses=[])
+        OpenAITextGenerator(open_ai_key=None, max_tokens=100, previous_responses=[])  # type: ignore
 
 
 def test_throws_error_if_key_is_empty():
@@ -30,4 +30,4 @@ def test_throws_error_if_key_is_empty():
 
 def test_throws_error_if_key_is_not_a_string():
     with pytest.raises(TextGenerationError):
-        OpenAITextGenerator(open_ai_key=True, max_tokens=100, previous_responses=[])
+        OpenAITextGenerator(open_ai_key=True, max_tokens=100, previous_responses=[])  # type: ignore

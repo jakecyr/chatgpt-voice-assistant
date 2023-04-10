@@ -1,7 +1,8 @@
-from typing import NamedTuple
+from dataclasses import dataclass
 
 
-class InputDevice(NamedTuple):
+@dataclass(frozen=True)
+class InputDevice:
     """
     Data model for an input device option
     """

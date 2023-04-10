@@ -39,7 +39,7 @@ class InputDevices:
     @staticmethod
     def _get_all_pyaudio_input_devices() -> List[PyAudioDeviceInfo]:
         """Get a list of pyaudio input devices.
-        
+
         Returns:
             A list of pyaudio input device objects.
         """

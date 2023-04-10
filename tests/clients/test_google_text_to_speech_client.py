@@ -11,7 +11,7 @@ from chatgpt_voice_assistant.clients.google_text_to_speech_client import (
 )
 
 
-def test_convert_text_to_audio():
+def test_convert_text_to_audio() -> None:
     # Test that the convert_text_to_audio method creates a valid MP3 file
     text_to_speak = "This is a test"
     mp3_file_path = "test.mp3"

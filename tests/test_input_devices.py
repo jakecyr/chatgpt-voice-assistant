@@ -1,5 +1,4 @@
 from mock import MagicMock, patch
-from pyaudio import PyAudio
 
 from chatgpt_voice_assistant.input_devices import InputDevices
 
