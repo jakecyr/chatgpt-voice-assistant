@@ -9,7 +9,6 @@ from chatgpt_voice_assistant.clients.apple_say_text_to_speech_client import (
     AppleSayTextToSpeechClient,
 )
 
-
 NOT_DARWIN = sys.platform != "darwin"
 
 
@@ -30,7 +29,7 @@ def test_convert_text_to_audio_creates_audio_file():
 
 
 @pytest.mark.skipif(NOT_DARWIN, reason="Skipping on non-Mac platforms")
-def test_convert_text_to_audio_raises_error_if_file_exists():
+def test_convert_text_to_audio_raises_error_if_file_exists() -> None:
     # Test that the convert_text_to_audio method creates a valid MP3 file
     text_to_speak = "This is a test"
     audio_file_path = "test.aiff"

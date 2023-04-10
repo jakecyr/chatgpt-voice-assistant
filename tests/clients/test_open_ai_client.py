@@ -9,7 +9,7 @@ from chatgpt_voice_assistant.models.open_ai_chat_completion import ChatCompletio
 
 OPEN_AI_KEY = "fake-key"
 
-MOCK_RESPONSE_STOP_DUE_TO_LENGTH = {
+MOCK_RESPONSE_STOP_DUE_TO_LENGTH: Dict[str, Any] = {
     "index": 0,
     "finish_reason": "length",
     "message": {
