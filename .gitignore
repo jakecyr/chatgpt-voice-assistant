@@ -10,3 +10,4 @@ __pycache__/
 temp.mp3
 .vscode
 build
+dist
