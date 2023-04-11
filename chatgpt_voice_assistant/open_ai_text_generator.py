@@ -17,14 +17,14 @@ class OpenAITextGenerator(TextGenerator):
         max_tokens=200,
         temperature=0.7,
         previous_responses: Optional[List[Message]] = None,
-    ):
+    ) -> None:
         if not open_ai_key or not isinstance(open_ai_key, str):
             raise TextGenerationError("Missing open_ai_key value parameter")
 
         self._open_ai_client = OpenAIClient(open_ai_key)
-        self._model = model
-        self._max_tokens = max_tokens
-        self._temperature = temperature
+        self._model: str = model
+        self._max_tokens: int = max_tokens
+        self._temperature: float = temperature
         self._previous_responses: List[Message] = previous_responses or []
 
     def generate_text(

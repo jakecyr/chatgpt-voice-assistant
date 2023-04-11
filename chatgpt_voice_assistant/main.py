@@ -19,6 +19,7 @@ from chatgpt_voice_assistant.helpers.set_keyboard_interrupt_handler import (
 )
 from chatgpt_voice_assistant.helpers.set_log_level import set_log_level
 from chatgpt_voice_assistant.input_devices import InputDevices
+from chatgpt_voice_assistant.models.command_line_arguments import CommandLineArguments
 from chatgpt_voice_assistant.models.input_device import InputDevice
 from chatgpt_voice_assistant.open_ai_text_generator import OpenAITextGenerator
 from chatgpt_voice_assistant.speech_listener import SpeechListener
@@ -28,7 +29,7 @@ def main() -> None:
     options_parser: OptionsParser = CommandLineParser()
 
     # parse the options passed in from the user
-    options = options_parser.parse()
+    options: CommandLineArguments = options_parser.parse()
 
     # set log level from CLI options
     set_log_level(options.log_level)

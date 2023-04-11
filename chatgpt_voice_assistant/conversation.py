@@ -12,6 +12,7 @@ from chatgpt_voice_assistant.exceptions.listener_fatal_error import ListenerFata
 from chatgpt_voice_assistant.exceptions.no_input_listener_error import (
     NoInputListenerError,
 )
+from chatgpt_voice_assistant.models.message import Message
 
 
 class Conversation:
@@ -24,7 +25,7 @@ class Conversation:
         responder: Responder,
         safe_word: Optional[str] = None,
         wake_word: Optional[str] = None,
-    ):
+    ) -> None:
         """
         Create a new Conversation instance.
 
@@ -54,7 +55,7 @@ class Conversation:
         except ListenerFatalError as e:
             logging.error(f"Listener fatal error: {e}")
             self._cleanup_and_exit()
-            return
+            return None
         except (FailedToUnderstandListenerError, NoInputListenerError) as e:
             logging.error(f"Listener error: {e}")
             if not run_once:
@@ -63,7 +64,7 @@ class Conversation:
 
         if text is None:
             logging.error("Listener returned None")
-            return
+            return None
 
         if self._wake_word is not None:
             if not text.upper().startswith(self._wake_word):
@@ -81,7 +82,7 @@ class Conversation:
             logging.info("Safe word detected, exiting...")
             return self._cleanup_and_exit()
 
-        response = self._text_generator.generate_text(text)
+        response: Message = self._text_generator.generate_text(text)
         response_text = response.content
 
         logging.info(f"Text generator response: {response_text}")
@@ -90,7 +91,7 @@ class Conversation:
 
         if not run_once:
             logging.debug("Starting to listen again...")
-            self.start_conversation(run_once=run_once)
+            return self.start_conversation(run_once=run_once)
 
     def _cleanup_and_exit(self, exit_code: int = 0) -> None:
         """

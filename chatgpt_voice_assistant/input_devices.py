@@ -29,8 +29,8 @@ class InputDevices:
         input_devices: List[InputDevice] = []
 
         for input_device in pyaudio_input_devices:
-            device_index = cast(int, input_device["index"])
-            device_name = cast(str, input_device["name"])
+            device_index: int = cast(int, input_device["index"])
+            device_name: str = cast(str, input_device["name"])
             input_devices.append(InputDevice(device_index, device_name))
 
         logging.info(f"Found {len(input_devices)} input devices.")
@@ -44,7 +44,7 @@ class InputDevices:
             A list of pyaudio input device objects.
         """
         all_devices: List[PyAudioDeviceInfo] = []
-        count_of_input_devices = InputDevices.py_audio.get_device_count()
+        count_of_input_devices: int = InputDevices.py_audio.get_device_count()
 
         for device_index in range(0, count_of_input_devices):
             device_info: PyAudioDeviceInfo = cast(

@@ -1,4 +1,5 @@
 import logging
+from typing import cast
 
 from speech_recognition import (
     AudioData,
@@ -22,7 +23,7 @@ from chatgpt_voice_assistant.models.input_device import InputDevice
 class SpeechListener(Listener):
     """Class to listen to speech convert it to text"""
 
-    def __init__(self, input_device: InputDevice):
+    def __init__(self, input_device: InputDevice) -> None:
         self._recognizer = Recognizer()
         self._input_device = input_device
 
@@ -44,12 +45,15 @@ class SpeechListener(Listener):
         Args:
             input_device: The new input device to use for listening.
         """
-        self._input_device = input_device
+        self._input_device: InputDevice = input_device
 
     def _recognize_text_in_audio(self, audio: AudioData) -> str:
         try:
-            text: str = self._recognizer.recognize_google(
-                audio, show_all=False, with_confidence=False
+            text: str = cast(
+                self._recognizer.recognize_google(
+                    audio, show_all=False, with_confidence=False
+                ),
+                str,
             )
 
             if text is None or len(text) == 0:
