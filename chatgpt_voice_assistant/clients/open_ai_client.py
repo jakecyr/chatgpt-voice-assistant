@@ -1,6 +1,6 @@
 import json
 import logging
-from typing import List
+from typing import Any, List
 
 import openai
 
@@ -12,7 +12,7 @@ from chatgpt_voice_assistant.models.open_ai_chat_completion import ChatCompletio
 class OpenAIClient:
     """Client to interact with the OpenAI API."""
 
-    def __init__(self, api_key: str):
+    def __init__(self, api_key: str) -> None:
         logging.debug("Setting Open API key...")
         openai.api_key = api_key
 
@@ -46,7 +46,7 @@ class OpenAIClient:
             f"Sending prompt to chat completion endpoint: {json.dumps(messages)}"
         )
 
-        completion = openai.ChatCompletion.create(
+        completion: Any = openai.ChatCompletion.create(
             messages=messages,
             model=model,
             max_tokens=max_tokens,
@@ -72,7 +72,7 @@ class OpenAIClient:
             )
             was_cut_short = True
 
-        first_choice_text = (
+        first_choice_text: str = (
             first_choice["message"]["content"].replace("\n", " ").strip()
         )
 

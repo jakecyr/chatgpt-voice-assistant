@@ -11,17 +11,17 @@ class GoogleTextToSpeechClient(TextToSpeechClient):
 
     audio_extension = ".mp3"
 
-    def __init__(self, output_language, output_top_level_domain):
+    def __init__(self, output_language, output_top_level_domain) -> None:
         self._output_language = output_language
         self._output_top_level_domain = output_top_level_domain
 
-    def convert_text_to_audio(self, text_to_speak, audio_file_path):
+    def convert_text_to_audio(self, text_to_speak, audio_file_path) -> None:
         if os.path.exists(audio_file_path):
             raise FileExistsError(
                 f"The audio file path already exists: {audio_file_path}"
             )
 
-        tts = self._get_gtts(text_to_speak)
+        tts: gtts.gTTS = self._get_gtts(text_to_speak)
         tts.save(audio_file_path)
 
     def _get_gtts(self, text_to_speak: str) -> gtts.gTTS:

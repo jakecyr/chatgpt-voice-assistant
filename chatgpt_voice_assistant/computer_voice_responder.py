@@ -15,13 +15,13 @@ class ComputerVoiceResponder(Responder):
         text_to_speech_client: TextToSpeechClient,
         audio_filename: str,
         speech_rate: float = 1.0,
-    ):
+    ) -> None:
         self._text_to_speech_client: TextToSpeechClient = text_to_speech_client
-        self._audio_filename = os.path.join(
+        self._audio_filename: str = os.path.join(
             os.getcwd(),
             audio_filename + self._text_to_speech_client.audio_extension,
         )
-        self._speech_rate = speech_rate
+        self._speech_rate: float = speech_rate
 
     def respond(self, text_to_speak: str) -> None:
         """
@@ -42,7 +42,7 @@ class ComputerVoiceResponder(Responder):
         finally:
             self._cleanup_temp_files()
 
-    def _cleanup_temp_files(self):
+    def _cleanup_temp_files(self) -> None:
         """
         Remove all temporary files and cleanup before shutting down.
         :return: None
@@ -51,6 +51,6 @@ class ComputerVoiceResponder(Responder):
             f"ComputerVoiceResponder._cleanup_temp_files - {self._audio_filename}"
         )
 
-        # check if temporary file exists before trying to delete
+        # Check if temporary file exists before trying to delete.
         if os.path.exists(self._audio_filename):
             os.remove(self._audio_filename)

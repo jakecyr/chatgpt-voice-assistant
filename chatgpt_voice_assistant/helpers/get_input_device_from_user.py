@@ -13,7 +13,9 @@ def ask_user_which_input_device_to_use(input_devices: list[InputDevice]) -> Inpu
     for index, input_device in enumerate(input_devices):
         logging.info(f"{index + 1}) {input_device.name}")
 
-    chosen_device_index = int(input("Which input device would you like to use? ")) - 1
+    chosen_device_index: int = (
+        int(input("Which input device would you like to use? ")) - 1
+    )
 
     if chosen_device_index < 0 or chosen_device_index > len(input_devices) - 1:
         raise InvalidInputDeviceIndexError("Invalid input device index chosen")
@@ -27,8 +29,6 @@ def get_input_device_from_user(
     if len(input_devices) == 0:
         raise NoInputDevicesFoundError("No input devices found")
 
-    input_device = None
-
     if input_device_name is not None:
         if matches := [
             device for device in input_devices if device.name == input_device_name
@@ -37,6 +37,4 @@ def get_input_device_from_user(
         else:
             logging.info(f'No input device named "{input_device_name}"')
 
-    input_device = ask_user_which_input_device_to_use(input_devices)
-
-    return input_device
+    return ask_user_which_input_device_to_use(input_devices)

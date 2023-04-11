@@ -1,10 +1,11 @@
 import logging
 import signal
 import sys
+from typing import NoReturn
 
 
-def set_keyboard_interrupt_handler():
-    def signal_handler(_sig, _frame):
+def set_keyboard_interrupt_handler() -> None:
+    def signal_handler(_sig, _frame) -> NoReturn:
         logging.info("Shutting down...")
         sys.exit(0)
 

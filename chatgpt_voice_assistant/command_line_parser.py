@@ -71,7 +71,7 @@ class CommandLineParser(OptionsParser):
             type=float,
         )
 
-        parsed_args = parser.parse_args()
+        parsed_args: argparse.Namespace = parser.parse_args()
 
         if parsed_args.open_ai_key is None:
             parser.error(

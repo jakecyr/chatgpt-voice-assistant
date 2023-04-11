@@ -25,7 +25,7 @@ class SpeechListener(Listener):
 
     def __init__(self, input_device: InputDevice) -> None:
         self._recognizer = Recognizer()
-        self._input_device = input_device
+        self._input_device: InputDevice = input_device
 
     def listen(self) -> str:
         """
@@ -45,15 +45,15 @@ class SpeechListener(Listener):
         Args:
             input_device: The new input device to use for listening.
         """
-        self._input_device: InputDevice = input_device
+        self._input_device = input_device
 
     def _recognize_text_in_audio(self, audio: AudioData) -> str:
         try:
             text: str = cast(
+                str,
                 self._recognizer.recognize_google(
                     audio, show_all=False, with_confidence=False
                 ),
-                str,
             )
 
             if text is None or len(text) == 0:
