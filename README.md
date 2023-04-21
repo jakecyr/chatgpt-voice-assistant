@@ -24,6 +24,14 @@ echo "include_dirs="`brew --prefix portaudio`"/include/" >> $HOME/.pydistutils.c
 echo "library_dirs="`brew --prefix portaudio`"/lib/" >> $HOME/.pydistutils.cfg
 ```
 
+### Install With Pip
+
+Run the following to install the `chatgpt-assist` CLI application:
+
+```bash
+pip install `chatgpt-voice-assistant`
+```
+
 ### General Setup
 
 Optionally create a new Python environment and activate it:
@@ -42,21 +50,25 @@ Finally, run the following to install all required Python packages and the chatg
 pip install -e .
 ```
 
-To install the bash command `chatgpt-assist`, run `pip install .`.
+To only install the bash command `chatgpt-assist` without wanting to update the source code, run `pip install .`.
 
 ## Running the Script
 
 Either set the `OPENAI_API_KEY` environment variable before running the script or pass in your secret key to the script like in the example below:
 
 ```bash
-# explicitly
-python chatgpt_voice_assistant/main.py --log-level=INFO --open-ai-key=<OPEN API SECRET KEY HERE>
+export OPENAI_API_KEY=<OPEN API SECRET KEY HERE>
+chatgpt-assist
+
+# OR
+
+chatgpt-assist --open-ai-key=<OPEN API SECRET KEY HERE>
 ```
 
 or run with the installed bash command:
 
 ```bash
-chatgpt-assist --log-level=INFO --open-ai-key=<OPEN API SECRET KEY HERE>
+python chatgpt_voice_assistant/main.py --open-ai-key=<OPEN API SECRET KEY HERE>
 ```
 
 Start speaking and turn up your volume to hear the AI assistant respond.
