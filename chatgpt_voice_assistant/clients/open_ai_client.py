@@ -19,9 +19,9 @@ class OpenAIClient:
     def get_chat_completion(
         self,
         messages: List[ChatCompletionMessage],
-        model: str = "gpt-3.5-turbo",
+        model: str = "gpt-3.5-turbo-1106",
         max_tokens: int = 500,
-        temperature: float = 0.7,
+        temperature: float = 0.2,
     ) -> Message:
         """
         Returns a completion (response) from the specified OpenAI GPT model.

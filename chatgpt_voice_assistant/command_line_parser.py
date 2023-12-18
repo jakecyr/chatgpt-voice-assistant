@@ -55,7 +55,7 @@ class CommandLineParser(OptionsParser):
         parser.add_argument(
             "--open-ai-model",
             help="The Open AI model to use. See: https://platform.openai.com/docs/models/overview",
-            default="gpt-3.5-turbo",
+            default="gpt-3.5-turbo-1106",
             type=str,
         )
         parser.add_argument(

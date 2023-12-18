@@ -24,7 +24,7 @@ echo "include_dirs="`brew --prefix portaudio`"/include/" >> $HOME/.pydistutils.c
 echo "library_dirs="`brew --prefix portaudio`"/lib/" >> $HOME/.pydistutils.cfg
 ```
 
-### Install With Pip
+### Install from PyPI
 
 Run the following to install the `chatgpt-assist` CLI application:
 
@@ -32,25 +32,10 @@ Run the following to install the `chatgpt-assist` CLI application:
 pip install `chatgpt-voice-assistant`
 ```
 
-### General Setup
+### Install from Source
 
-Optionally create a new Python environment and activate it:
-
-```bash
-# create a new environment in the current directory called env
-python3 -m venv env
-
-# activate the environment
-source env/bin/activate
-```
-
-Finally, run the following to install all required Python packages and the chatgpt_voice_assistant package in editable mode:
-
-```bash
-pip install -e .
-```
-
-To only install the bash command `chatgpt-assist` without wanting to update the source code, run `pip install .`.
+1. Install poetry ([official docs](https://python-poetry.org/docs/#installation) or with `pip install poetry`)
+2. Install all dependencies with `poetry install`
 
 ## Running the Script
 
@@ -58,17 +43,17 @@ Either set the `OPENAI_API_KEY` environment variable before running the script o
 
 ```bash
 export OPENAI_API_KEY=<OPEN API SECRET KEY HERE>
-chatgpt-assist
+gptassist
 
 # OR
 
-chatgpt-assist --open-ai-key=<OPEN API SECRET KEY HERE>
+gptassist --open-ai-key=<OPEN API SECRET KEY HERE>
 ```
 
-or run with the installed bash command:
+or if installed from source with poetry:
 
 ```bash
-python chatgpt_voice_assistant/main.py --open-ai-key=<OPEN API SECRET KEY HERE>
+poetry run gptassist --open-ai-key=<OPEN API SECRET KEY HERE>
 ```
 
 Start speaking and turn up your volume to hear the AI assistant respond.
@@ -119,7 +104,7 @@ Below is the help menu from the chatgpt-assist CLI detailing all available optio
 Specify both the `LANGUAGE` and `TOP_LEVEL_DOMAIN` vars to override the default English (United States)
 
 ```bash
-python chatgpt_voice_assistant/main.py --open-ai-key=<OPENAI_KEY> --lang=en --tld=com
+gptassist --open-ai-key=<OPENAI_KEY> --lang=en --tld=com
 ```
 
 #### Language Examples
@@ -137,6 +122,5 @@ See Localized 'accents' section on gTTS docs for more information
 
 ## References
 
-[SpeechRecognition library docs](https://pypi.org/project/SpeechRecognition/1.2.3)
-
-[Google Translate Text-to-Speech API (gTTS)](https://gtts.readthedocs.io/en/latest/module.html#)
+* [SpeechRecognition library docs](https://pypi.org/project/SpeechRecognition/1.2.3)
+* [Google Translate Text-to-Speech API (gTTS)](https://gtts.readthedocs.io/en/latest/module.html#)
