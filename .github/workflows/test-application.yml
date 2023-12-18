@@ -1,5 +1,7 @@
 name: Test Application
 
+on: push
+
 permissions:
   contents: read
 
