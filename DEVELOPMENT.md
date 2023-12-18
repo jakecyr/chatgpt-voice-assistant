@@ -1,7 +1,7 @@
 # Development Setup
 
-1. Install the package in editable mode with `pip install -e .`
-2. Install all optional dev dependencies with `pip install '.[dev]'`
+1. Install poetry ([official docs](https://python-poetry.org/docs/#installation) or with `pip install poetry`)
+2. Install all dependencies with `poetry install`
 
 See the main [README.md file](./README.md) for general setup instructions.
 
@@ -9,18 +9,18 @@ See the main [README.md file](./README.md) for general setup instructions.
 
 ### Unit Tests
 
-Run `pytest` to run all unit tests.
+Run `poetry run pytest` to run all unit tests.
 
 ### Coverage Report
 
 Get the coverage with:
 
 ```bash
-coverage run --source chatgpt_voice_assistant -m pytest tests
+poetry run coverage run --source chatgpt_voice_assistant -m pytest tests
 ```
 
 View the coverage report:
 
 ```bash
-coverage report --show-missing --fail-under=90
+poetry run coverage report --show-missing --fail-under=90
 ```
