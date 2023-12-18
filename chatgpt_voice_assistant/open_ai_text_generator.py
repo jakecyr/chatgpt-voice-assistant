@@ -13,7 +13,7 @@ class OpenAITextGenerator(TextGenerator):
     def __init__(
         self,
         open_ai_key: str,
-        model="gpt-3.5-turbo",
+        model="gpt-3.5-turbo-1106",
         max_tokens=200,
         temperature=0.7,
         previous_responses: Optional[List[Message]] = None,

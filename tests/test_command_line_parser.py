@@ -14,7 +14,7 @@ MOCK_COMMAND_LINE_ARGUMENTS: CommandLineArguments = CommandLineArguments(
     log_level="INFO",
     max_tokens=100,
     open_ai_key="fake-key",
-    open_ai_model="gpt-3.5-turbo",
+    open_ai_model="gpt-3.5-turbo-1106",
     safe_word="stop",
     speech_rate=1.0,
     tld="tld",
@@ -29,7 +29,7 @@ MOCK_COMMAND_LINE_ARGUMENTS_NO_API_KEY: CommandLineArguments = CommandLineArgume
     log_level="INFO",
     max_tokens=100,
     open_ai_key="",
-    open_ai_model="gpt-3.5-turbo",
+    open_ai_model="gpt-3.5-turbo-1106",
     safe_word="stop",
     speech_rate=1.0,
     tld="tld",
@@ -113,7 +113,7 @@ def test_parse_returns_correct_open_ai_key(mock_arg_parser: MagicMock):
 def test_parse_returns_correct_open_ai_model(mock_arg_parser: MagicMock):
     command_line_parser = CommandLineParser()
     args: CommandLineArguments = command_line_parser.parse()
-    assert args.open_ai_model == "gpt-3.5-turbo"
+    assert args.open_ai_model == "gpt-3.5-turbo-1106"
 
 
 @patch(
