@@ -1,9 +1,11 @@
 env
 .env
+.venv
 .idea
 .DS_Store
 chatgpt_voice_assistant.egg-info
 .pytest_cache
+.*_cache
 **/*/__pycache__/**/*
 __pycache__/
 .coverage

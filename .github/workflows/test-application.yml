@@ -25,21 +25,17 @@ jobs:
           sudo apt-get install libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0
           pip3 install pyaudio --user
           sudo apt-get install ffmpeg
-          pip3 install -e .[dev]
+          pip3 install poetry
+          poetry install --with dev
       - name: Test with pytest
         run: |
-          pytest
+          poetry run pytest
       - name: Check formatting with black
         run: |
-          black --check chatgpt_voice_assistant/**/*.py
-          black --check tests/**/*.py
-      - name: Check formatting with isort
+          poetry run black --check .
+      - name: Check formatting with ruff
         run: |
-          isort --check chatgpt_voice_assistant
-          isort --check tests
-      - name: Lint with flake8
-        run: |
-          flake8 --config .flake8
+          ruff check .
       - name: Test Coverage
         run: |
           coverage run -m pytest
