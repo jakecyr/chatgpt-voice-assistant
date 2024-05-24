@@ -2,7 +2,7 @@ import os
 
 from mock import MagicMock, patch
 
-from chatgpt_voice_assistant.command_line_parser import (
+from chatgpt_voice_assistant.cli_parser import (
     OPENAI_KEY_ENV_VAR_NAME,
     CommandLineParser,
 )

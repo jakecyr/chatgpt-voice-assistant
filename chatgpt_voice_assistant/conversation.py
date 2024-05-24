@@ -93,10 +93,14 @@ class Conversation:
             logging.debug("Starting to listen again...")
             return self.start_conversation(run_once=run_once)
 
+    def reset(self) -> None:
+        """Reset the conversation."""
+        self._text_generator.reset()
+
     def _cleanup_and_exit(self, exit_code: int = 0) -> None:
-        """
-        Run cleanup (if needed) and end the application process.
-        :param exit_code: the exit code to end the process with.
-        :return: None
+        """Run cleanup (if needed) and end the application process.
+
+        Args:
+            exit_code: the exit code to end the process with.
         """
         sys.exit(exit_code)

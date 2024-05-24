@@ -8,7 +8,10 @@ from chatgpt_voice_assistant.clients.apple_say_text_to_speech_client import (
 from chatgpt_voice_assistant.clients.google_text_to_speech_client import (
     GoogleTextToSpeechClient,
 )
-from chatgpt_voice_assistant.command_line_parser import CommandLineParser
+from chatgpt_voice_assistant.cli_parser import CommandLineParser
+from chatgpt_voice_assistant.clients.openai_text_to_speech_client import (
+    OpenAITextToSpeechClient,
+)
 from chatgpt_voice_assistant.computer_voice_responder import ComputerVoiceResponder
 from chatgpt_voice_assistant.conversation import Conversation
 from chatgpt_voice_assistant.helpers.get_input_device_from_user import (
@@ -22,7 +25,7 @@ from chatgpt_voice_assistant.input_devices import InputDevices
 from chatgpt_voice_assistant.models.command_line_arguments import CommandLineArguments
 from chatgpt_voice_assistant.models.input_device import InputDevice
 from chatgpt_voice_assistant.open_ai_text_generator import OpenAITextGenerator
-from chatgpt_voice_assistant.speech_listener import SpeechListener
+from chatgpt_voice_assistant.whisper_listener import WhisperSpeechListener
 
 
 def main() -> None:
@@ -43,7 +46,10 @@ def main() -> None:
     )
 
     # service to listen for speech and convert it to text
-    listener: Listener = SpeechListener(input_device)
+    listener: Listener = WhisperSpeechListener(
+        input_device,
+        api_key=options.open_ai_key,
+    )
 
     # service to generate text given an input
     text_generator: TextGenerator = OpenAITextGenerator(
@@ -52,10 +58,13 @@ def main() -> None:
 
     # client to create speech from a given text
     text_to_speech_client: TextToSpeechClient
+
     if options.tts == "apple":
         text_to_speech_client = AppleSayTextToSpeechClient()
-    else:
+    elif options.tts == "google":
         text_to_speech_client = GoogleTextToSpeechClient(options.lang, options.tld)
+    else:
+        text_to_speech_client = OpenAITextToSpeechClient(api_key=options.open_ai_key)
 
     # service to respond to the user the generated text
     responder = ComputerVoiceResponder(

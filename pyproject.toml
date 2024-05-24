@@ -12,10 +12,10 @@ packages = [{ include = "chatgpt_voice_assistant" }]
 
 [tool.poetry.dependencies]
 python = ">=3.9, <4.0"
-openai = ">=0.27.2, <0.28"
-speechrecognition = ">=3.9.0, <4.0"
+openai = "^1.30.2"
+speechrecognition = "3.10.1"
 pyaudio = ">=0.2.13, <0.3"
-gtts = ">=2.3.1, <2.4"
+gtts = ">=2.3.1, <3.0"
 
 [tool.poetry.scripts]
 gptassist = "chatgpt_voice_assistant.main:main"
@@ -24,15 +24,10 @@ gptassist = "chatgpt_voice_assistant.main:main"
 pytest = "^7.4.3"
 mock = "^5.1.0"
 coverage = "^7.3.3"
-black = "^23.12.0"
-mypy = "^1.7.1"
+mypy = "^1.10.0"
 types-pyaudio = "^0.2.16.7"
 types-mock = "^5.1.0.3"
-ruff = "^0.1.8"
-
-[tool.pytest.ini_options]
-addopts = ["--import-mode=importlib"]
-pythonpath = ["."]
+ruff = "^0.4.5"
 
 [tool.mypy]
 python_version = "3.9"

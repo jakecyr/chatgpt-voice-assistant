@@ -15,7 +15,7 @@ from chatgpt_voice_assistant.speech_listener import SpeechListener
 
 
 @pytest.fixture
-def speech_listener():
+def speech_listener() -> SpeechListener:
     return SpeechListener(InputDevice(0, "Computer"))
 
 
@@ -43,7 +43,7 @@ def test_recognize_text_in_audio_returns_text(
 ):
     expected_recognized_text = "hey there"
     recognize_google.return_value = expected_recognized_text
-    text = speech_listener._recognize_text_in_audio(MagicMock())
+    text: str = speech_listener._recognize_text_in_audio(MagicMock())
     assert isinstance(text, str)
     assert text == expected_recognized_text
 

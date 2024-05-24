@@ -60,9 +60,9 @@ class CommandLineParser(OptionsParser):
         )
         parser.add_argument(
             "--tts",
-            choices=["apple", "google"],
-            default="google",
-            help="Choose a text-to-speech engine ('apple' (say) or 'google' (gtts), defaults to 'google')",
+            choices=["apple", "google", "openai"],
+            default="openai",
+            help="Choose a text-to-speech engine",
         )
         parser.add_argument(
             "--speech-rate",
