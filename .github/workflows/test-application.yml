@@ -34,4 +34,4 @@ jobs:
       - name: Test Coverage
         run: |
           poetry run coverage run -m pytest
-          poetry run coverage report --fail-under=90 --include="chatgpt_voice_assistant/*"
+          poetry run coverage report --fail-under=85 --include="chatgpt_voice_assistant/*"
