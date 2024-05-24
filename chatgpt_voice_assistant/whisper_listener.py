@@ -1,6 +1,7 @@
 import logging
 from typing import cast
 
+from openai.types.audio.transcription import Transcription
 from speech_recognition import (
     AudioData,
     Microphone,
@@ -18,14 +19,17 @@ from chatgpt_voice_assistant.exceptions.no_input_listener_error import (
     NoInputListenerError,
 )
 from chatgpt_voice_assistant.models.input_device import InputDevice
+from openai import OpenAI
+import tempfile
 
 
-class SpeechListener(Listener):
+class WhisperSpeechListener(Listener):
     """Class to listen to speech convert it to text"""
 
-    def __init__(self, input_device: InputDevice) -> None:
+    def __init__(self, input_device: InputDevice, api_key: str) -> None:
         self._recognizer = Recognizer()
         self._input_device: InputDevice = input_device
+        self._client = OpenAI(api_key=api_key)
 
     def listen(self) -> str:
         """
@@ -49,12 +53,14 @@ class SpeechListener(Listener):
 
     def _recognize_text_in_audio(self, audio: AudioData) -> str:
         try:
-            text: str = cast(
-                str,
-                self._recognizer.recognize_whisper(
-                    audio, show_all=False, with_confidence=False
-                ),
-            )
+            with tempfile.NamedTemporaryFile(suffix=".wav") as a:
+                a.write(audio.get_wav_data())
+
+                response: Transcription = self._client.audio.transcriptions.create(
+                    model="whisper-1",
+                    file=a.file,
+                )
+                text: str = response.text
 
             if text is None or len(text) == 0:
                 raise NoInputListenerError("No speech detected in audio")
