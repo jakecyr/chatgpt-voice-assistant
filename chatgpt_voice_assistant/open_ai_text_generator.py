@@ -35,7 +35,9 @@ class OpenAITextGenerator(TextGenerator):
         self._previous_responses: list[Message] = previous_responses or []
 
     def generate_text(
-        self, prompt: str, role: MessageRole = MessageRole.USER
+        self,
+        prompt: str,
+        role: MessageRole = MessageRole.USER,
     ) -> Message:
         """Generates and returns a response message based on the input.
 
@@ -54,8 +56,10 @@ class OpenAITextGenerator(TextGenerator):
             temperature=self._temperature,
         )
         self._previous_responses.append(generator_response)
-
         return generator_response
+
+    def reset(self) -> None:
+        self._previous_responses = []
 
     def _messages_to_chat_completion_messages(
         self,
