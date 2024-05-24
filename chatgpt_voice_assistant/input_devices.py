@@ -21,9 +21,9 @@ class InputDevices:
         """
         logging.debug("InputDevices.get_list_of_input_devices called")
 
-        pyaudio_input_devices: list[
-            PyAudioDeviceInfo
-        ] = InputDevices._get_all_pyaudio_input_devices()
+        pyaudio_input_devices: list[PyAudioDeviceInfo] = (
+            InputDevices._get_all_pyaudio_input_devices()
+        )
         input_devices: list[InputDevice] = []
 
         for input_device in pyaudio_input_devices:

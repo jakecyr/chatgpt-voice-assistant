@@ -1,5 +1,4 @@
 import logging
-from typing import cast
 
 from openai.types.audio.transcription import Transcription
 from speech_recognition import (

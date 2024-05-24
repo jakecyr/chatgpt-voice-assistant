@@ -25,7 +25,6 @@ from chatgpt_voice_assistant.input_devices import InputDevices
 from chatgpt_voice_assistant.models.command_line_arguments import CommandLineArguments
 from chatgpt_voice_assistant.models.input_device import InputDevice
 from chatgpt_voice_assistant.open_ai_text_generator import OpenAITextGenerator
-from chatgpt_voice_assistant.speech_listener import SpeechListener
 from chatgpt_voice_assistant.whisper_listener import WhisperSpeechListener
 
 

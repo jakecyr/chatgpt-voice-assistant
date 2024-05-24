@@ -51,7 +51,7 @@ class SpeechListener(Listener):
         try:
             text: str = cast(
                 str,
-                self._recognizer.recognize_whisper(
+                self._recognizer.recognize_google(
                     audio, show_all=False, with_confidence=False
                 ),
             )
