@@ -25,9 +25,9 @@ jobs:
       - name: Test with pytest
         run: |
           poetry run pytest
-      - name: Check formatting with black
+      - name: Check formatting with ruff
         run: |
-          poetry run black --check .
+          poetry run ruff format --check .
       - name: Check formatting with ruff
         run: |
           poetry run ruff check .
