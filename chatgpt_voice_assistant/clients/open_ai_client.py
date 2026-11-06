@@ -20,9 +20,9 @@ class OpenAIClient:
     def get_chat_completion(
         self,
         messages: list[ChatCompletionMessageParam],
-        model: str = "gpt-4o-2024-05-13",
+        model: str = "gpt-6.1-terra",
         max_tokens: int = 500,
-        temperature: float = 0.2,
+        reasoning_effort: str = "low",
     ) -> Message:
         """
         Returns a completion (response) from the specified OpenAI GPT model.
@@ -33,7 +33,7 @@ class OpenAIClient:
             prompt: The prompt to send to the model for completion.
             model: Optionally specify the model to use.
             max_tokens: The max number of tokens to use including the prompt and response.
-            temperature: The temperature for the model to use.
+            reasoning_effort: Reasoning effort for the model.
 
         Returns:
             The response from the model.
@@ -50,8 +50,8 @@ class OpenAIClient:
         completion: ChatCompletion = self._client.chat.completions.create(
             messages=messages,
             model=model,
-            max_tokens=max_tokens,
-            temperature=temperature,
+            max_completion_tokens=max_tokens,
+            reasoning_effort=reasoning_effort,
         )
 
         choices: List[Choice] = completion.choices

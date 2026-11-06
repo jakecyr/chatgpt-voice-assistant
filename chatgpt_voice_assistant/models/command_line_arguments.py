@@ -15,3 +15,4 @@ class CommandLineArguments(NamedTuple):
     tld: str
     tts: str
     wake_word: str
+    reasoning_effort: str = "low"

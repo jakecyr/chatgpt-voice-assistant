@@ -1,0 +1,22 @@
+name: PR title
+on:
+  pull_request_target:
+    types: [opened, edited, reopened, synchronize]
+permissions:
+  contents: read
+jobs:
+  conventional-title:
+    name: Conventional PR title
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check title
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          python3 - <<'PY'
+          import os, re, sys
+          title = os.environ['PR_TITLE']
+          pattern = r'^(feat|fix|perf|refactor|docs|test|build|ci|chore|style|revert)(\([a-zA-Z0-9._/-]+\))?!?: \S.*$'
+          if not re.fullmatch(pattern, title):
+              sys.exit('Use a conventional title, for example: feat(cli): add an option')
+          PY

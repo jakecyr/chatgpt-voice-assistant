@@ -54,6 +54,8 @@ class WhisperSpeechListener(Listener):
         try:
             with tempfile.NamedTemporaryFile(suffix=".wav") as a:
                 a.write(audio.get_wav_data())
+                a.flush()
+                a.seek(0)
 
                 response: Transcription = self._client.audio.transcriptions.create(
                     model="whisper-1",
