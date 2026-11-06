@@ -1,26 +1,17 @@
-# Development Setup
+# Development
 
-1. Install poetry ([official docs](https://python-poetry.org/docs/#installation) or with `pip install poetry`)
-2. Install all dependencies with `poetry install`
-
-See the main [README.md file](./README.md) for general setup instructions.
-
-## Testing
-
-### Unit Tests
-
-Run `poetry run pytest` to run all unit tests.
-
-### Coverage Report
-
-Get the coverage with:
+Install uv and the PortAudio prerequisites described in the README, then run `uv sync --locked`.
 
 ```bash
-poetry run coverage run --source chatgpt_voice_assistant -m pytest tests
+uv run pytest
+uv run coverage run --source=chatgpt_voice_assistant -m pytest
+uv run coverage report --show-missing
+uv run ruff check .
+uv run ruff format --check .
 ```
 
-View the coverage report:
+Update dependencies with `uv lock --upgrade` and commit `uv.lock`. Tests mock external services and do not replace a live microphone, audio playback, or OpenAI API test.
 
-```bash
-poetry run coverage report --show-missing --fail-under=90
-```
+## Release automation
+
+Release Please needs a `RELEASE_PLEASE_TOKEN` Actions secret for an automation identity with repository contents and pull-request write access. That identity must also be allowed to create protected `v*` tags. A GitHub App or fine-grained token can be used; PRs created with the default `GITHUB_TOKEN` do not trigger the normal CI workflows. The release PR updates the package version, lockfile and changelog. Merge it after checks and review; the next workflow run creates the GitHub release and tag. Do not share credentials in an issue or PR.

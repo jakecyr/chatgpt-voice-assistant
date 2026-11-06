@@ -1,126 +1,41 @@
 # ChatGPT Voice Assistant
 
-![GitHub Actions Build Status](https://github.com/jakecyr/openai-gpt3-chatbot/actions/workflows/test-application.yml/badge.svg)
+Talk to an OpenAI model using your microphone. Speech is transcribed by OpenAI and the answer is spoken using OpenAI, Apple, or Google text-to-speech. API usage incurs charges.
 
-A simple interface to the OpenAI ChatGPT model with speech to text for input and text to speech for the output.
-chatgpt-voice-assistant uses OpenAI Whisper for speech transcription and OpenAI Speech Generation for TTS.
+## Install
 
-## Setup
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/) and Git. Python 3.12 is recommended. On macOS, install PortAudio with `brew install portaudio`. On Debian/Ubuntu, install it with `sudo apt-get install portaudio19-dev python3-dev`. A microphone and audio output are required; grant your terminal microphone permission on macOS.
 
-### Mac Prerequisites
-
-Install dependencies:
+Then install the CLI from this repository:
 
 ```bash
-brew install portaudio
-brew link portaudio
+curl -fsSL https://raw.githubusercontent.com/jakecyr/chatgpt-voice-assistant/master/install.sh | bash
 ```
 
-Update your pydistutils config file for portaudio usage by running the following:
+The script installs the current repository version with `uv tool install`. Run `uv tool update-shell` and restart your shell if `gptassist` is not on your PATH. You can inspect `install.sh` before running it. The URL uses the published `master` branch, so changes in a local checkout must be published before this command includes them.
+
+## Run
 
 ```bash
-echo "[build_ext]" >> $HOME/.pydistutils.cfg
-echo "include_dirs="`brew --prefix portaudio`"/include/" >> $HOME/.pydistutils.cfg
-echo "library_dirs="`brew --prefix portaudio`"/lib/" >> $HOME/.pydistutils.cfg
-```
-
-### Install from PyPI
-
-Run the following to install the `chatgpt-assist` CLI application:
-
-```bash
-pip install chatgpt-voice-assistant
-```
-
-### Install from Source
-
-1. Install poetry ([official docs](https://python-poetry.org/docs/#installation) or with `pip install poetry`)
-2. Install all dependencies with `poetry install`
-
-## Running the Script
-
-Either set the `OPENAI_API_KEY` environment variable before running the script or pass in your secret key to the script like in the example below:
-
-```bash
-export OPENAI_API_KEY=<OPEN API SECRET KEY HERE>
+export OPENAI_API_KEY="your-api-key"
 gptassist
-
-# OR
-
-gptassist --open-ai-key=<OPEN API SECRET KEY HERE>
 ```
 
-or if installed from source with poetry:
+Choose a microphone if prompted, then speak. Press Ctrl+C to stop. For options run `gptassist --help`. For example:
 
 ```bash
-poetry run gptassist --open-ai-key=<OPEN API SECRET KEY HERE>
+gptassist --open-ai-model gpt-6.1-terra --reasoning-effort low --max-tokens 1000 --tts openai
 ```
 
-Start speaking and turn up your volume to hear the AI assistant respond.
+The default chat model is `gpt-6.1-terra` with low reasoning effort. The completion token limit includes reasoning tokens; raise it if replies are cut short. Model availability and supported reasoning levels depend on your OpenAI account and model. Transcription uses `whisper-1`; OpenAI speech uses `tts-1`. Google speech output uses network access; Apple speech requires macOS. `--lang` and `--tld` configure Google speech output. Never share your API key.
 
-Say the word "exit" or hit Ctrl+C in your terminal to stop the application.
-
-### Options
-
-Below is the help menu from the chatgpt-assist CLI detailing all available options:
-
-```txt
--h, --help
-    show this help message and exit
-
---log-level LOG_LEVEL
-    Whether to print at the debug level or not.
-
---input-device-name INPUT_DEVICE_NAME
-    The input device name.
-
---lang LANG
-    The language to listen for when running speech to text (ex. en or fr).
-
---max-tokens MAX_TOKENS
-    Max OpenAI completion tokens to use for text generation.
-
---tld TLD
-    Top level domain (ex. com or com.au).
-
---safe-word SAFE_WORD
-    Word to speak to exit the application.
-
---wake-word WAKE_WORD
-    (Optional) Word to trigger a response.
-
---open-ai-key OPEN_AI_KEY
-    Required. Open AI Secret Key (or set OPENAI_API_KEY environment variable)
-
---tts {apple,google,openai}
-    Choose a text-to-speech engine.
-
---speech-rate SPEECH_RATE
-    The rate at which to play speech. 1.0=normal
-```
-
-### Specifying an Output Language Accent
-
-Specify both the `LANGUAGE` and `TOP_LEVEL_DOMAIN` vars to override the default English (United States)
+## From source
 
 ```bash
-gptassist --open-ai-key=<OPENAI_KEY> --lang=en --tld=com
+git clone https://github.com/jakecyr/chatgpt-voice-assistant.git
+cd chatgpt-voice-assistant
+uv sync --locked
+uv run gptassist
 ```
 
-#### Language Examples
-
-- English (United States) _DEFAULT_
-  - `LANGUAGE=en TOP_LEVEL_DOMAIN=com`
-- English (Australia)
-  - `LANGUAGE=en TOP_LEVEL_DOMAIN=com.au`
-- English (India)
-  - `LANGUAGE=en TOP_LEVEL_DOMAIN=co.in`
-- French (France)
-  - `LANGUAGE=fr TOP_LEVEL_DOMAIN=fr`
-
-See Localized 'accents' section on gTTS docs for more information
-
-## References
-
-* [Speech Recognition library docs](https://pypi.org/project/SpeechRecognition/1.2.3)
-* [Google Translate Text-to-Speech API (gTTS)](https://gtts.readthedocs.io/en/latest/module.html#)
+See [DEVELOPMENT.md](DEVELOPMENT.md) for tests and [CONTRIBUTING.md](CONTRIBUTING.md) for pull requests and releases.

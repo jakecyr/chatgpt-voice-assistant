@@ -20,9 +20,9 @@ class OpenAITextGenerator(TextGenerator):
     def __init__(
         self,
         open_ai_key: str,
-        model="gpt-4o-2024-05-13",
-        max_tokens=200,
-        temperature=0.1,
+        model="gpt-6.1-terra",
+        max_tokens=1000,
+        reasoning_effort="low",
         previous_responses: list[Message] | None = None,
     ) -> None:
         if not open_ai_key or not isinstance(open_ai_key, str):
@@ -31,7 +31,7 @@ class OpenAITextGenerator(TextGenerator):
         self._open_ai_client = OpenAIClient(open_ai_key)
         self._model: str = model
         self._max_tokens: int = max_tokens
-        self._temperature: float = temperature
+        self._reasoning_effort: str = reasoning_effort
         self._previous_responses: list[Message] = previous_responses or []
 
     def generate_text(
@@ -53,7 +53,7 @@ class OpenAITextGenerator(TextGenerator):
             messages=messages,
             model=self._model,
             max_tokens=self._max_tokens,
-            temperature=self._temperature,
+            reasoning_effort=self._reasoning_effort,
         )
         self._previous_responses.append(generator_response)
         return generator_response

@@ -40,7 +40,9 @@ def mock_create_completion_no_responses(*args, **kwargs):
     return ChatCompletion(
         choices=[],
         usage=CompletionUsage(
-            completion_tokens=0, prompt_tokens=0, total_tokens=kwargs["max_tokens"]
+            completion_tokens=0,
+            prompt_tokens=0,
+            total_tokens=kwargs["max_completion_tokens"],
         ),
         model="gpt-3.5-turbo",
         created=0,
@@ -53,7 +55,9 @@ def mock_create_completion_multiple_responses(*args, **kwargs):
     return ChatCompletion(
         choices=MOCK_RESPONSES,
         usage=CompletionUsage(
-            completion_tokens=0, prompt_tokens=0, total_tokens=kwargs["max_tokens"]
+            completion_tokens=0,
+            prompt_tokens=0,
+            total_tokens=kwargs["max_completion_tokens"],
         ),
         model="gpt-3.5-turbo",
         created=0,
@@ -66,7 +70,9 @@ def mock_create_completion_stop_due_to_length(*args, **kwargs):
     return ChatCompletion(
         choices=[MOCK_RESPONSE_STOP_DUE_TO_LENGTH],
         usage=CompletionUsage(
-            completion_tokens=0, prompt_tokens=0, total_tokens=kwargs["max_tokens"]
+            completion_tokens=0,
+            prompt_tokens=0,
+            total_tokens=kwargs["max_completion_tokens"],
         ),
         model="gpt-3.5-turbo",
         created=0,
@@ -122,3 +128,24 @@ def test_get_chat_completion_sets_was_cut_short_to_true(open_ai_client):
 
     assert response.content == MOCK_RESPONSE_STOP_DUE_TO_LENGTH.message.content
     assert response.was_cut_short
+
+
+def test_request_uses_reasoning_and_completion_limit(open_ai_client):
+    open_ai_client._client.chat.completions.create.side_effect = (
+        mock_create_completion_multiple_responses
+    )
+    messages = [{"role": "user", "content": "Hello"}]
+    open_ai_client.get_chat_completion(
+        messages, model="gpt-6.1-terra", max_tokens=300, reasoning_effort="low"
+    )
+    open_ai_client._client.chat.completions.create.assert_called_once_with(
+        messages=messages,
+        model="gpt-6.1-terra",
+        max_completion_tokens=300,
+        reasoning_effort="low",
+    )
+
+
+def test_empty_messages_rejected(open_ai_client):
+    with pytest.raises(ValueError):
+        open_ai_client.get_chat_completion([])

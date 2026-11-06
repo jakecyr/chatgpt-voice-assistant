@@ -53,7 +53,10 @@ def main() -> None:
 
     # service to generate text given an input
     text_generator: TextGenerator = OpenAITextGenerator(
-        open_ai_key=options.open_ai_key, model=options.open_ai_model
+        open_ai_key=options.open_ai_key,
+        model=options.open_ai_model,
+        max_tokens=options.max_tokens,
+        reasoning_effort=options.reasoning_effort,
     )
 
     # client to create speech from a given text

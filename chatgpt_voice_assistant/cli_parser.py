@@ -30,7 +30,7 @@ class CommandLineParser(OptionsParser):
         parser.add_argument(
             "--max-tokens",
             help="Max tokens to use for text generation",
-            default=200,
+            default=1000,
             type=int,
         )
         parser.add_argument("--tld", help="Top level domain", default=None, type=str)
@@ -55,8 +55,14 @@ class CommandLineParser(OptionsParser):
         parser.add_argument(
             "--open-ai-model",
             help="The Open AI model to use. See: https://platform.openai.com/docs/models/overview",
-            default="gpt-3.5-turbo-1106",
+            default="gpt-6.1-terra",
             type=str,
+        )
+        parser.add_argument(
+            "--reasoning-effort",
+            choices=["none", "low", "medium", "high", "xhigh", "max"],
+            default="low",
+            help="Reasoning effort (supported values depend on the model)",
         )
         parser.add_argument(
             "--tts",
@@ -85,6 +91,7 @@ class CommandLineParser(OptionsParser):
             max_tokens=parsed_args.max_tokens,
             open_ai_key=parsed_args.open_ai_key,
             open_ai_model=parsed_args.open_ai_model,
+            reasoning_effort=parsed_args.reasoning_effort,
             safe_word=parsed_args.safe_word,
             speech_rate=parsed_args.speech_rate,
             tld=parsed_args.tld,

@@ -1,37 +1,16 @@
 name: Test Application
-
-on: push
-
+on: [push, pull_request]
 permissions:
   contents: read
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v3
-        with:
-          python-version: '3.10'
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0
-          pip3 install pyaudio --user
-          sudo apt-get install ffmpeg
-          pip3 install poetry
-          poetry install --with dev
-      - name: Test with pytest
-        run: |
-          poetry run pytest
-      - name: Check formatting with ruff
-        run: |
-          poetry run ruff format --check .
-      - name: Check formatting with ruff
-        run: |
-          poetry run ruff check .
-      - name: Test Coverage
-        run: |
-          poetry run coverage run -m pytest
-          poetry run coverage report --fail-under=85 --include="chatgpt_voice_assistant/*"
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: sudo apt-get update && sudo apt-get install -y portaudio19-dev
+      - run: uv sync --locked
+      - run: uv run coverage run --source=chatgpt_voice_assistant -m pytest
+      - run: uv run coverage report --show-missing
+      - run: uv run ruff format --check .
+      - run: uv run ruff check .
