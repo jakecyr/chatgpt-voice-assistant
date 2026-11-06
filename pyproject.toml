@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "chatgpt-voice-assistant"
-version = "2.0.1"
+version = "2.1.0"
 description = "Speak with OpenAI models"
 readme = "README.md"
 requires-python = ">=3.10"
