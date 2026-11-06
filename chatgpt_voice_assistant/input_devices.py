@@ -10,8 +10,6 @@ from chatgpt_voice_assistant.models.pyaudio_device_info import PyAudioDeviceInfo
 class InputDevices:
     """Class to interact with the current machines input devices."""
 
-    py_audio = PyAudio()
-
     @staticmethod
     def get_list_of_input_devices() -> list[InputDevice]:
         """Get a list of input devices on the current machine.
@@ -41,16 +39,16 @@ class InputDevices:
         Returns:
             A list of pyaudio input device objects.
         """
-        all_devices: list[PyAudioDeviceInfo] = []
-        count_of_input_devices: int = InputDevices.py_audio.get_device_count()
-
-        for device_index in range(0, count_of_input_devices):
-            device_info: PyAudioDeviceInfo = cast(
-                PyAudioDeviceInfo,
-                InputDevices.py_audio.get_device_info_by_index(device_index),
-            )
-            all_devices.append(device_info)
-
-        return list(
-            filter(lambda x: cast(int, x["maxInputChannels"]) >= 1, all_devices)
-        )
+        audio = PyAudio()
+        try:
+            all_devices = [
+                cast(PyAudioDeviceInfo, audio.get_device_info_by_index(index))
+                for index in range(audio.get_device_count())
+            ]
+            return [
+                device
+                for device in all_devices
+                if cast(int, device["maxInputChannels"]) >= 1
+            ]
+        finally:
+            audio.terminate()

@@ -1,6 +1,23 @@
 from mock import MagicMock, patch
 
+import pytest
+
 from chatgpt_voice_assistant.input_devices import InputDevices
+
+
+@pytest.fixture(autouse=True)
+def mock_audio():
+    with patch("chatgpt_voice_assistant.input_devices.PyAudio") as factory:
+        instance = factory.return_value
+        instance.get_device_count.side_effect = lambda: __import__(
+            "pyaudio"
+        ).PyAudio.get_device_count()
+        instance.get_device_info_by_index.side_effect = lambda index: __import__(
+            "pyaudio"
+        ).PyAudio.get_device_info_by_index(index)
+        yield instance
+        instance.terminate.assert_called_once()
+
 
 fake_input_devices = [
     {"name": "My Mic", "index": 0, "maxInputChannels": 0},
